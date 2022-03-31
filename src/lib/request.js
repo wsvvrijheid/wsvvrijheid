@@ -17,8 +17,8 @@ export const request = async ({
   filters,
   sort,
   populate = '*',
-  page = 1,
-  pageSize = 10,
+  page,
+  pageSize,
 }) => {
   const query = qs.stringify(
     {
@@ -36,7 +36,7 @@ export const request = async ({
       encodeValuesOnly: true,
     },
   )
-
+ 
   // TODO Consider a better error handling
   try {
     const response = await instance.get(`/${url}?${query}`)
