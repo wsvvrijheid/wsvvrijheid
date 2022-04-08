@@ -1,7 +1,7 @@
 import { Container, SimpleGrid } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Card, Layout, PageTitle,PagePagination } from '~components'
+import { Card, Layout, PagePagination, PageTitle } from '~components'
 import { request } from '~lib'
 
 export default function Activities({ header, activities }) {
@@ -25,12 +25,12 @@ export default function Activities({ header, activities }) {
     </Layout>
   )
 }
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async context => {
   const { locale } = context
-  const page=context.query.page
-  const pageSize=10
-  
-  const activities = await request({ locale, url: 'api/activities',page, pageSize })
+  const page = context.query.page
+  const pageSize = 10
+
+  const activities = await request({ locale, url: 'api/activities', page, pageSize })
 
   const seo = {
     title: {

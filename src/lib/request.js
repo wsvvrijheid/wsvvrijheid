@@ -36,7 +36,7 @@ export const request = async ({
       encodeValuesOnly: true,
     },
   )
- 
+
   // TODO Consider a better error handling
   try {
     const response = await instance.get(`/${url}?${query}`)
