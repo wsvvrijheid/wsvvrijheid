@@ -10,18 +10,26 @@ import { ProfileMenu } from '../profile-menu'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
 
-export const Header = () => {
+export const Header = ({ isScrolled, isDark }) => {
   const { isLoggedIn } = useAuth()
 
   return (
     <Headroom style={{ zIndex: 999 }}>
       <Flex
-        bg='white'
-        borderBottomWidth={1}
+        bg={isScrolled ? 'white' : 'transparent'}
+        borderBottomWidth={isScrolled ? 1 : 0}
         borderBottomColor='blackAlpha.300'
         transition='all 0.3s ease-in-out'
         align='center'
         h={{ base: '64px', lg: '100px' }}
+        sx={{
+          '.chakra-link': {
+            color: isDark ? 'white' : 'initial',
+            _hover: {
+              color: 'blue.500',
+            },
+          },
+        }}
       >
         <Container>
           <Flex justify='space-between' align='center' pos='relative'>

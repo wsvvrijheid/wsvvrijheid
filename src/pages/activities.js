@@ -6,7 +6,7 @@ import { request } from '~lib'
 
 export default function Activities({ header, activities }) {
   return (
-    <Layout scrollHeight={100} seo={{ header }}>
+    <Layout seo={{ header }}>
       <Container maxW='container.lg' centerContent>
         <PageTitle>{header}</PageTitle>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} mb={16}>

@@ -7,7 +7,7 @@ import { getBlogs } from '~lib'
 // TODO: Implement author filter
 const Blogs = ({ seo, blogs }) => {
   return (
-    <Layout seo={seo} scrollHeight={100}>
+    <Layout seo={seo}>
       {blogs?.[0] ? (
         <>
           <Hero title='Blog' isFullHeight={false} />

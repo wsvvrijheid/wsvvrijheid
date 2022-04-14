@@ -8,7 +8,7 @@ import { request } from '~lib'
 export default function Projects({ title, projects }) {
   const { locale } = useRouter()
   return (
-    <Layout scrollHeight={100} seo={{ title }}>
+    <Layout seo={{ title }}>
       <Container maxW='container.lg' centerContent>
         <PageTitle>{title}</PageTitle>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} mb={16}>

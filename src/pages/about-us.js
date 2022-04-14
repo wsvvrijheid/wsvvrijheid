@@ -26,7 +26,7 @@ const AboutUsBlock = props => {
 
 export default function AboutUs({ title, content, seo }) {
   return (
-    <Layout scrollHeight={100} seo={seo}>
+    <Layout seo={seo}>
       <Container>
         <PageTitle>{title}</PageTitle>
         <VStack my={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
