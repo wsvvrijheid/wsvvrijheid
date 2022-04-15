@@ -1,6 +1,7 @@
-import { Button, SimpleGrid, Spinner } from '@chakra-ui/react'
+import { Flex, Image, SimpleGrid, Spinner, Text } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { useEffect, useState } from 'react'
+import { AiFillHome } from 'react-icons/ai'
 import { useQuery } from 'react-query'
 
 import { request } from '~lib'
@@ -28,15 +29,37 @@ const Filter = ({ title, locale }) => {
 
   return (
     <div>
-      <h2>{title}</h2>
+      <Text display={'flex'} alignItems={'center'} margin={'15px'} as='button'>
+        <AiFillHome />
+        Home
+      </Text>
+      <Text fontSize={'2xl'} marginLeft={'15px'} marginBottom={'10px'}>
+        {title}
+      </Text>
       <SimpleGrid columns={1} spacing={10} width={'20%'}>
         {isLoading ? (
           <Spinner thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
         ) : (
           data?.result.map((item, index) => (
-            <Button key={'category' + index} bg='lightgray' height='80px' onClick={() => setCategory(item.code)}>
+            <Flex
+              key={'category' + index}
+              as='button'
+              borderRadius='md'
+              px={4}
+              h={8}
+              onClick={() => setCategory(item.code)}
+              justifyContent={'start'}
+              alignItems={'center'}
+            >
+              <Image
+                borderRadius='full'
+                boxSize='35px'
+                src='https://bit.ly/dan-abramov'
+                alt='Dan Abramov'
+                marginRight={'5px'}
+              />
               {item['name_' + locale]}
-            </Button>
+            </Flex>
           ))
         )}
       </SimpleGrid>
