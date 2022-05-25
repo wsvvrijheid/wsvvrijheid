@@ -21,7 +21,7 @@ import { useAuth } from '~hooks'
 import { mutation } from '~lib'
 
 // TODO Consider adding modal form instead of a new page
-const CreateArt = () => {
+export const CreateArt = () => {
   const inputFile = useRef(null)
   const auth = useAuth()
   const [title, setTitle] = useState('')
@@ -33,25 +33,17 @@ const CreateArt = () => {
 
   const submitArt = () => {
     const slugify = () => {
-      return (
-        title.trim() +
-        description
-          .substring(0, description.length % 2 === 0 ? description.length / 2 : (description.length - 1) / 2)
-          .trim() +
-        content
-          .substring(0, content.length % 2 === 0 ? content.length / 2 : (content.length - 1) / 2)
-          .trim()
-          .toString()
-          .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[^\w\-]+/g, '')
-          .replace(/\-\-+/g, '-')
-          .replace(/^-+/, '')
-          .replace(/-+$/, '')
-      )
+      return title
+        .trim()
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '')
     }
 
-    console.log(slugify())
     const formData = new FormData()
 
     // TODO add content field (We need to discuss if content field will be markdown)
@@ -206,5 +198,3 @@ const CreateArt = () => {
     </>
   )
 }
-
-export default CreateArt
