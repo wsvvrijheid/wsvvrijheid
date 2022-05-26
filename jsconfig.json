@@ -11,7 +11,8 @@
       "~lib": ["lib"],
       "~pages": ["pages"],
       "~theme": ["theme"],
-      "~utils": ["utils"]
+      "~utils": ["utils"],
+      "~services": ["services"]
     }
   }
 }

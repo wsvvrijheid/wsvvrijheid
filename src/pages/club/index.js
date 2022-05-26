@@ -1,58 +1,94 @@
-import { Badge, Box, Button, ButtonGroup, Code, Image, SimpleGrid, Stack, Text, Wrap } from '@chakra-ui/react'
+import { Box, HStack, Stack, useUpdateEffect } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
+import { useState } from 'react'
+import { dehydrate, QueryClient } from 'react-query'
 
-import { CategoryFilter, Container, Layout, Pagination } from '~components'
-import { useChangeParams } from '~hooks'
-import { request } from '~lib'
+import {
+  ArtCard,
+  ArtCardSkeleton,
+  CategoryFilter,
+  CategoryFilterSkeleton,
+  Container,
+  Layout,
+  MasonryGrid,
+  Pagination,
+  SearchForm,
+} from '~components'
+import { useAuth, useChangeParams } from '~hooks'
+import { getArts, useArts, useGetArtCategories } from '~services'
 
-const Club = ({ arts, query, categories, title }) => {
+const Club = ({ title }) => {
   const changeParam = useChangeParams()
+  const { user } = useAuth()
+  const { t } = useTranslation()
+  const [searchTerm, setSearchTerm] = useState()
+
+  const {
+    query: { page, categories },
+    locale,
+  } = useRouter()
+
+  const categoryQuery = useGetArtCategories(locale)
+
+  // As mentioned in `getStaticProps`, we need to keep the same order for queryKey
+  // queryKey = [arts, locale, searchTerm, category, page]
+  const queryKey = ['arts', locale, searchTerm, categories || null, page || '1']
+
+  // Custom useQuery hook or fetching arts
+  const artsQuery = useArts(queryKey, {
+    url: 'api/arts',
+    categories,
+    searchTerm,
+    page,
+    locale,
+  })
+
+  useUpdateEffect(() => {
+    artsQuery.refetch()
+  }, [searchTerm])
 
   return (
+    // TODO Remove `isLoading` condition from the `Layout` and
+    // create skeleton components for both the `MasonryGrid` and the `CategoryFilter`
     <Layout seo={{ title }}>
-      <Container>
-        <Stack my={8}>
-          <CategoryFilter categories={categories} currentCategory={query.category} />
+      <Container minH='inherit'>
+        <HStack py={8} align='start' spacing={8} minH='inherit'>
+          <Box w={200}>
+            {categoryQuery.isLoading || !categoryQuery.isFetched ? (
+              Array.from({ length: 3 }).map((_, i) => <CategoryFilterSkeleton key={'category-filter-skeleton' + i} />)
+            ) : (
+              <CategoryFilter categories={categoryQuery.data} />
+            )}
+          </Box>
+          <Stack spacing={4} flex={1} alignSelf='stretch'>
+            <SearchForm placeholder={t`club.arts.search`} onSearch={setSearchTerm} />
 
-          <Pagination
-            pageCount={arts.pagination.pageCount}
-            currentPage={+query.page}
-            changeParam={() => changeParam({ page })}
-          />
-
-          <ButtonGroup colorScheme='green'>
-            <Button onClick={() => changeParam({ sort: ['likes:desc'] })}>Sort Popular Desc</Button>
-            <Button onClick={() => changeParam({ sort: ['likes:asc'] })}>Sort Popular Asc</Button>
-            <Button onClick={() => changeParam({ sort: null })}>Remove Sort</Button>
-          </ButtonGroup>
-
-          <SimpleGrid columns={3} gap={4}>
-            {arts.result.map(art => (
-              <Box key={art.id} borderColor='gray.400' borderWidth={1}>
-                <Image
-                  h={300}
-                  w='full'
-                  objectFit='cover'
-                  alt={art.title}
-                  src={process.env.NEXT_PUBLIC_API_URL + art.images[0].url}
-                />
-                <Stack p={2}>
-                  <Text>{art.title}</Text>
-                  <Text>{art.likes} likes</Text>
-                  <Wrap>
-                    {art.categories.map(category => (
-                      <Badge key={category.code}>{category.code}</Badge>
+            <Stack flex={1} justify='space-between' w='full'>
+              <MasonryGrid gap={4}>
+                {artsQuery.isLoading
+                  ? Array.from({ length: 12 }).map((_, i) => (
+                      <ArtCardSkeleton isMasonry key={'masonry-grid-skeleton' + i} />
+                    ))
+                  : artsQuery.data?.result.map(art => (
+                      // TODO Add link to navigate to the art page
+                      <ArtCard key={art.id} art={art} user={user} isMasonry queryKey={queryKey} />
                     ))}
-                  </Wrap>
-                </Stack>
-              </Box>
-            ))}
-          </SimpleGrid>
-          <Code p={4} w='max-content'>
-            <pre>{JSON.stringify(arts.pagination, null, 2)}</pre>
-          </Code>
-        </Stack>
+              </MasonryGrid>
+
+              {!artsQuery.isLoading && (
+                <Box alignSelf='center'>
+                  <Pagination
+                    pageCount={artsQuery.data?.pagination.pageCount}
+                    currentPage={+page}
+                    changeParam={() => changeParam({ page })}
+                  />
+                </Box>
+              )}
+            </Stack>
+          </Stack>
+        </HStack>
       </Container>
     </Layout>
   )
@@ -60,30 +96,18 @@ const Club = ({ arts, query, categories, title }) => {
 
 export default Club
 
-export const getServerSideProps = async context => {
-  const { locale, query } = context
-  const { category, page = 1, sort = [] } = query
+export const getStaticProps = async context => {
+  const { locale } = context
+  const queryClient = new QueryClient()
 
-  const filters = category && { categories: { code: { $eq: category } } }
+  queryClient.prefetchQuery({
+    // We will be using `queryKey` in nested components especially invalidate queries after mutations
+    // So, we need to keep the same order of the `queryKey` array
 
-  const arts = await request({
-    url: 'api/arts',
-    filters,
-    page,
-    pageSize: 2,
-    sort,
-    locale,
+    // queryKey: [arts, locale, searchTerm, category, page]
+    queryKey: ['arts', '', locale, null, '1'],
+    queryFn: () => getArts({ locale }),
   })
-
-  // FIXME We should filter categories which have arts
-  // We may extend backend to return categories with arts
-  const allCategories = await request({
-    url: 'api/categories',
-    pageSize: 100,
-    locale,
-  })
-
-  const artCategories = allCategories.result.filter(category => category.arts?.length > 0)
 
   const seo = {
     title: {
@@ -96,9 +120,7 @@ export const getServerSideProps = async context => {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
       title: seo.title[locale],
-      query: context.query,
-      categories: artCategories,
-      arts,
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }

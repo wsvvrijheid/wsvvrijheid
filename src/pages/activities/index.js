@@ -1,22 +1,26 @@
 import { Container, SimpleGrid } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Card, Layout, PageTitle, Pagination } from '~components'
+import { Card, Hero, Layout, Pagination } from '~components'
 import { request } from '~lib'
 
 export default function Activities({ activities, query, title }) {
+  const { locale } = useRouter()
+
   return (
-    <Layout seo={{ header }}>
+    <Layout seo={{ title }} isDark>
+      <Hero title={title} />
       <Container maxW='container.lg' centerContent>
-        <PageTitle>{title}</PageTitle>
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} mb={16}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} my={16}>
           {activities.result.map(activity => (
             <Card
               key={activity.id}
               title={activity.title}
               description={activity.content}
               image={activity.image.url}
-              link={activity.link}
+              link={`/${locale}/activities/${activity.slug}`}
+              isExternal={false}
             />
           ))}
         </SimpleGrid>

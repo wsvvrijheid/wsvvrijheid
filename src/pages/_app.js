@@ -1,9 +1,11 @@
+import '@splidejs/react-splide/css'
+
 import { ChakraProvider } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
 import { useEffect, useRef } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { theme } from '~theme'
@@ -27,10 +29,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClientRef.current}>
-      <ChakraProvider theme={theme}>
-        <DefaultSeo {...getDefaultSeo(locale)} />
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <Hydrate state={pageProps.dehydratedState}>
+        <ChakraProvider theme={theme}>
+          <DefaultSeo {...getDefaultSeo(locale)} />
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>
   )

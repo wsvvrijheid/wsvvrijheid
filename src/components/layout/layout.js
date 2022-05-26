@@ -2,19 +2,20 @@ import { Box, Center, Flex, Spinner } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import React from 'react'
 
-import { useScroll } from '~hooks'
+import { useAuth, useScroll } from '~hooks'
 
 import { Footer } from './footer/footer'
 import { Header } from './header/header'
 
 export const Layout = ({ children, seo, isLoading = false, isDark }) => {
   const isScrolled = useScroll()
+  const auth = useAuth()
 
   return (
     <>
       {seo && <NextSeo {...seo} />}
       <Flex flexDir='column' minHeight='100vh'>
-        <Header isScrolled={isScrolled} isDark={isDark} />
+        <Header isScrolled={isScrolled} isDark={isDark} auth={auth} />
         {isLoading ? (
           <Center minH={{ base: 'calc(100vh - 64px)', lg: 'calc(100vh - 100px)' }}>
             <Spinner colorScheme='blue' />

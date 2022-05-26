@@ -4,13 +4,12 @@ import { FaFacebook, FaTelegram, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 
 import { makeSocialContent } from '~utils'
 
-export const ShareButtons = props => {
-  const { title, url, quote, size = 'sm' } = props
+export const ShareButtons = ({ title, url, quote, size = 'sm', children, ...rest }) => {
   const { twitterContent, content } = makeSocialContent(quote, title)
 
   return (
-    <ButtonGroup variant='outline' size={size} alignItems='center' {...props}>
-      {props.children}
+    <ButtonGroup variant='outline' size={size} alignItems='center' {...rest}>
+      {children}
       <FacebookShareButton quote={content} url={url}>
         <IconButton
           as='span'

@@ -13,6 +13,90 @@
       "link": "/projeler"
     }
   },
+  "activity": {
+    "en": {
+      "label": "Activities",
+      "link": "/activities"
+    },
+    "nl": {
+      "label": "Activiteiten",
+      "link": "/activiteiten"
+    },
+    "tr": {
+      "label": "Faaliyetler",
+      "link": "/faaliyetler"
+    }
+  },
+  "lotus": {
+    "en": {
+      "label": "Lotus van de Media",
+      "link": "/projects/lotus"
+    },
+    "nl": {
+      "label": "Lotus van de Media",
+      "link": "/projects/lotus"
+    },
+    "tr": {
+      "label": "Lotus van de Media",
+      "link": "/projects/lotus"
+    }
+  },
+  "artStop": {
+    "en": {
+      "label": "Art Stop",
+      "link": "/projects/art-stop"
+    },
+    "nl": {
+      "label": "Kunsthalte",
+      "link": "/projects/art-stop"
+    },
+    "tr": {
+      "label": "Sanat Durağı",
+      "link": "/projects/art-stop"
+    }
+  },
+  "samenvvv": {
+    "en": {
+      "label": "Samenvvv",
+      "link": "/projects/samenvvv"
+    },
+    "nl": {
+      "label": "Samenvvv",
+      "link": "/projects/samenvvv"
+    },
+    "tr": {
+      "label": "Samenvvv",
+      "link": "/projects/samenvvv"
+    }
+  },
+  "academy": {
+    "en": {
+      "label": "Academy",
+      "link": "/projects/academy"
+    },
+    "nl": {
+      "label": "Academie",
+      "link": "/projects/academy"
+    },
+    "tr": {
+      "label": "Akademi",
+      "link": "/projects/academy"
+    }
+  },
+  "blog": {
+    "en": {
+      "label": "Blog",
+      "link": "/blog"
+    },
+    "nl": {
+      "label": "Blog",
+      "link": "/blog"
+    },
+    "tr": {
+      "label": "Blog",
+      "link": "/blog"
+    }
+  },
   "announcement": {
     "en": {
       "label": "Announcements",
@@ -125,20 +209,7 @@
       "link": "/gonulluler"
     }
   },
-  "activity": {
-    "en": {
-      "label": "Activities",
-      "link": "/activities"
-    },
-    "nl": {
-      "label": "Activiteiten",
-      "link": "/activiteiten"
-    },
-    "tr": {
-      "label": "Faaliyetler",
-      "link": "/faaliyetler"
-    }
-  },
+
   "sign-up": {
     "en": {
       "label": "Sign-Up",

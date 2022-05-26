@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import qs from 'qs'
 
 export const useChangeParams = () => {
   const router = useRouter()
@@ -18,6 +19,10 @@ export const useChangeParams = () => {
     Object.keys(args).forEach(key => {
       if (args[key] === null) {
         delete args[key]
+      }
+
+      if (Array.isArray(args[key])) {
+        args[key] = qs.stringify(args[key], { encodeValuesOnly: true })
       }
     })
 

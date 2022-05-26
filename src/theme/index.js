@@ -3,7 +3,6 @@ import { extendTheme } from '@chakra-ui/react'
 import { colors } from './colors'
 import { components } from './components'
 import { styles } from './global'
-import { mdx } from './mdx'
 
 const fonts = { body: `'Rubik', sans-serif` }
 
@@ -23,5 +22,4 @@ export const theme = extendTheme({
     outline: 'none',
     primary: 'rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;',
   },
-  mdx,
 })

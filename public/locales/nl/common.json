@@ -6,7 +6,9 @@
   "event": "Evenement",
   "projects": "Projecten",
   "all": "Alle",
+  "error": "Fout",
   "home": {
+    "justice": "Dit is een schaal van menselijkheid. Ons doel is om de rechten van de mensen van de wereld te verdedigen, ongeacht religie, taal, ras, kleur, in de schaduw van vrede. De wereld is gelijk aan mensen, mensen zijn gelijk aan de wereld. Als de balans wordt geschud en de waarde die aan mensen wordt gegeven licht blijft, zal de wereld op het hoofd van de mensen in deze balansschaal instorten. Maar als de waarde die aan de mens wordt gegeven, dan wordt de mens de kroon van de wereld. Samen leven en humanly is gelukkiger en zinvoller met deze balans.",
     "hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten.",
     "about": {
       "who-we-are": {
@@ -66,6 +68,16 @@
       "text": "Heb je geen account?",
       "button": "Inschrijven"
     },
+    "forgot-pass-header": {
+      "title": "Wachtwoord vergeten?",
+      "button": "Submit",
+      "text": "Voer uw e-mailadres in en we sturen u een link om uw wachtwoord opnieuw in te stellen."
+    },
+    "reset-pass-header": {
+      "title": "Wachtwoord opnieuw instellen",
+      "button": "Submit",
+      "text": "Wachtwoord succesvol opnieuw ingesteld. U kunt nu inloggen."
+    },
     "name": {
       "title": "Naam",
       "required": "Naamveld is verplicht"
@@ -81,18 +93,24 @@
       "required": "Wachtwoordveld is verplicht",
       "warning": "Minstens 8 karakters lang",
       "forgot-password": "Wachtwoord vergeten?",
+      "password-confirm": "Bevestig wachtwoord",
       "matches": {
         "lowercase": "Uw wachtwoord moet minimaal één kleine letter [a...z] bevatten",
         "uppercase": "Uw wachtwoord moet minimaal één hoofdletter [A..Z] bevatten",
         "number": "Uw wachtwoord moet minstens één cijfer bevatten [1,2,3...]",
-        "special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]"
+        "special": "Uw wachtwoord moet ten minste één speciaal teken bevatten [(?=@...]",
+        "password-match": "Wachtwoorden komen niet overeen"
       }
     },
     "create-account": "Account Aanmaken",
     "sign-in": "Inloggen",
     "sign-up-with": "of zingen met",
     "sign-in-with": "of ga verder met",
-    "remember-me": "Onthoud mij"
+    "remember-me": "Onthoud mij",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
   },
   "profile": {
     "title": "Profiel",
@@ -102,7 +120,26 @@
     "my-profile": "Mijn Profiel",
     "user-name": "Gebruikersnaam",
     "email": "E-mail",
-    "my-arts": "Mijn Kunsten"
+    "my-arts": "Mijn Kunsten",
+    "my-rejected-arts": "Mijn Afgewezen Kunsten",
+    "general-settings": "Algemene Instellingen",
+    "art": {
+      "delete": {
+        "title": "Verwijder Kunst",
+        "text": "Weet je zeker dat je deze afbeelding wilt verwijderen?",
+        "button": "Verwijder"
+      },
+      "publish": {
+        "title": "Publiceer Art",
+        "text": "Weet u zeker dat u de deze kunst wilt publiceren?",
+        "button": "Publiceer"
+      },
+      "unpublish": {
+        "title": "Deactiveer Art",
+        "text": "Weet u zeker dat u de publicatie van deze kunst ongedaan wilt maken? U kunt het later altijd opnieuw publiceren.",
+        "button": "Deactiveer"
+      }
+    }
   },
   "apply-form": {
     "name": {
@@ -123,6 +160,9 @@
     },
     "occupation": "Beroep",
     "comment": "Opmerking",
+    "comment-placeholder": "Schrijf Opmerking",
+    "comments": "Opmerkingen",
+    "send": "Verstuur",
     "in-mailing-list": "In mailinglijst",
     "show-in-website": "Toon mij op de website",
     "heard-from": "Van waar heeft u over ons gehoord?",

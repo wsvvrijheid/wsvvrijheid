@@ -15,6 +15,7 @@ const nextConfig = {
       'samenvvv.nl',
       'media.istockphoto.com',
       'pbs.twimg.com',
+      'unsplash.it',
     ],
   },
   async rewrites() {

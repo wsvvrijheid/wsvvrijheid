@@ -1,6 +1,6 @@
 import { transformStrapiData } from '..'
-import artists from './artists.json'
-import artistsResult from './artists-result.json'
+import artists from './arts.json'
+import artistsResult from './arts-result.json'
 
 describe('Transform Data', () => {
   it('Transforms one level nested data', () => {

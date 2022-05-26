@@ -1,6 +1,8 @@
-import { Avatar, Box, Button, Center, Heading, Link, Spacer, Stack, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Center, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import { FaChevronRight } from 'react-icons/fa'
+
+import { Navigate } from '~components'
 
 export const Card = props => {
   const { title, description, image, link } = props
@@ -37,11 +39,11 @@ export const Card = props => {
         </Text>
         <Spacer />
         <Box textAlign='center'>
-          <Link href={link} isExternal>
+          <Navigate href={link}>
             <Button colorScheme='blue' size='lg' rightIcon={<FaChevronRight />}>
               {t`read-more`}
             </Button>
-          </Link>
+          </Navigate>
         </Box>
       </Stack>
     </Stack>

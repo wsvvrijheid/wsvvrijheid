@@ -1,26 +1,13 @@
-import { HStack, Stack, StackDivider, Text } from '@chakra-ui/react'
 import { withIronSessionSsr } from 'iron-session/next'
 import React from 'react'
 
-import { Container, CreateArt, Layout } from '~components'
+import { AuthenticatedUserProfile, Layout } from '~components'
 import { sessionOptions } from '~lib'
 
 const Profile = ({ user }) => {
   return (
-    <Layout>
-      <Container>
-        <Stack divider={<StackDivider borderColor='gray.200' />} spacing={4} align='stretch' marginTop={'50px'}>
-          <HStack>
-            <Text>Username: </Text>
-            <Text>{user?.username}</Text>
-          </HStack>
-          <HStack>
-            <Text>Email: </Text>
-            <Text>{user?.email}</Text>
-          </HStack>
-          <CreateArt />
-        </Stack>
-      </Container>
+    <Layout isDark>
+      <AuthenticatedUserProfile user={user} />
     </Layout>
   )
 }

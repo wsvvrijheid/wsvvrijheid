@@ -1,0 +1,78 @@
+{
+  "data": [
+    {
+      "id": 4,
+      "attributes": {
+        "title": "Fire",
+        "slug": "fire",
+        "description": "There is a fire in the forest",
+        "content": "Fire Content",
+        "createdAt": "2022-03-25T16:50:26.535Z",
+        "updatedAt": "2022-05-12T15:10:18.893Z",
+        "publishedAt": "2022-03-25T16:50:28.939Z",
+        "locale": "en",
+        "status": "rejected",
+        "artist": {
+          "data": {
+            "id": 2,
+            "attributes": {
+              "createdAt": "2022-03-25T16:59:34.425Z",
+              "updatedAt": "2022-05-16T08:08:40.672Z",
+              "publishedAt": "2022-03-25T16:59:36.032Z",
+              "user": {
+                "data": {
+                  "id": 4,
+                  "attributes": {
+                    "username": "umut",
+                    "email": "umutesen@gmail.com",
+                    "provider": "local",
+                    "confirmed": true,
+                    "blocked": false,
+                    "createdAt": "2022-03-27T16:22:29.543Z",
+                    "updatedAt": "2022-05-16T10:40:09.240Z",
+                    "avatar": {
+                      "data": {
+                        "id": 37,
+                        "attributes": {
+                          "name": "profile.jpeg",
+                          "alternativeText": "profile.jpeg",
+                          "caption": "profile.jpeg",
+                          "width": 491,
+                          "height": 491,
+                          "formats": {
+                            "thumbnail": {
+                              "ext": ".jpeg",
+                              "url": "/uploads/thumbnail_profile_263c78fbfb.jpeg",
+                              "hash": "thumbnail_profile_263c78fbfb",
+                              "mime": "image/jpeg",
+                              "name": "thumbnail_profile.jpeg",
+                              "path": null,
+                              "size": 1.78,
+                              "width": 156,
+                              "height": 156
+                            }
+                          },
+                          "hash": "profile_263c78fbfb",
+                          "ext": ".jpeg",
+                          "mime": "image/jpeg",
+                          "size": 6.45,
+                          "url": "/uploads/profile_263c78fbfb.jpeg",
+                          "previewUrl": null,
+                          "provider": "local",
+                          "provider_metadata": null,
+                          "createdAt": "2022-04-11T17:33:09.688Z",
+                          "updatedAt": "2022-04-11T17:33:09.688Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "meta": { "pagination": { "page": 1, "pageSize": 25, "pageCount": 1, "total": 3 } }
+}

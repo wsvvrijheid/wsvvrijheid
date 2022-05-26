@@ -1,17 +1,17 @@
-import { request } from '../request'
+import { request } from '~lib'
 
-export const getBlogPaths = async locales =>
+export const getArtPaths = async locales =>
   (
     await Promise.all(
       locales.flatMap(async locale => {
         const responses = await request({
-          url: 'api/blogs',
+          url: 'api/arts',
           locale,
         })
 
-        const blogs = responses?.result
+        const arts = responses?.result
 
-        return blogs.map(({ slug }) => ({
+        return arts.map(({ slug }) => ({
           params: { slug },
           locale,
         }))

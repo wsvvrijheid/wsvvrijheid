@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Container, Layout, PageTitle, UserCard } from '~components'
+import { Container, Hero, Layout, UserCard } from '~components'
 import { request } from '~lib'
 
 export default function Volunteers({ seo, volunteers, jobs }) {
@@ -19,10 +19,10 @@ export default function Volunteers({ seo, volunteers, jobs }) {
   )
 
   return (
-    <Layout seo={seo}>
+    <Layout seo={seo} isDark>
+      <Hero title={seo.title} />
       <Container minH='inherit' maxW='container.xl'>
-        <PageTitle>{seo.title}</PageTitle>
-        <HStack pb={8} align='start' spacing={8}>
+        <HStack pb={8} align='start' spacing={8} my={16}>
           <Box rounded='lg' bg='white' shadow='lg' p={{ base: 4, lg: 8 }}>
             <RadioGroup onChange={setState}>
               <Stack spacing={4} justify='center'>

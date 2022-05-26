@@ -3,8 +3,12 @@ import {
   Button,
   ButtonGroup,
   Heading,
-  HStack,
   Image,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   SimpleGrid,
   Slider,
   SliderFilledTrack,
@@ -13,6 +17,7 @@ import {
   Stack,
   Text,
   Tooltip,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
@@ -38,8 +43,12 @@ function generateSchema(t) {
 }
 
 const DonatePage = ({ projects, title }) => {
-  const [amount, setAmount] = useState()
+  const [amount, setAmount] = useState(10)
   const [method, setMethod] = useState()
+
+  const format = val => `€` + val
+  const parse = val => +val.replace(/^\€/, '')
+
   const { t } = useTranslation()
 
   const {
@@ -66,10 +75,10 @@ const DonatePage = ({ projects, title }) => {
   return (
     <Layout seo={{ title }}>
       <Container>
-        <SimpleGrid columns={{ base: 1, lg: 2 }} my={16} gap={16}>
+        <SimpleGrid alignItems='start' columns={{ base: 1, lg: 2 }} my={16} gap={16}>
           <Stack
-            px={16}
-            py={12}
+            px={{ base: 8, lg: 16 }}
+            py={{ base: 8, lg: 12 }}
             spacing={8}
             bg='white'
             rounded='lg'
@@ -81,18 +90,17 @@ const DonatePage = ({ projects, title }) => {
               {title}
             </Heading>
 
-            <Stack>
-              <HStack justify='center'>
+            <Stack align='center'>
+              <ButtonGroup>
                 <Button
                   py={4}
                   colorScheme={method === 'ideal' ? 'blue' : 'gray'}
                   variant={method === 'ideal' ? 'solid' : 'outline'}
                   onClick={() => setMethod('ideal')}
                   h='auto'
-                  leftIcon={<Image src='/images/ideal-logo.svg' h={50} alt='ideal' />}
                   size='lg'
                 >
-                  iDeal
+                  <Image src='/images/ideal-logo.svg' h={50} alt='ideal' />
                 </Button>
                 <Button
                   py={4}
@@ -100,10 +108,9 @@ const DonatePage = ({ projects, title }) => {
                   variant={method === 'creditcard' ? 'solid' : 'outline'}
                   onClick={() => setMethod('creditcard')}
                   h='auto'
-                  leftIcon={<Image src='/images/visa-master-logo.svg' h={50} alt='ideal' />}
                   size='lg'
                 >
-                  Credit Card
+                  <Image src='/images/visa-master-logo.svg' h={50} alt='ideal' />
                 </Button>
                 <Button
                   py={4}
@@ -111,12 +118,11 @@ const DonatePage = ({ projects, title }) => {
                   variant={method === 'paypal' ? 'solid' : 'outline'}
                   onClick={() => setMethod('paypal')}
                   h='auto'
-                  leftIcon={<Image src='/images/paypal-logo.svg' h={50} alt='ideal' />}
                   size='lg'
                 >
-                  PayPal
+                  <Image src='/images/paypal-logo.svg' h={50} alt='ideal' />
                 </Button>
-              </HStack>
+              </ButtonGroup>
               <Text textAlign='center' fontSize='md' color='gray.500'>
                 Choose your payment method *
               </Text>
@@ -127,9 +133,10 @@ const DonatePage = ({ projects, title }) => {
               <FormItem isRequired register={register} id='email' errors={errors} label={t`apply-form.email.input`} />
             </Stack>
 
-            <ButtonGroup isAttached alignSelf='center' size='lg'>
-              {[10, 20, 50, 100].map(val => (
+            <ButtonGroup w='full' isAttached alignSelf='center' size='lg'>
+              {useBreakpointValue({ base: [10, 20, 30, 50], sm: [10, 20, 30, 50, 100] }).map(val => (
                 <Button
+                  isFullWidth
                   key={val}
                   variant={amount === val ? 'solid' : 'outline'}
                   colorScheme={amount === val ? 'green' : 'gray'}
@@ -139,15 +146,37 @@ const DonatePage = ({ projects, title }) => {
                 </Button>
               ))}
             </ButtonGroup>
-            <HStack pb={8} w='full'>
+            <Stack
+              direction={{ base: 'column', md: 'row' }}
+              pb={8}
+              w='full'
+              justify='center'
+              align='center'
+              spacing={6}
+            >
+              <NumberInput
+                maxW={120}
+                onChange={valueString => setAmount(parse(valueString))}
+                value={format(amount)}
+                min={10}
+                size='lg'
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
               <Slider
+                flex={1}
                 id='slider'
                 defaultValue={10}
                 value={amount}
-                min={0}
+                min={10}
                 max={100}
                 colorScheme='green'
                 onChange={v => setAmount(v)}
+                focusThumbOnChange={false}
               >
                 <SliderTrack height={3} rounded='lg'>
                   <SliderFilledTrack />
@@ -165,7 +194,7 @@ const DonatePage = ({ projects, title }) => {
                   </SliderThumb>
                 </Tooltip>
               </Slider>
-            </HStack>
+            </Stack>
             <Button
               isDisabled={!amount || !method || !isValid}
               colorScheme='blue'

@@ -12,7 +12,8 @@
           ["~lib", "./src/lib"],
           ["~pages", "./src/pages"],
           ["~theme", "./src/theme"],
-          ["~utils", "./src/utils"]
+          ["~utils", "./src/utils"],
+          ["~services", "./src/services"]
         ],
         "extensions": [".js", ".jsx"]
       }

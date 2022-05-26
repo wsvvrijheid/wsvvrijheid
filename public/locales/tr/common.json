@@ -7,8 +7,10 @@
   "news": "Haber",
   "projects": "Projeler",
   "all": "Tümü",
+  "error": "Hata",
   "home": {
-    "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanmasıiçin çalışmalar yapıyoruz.",
+    "justice": "Bu bir insanlık terazisi. Amacımız barışın gölgesinde dini dili ırkı rengi farketmeksizin dünya insanının haklarını savunmak. Dünya eşittir insan, insan eşittir dünya demek. Denge sarsılıp insana verilen değer hafif kalırsa bu denge terazisinde  dünya insanın başına yıkılır. Ama insana verilen değer ağır basarsa o vakit insan dünyanın baş tacı olur. Birlikte ve insanca yaşam bu dengeyle daha mutlu daha anlamlı.",
+    "hero": "Evrensel hukuk karşısında herkes eşittir. Evrensel insan haklarından herkesin eşit şekilde faydalanması için çalışmalar yapıyoruz.",
     "about": {
       "who-we-are": {
         "title": "Biz Kimiz?",
@@ -67,6 +69,16 @@
       "text": "Hesabınız yok mu? ",
       "button": "Kayıt ol"
     },
+    "forgot-pass-header": {
+      "title": "Şifremi unuttum",
+      "button": "Submit",
+      "text": "E-posta adresinize sifre yenileme linki gönderildi lutfen kontrol ediniz."
+    },
+    "reset-pass-header": {
+      "title": "Şifre yenile",
+      "button": "Submit",
+      "text": "Sifreniz başarıyla yenilendi, login olabilirsiniz."
+    },
     "name": {
       "title": "İsim",
       "required": "İsim alanı zorunludur"
@@ -86,14 +98,19 @@
         "lowercase": "Şifreniz en az bir küçük harf içermelidir [a...z]",
         "uppercase": "Şifreniz en az bir büyük harf içermelidir [A..Z]",
         "number": "Şifreniz en az bir numara içermelidir [1,2,3...]",
-        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]"
+        "special": "Şifreniz en az bir özel karakter içermelidir [(?=@...]",
+        "password-match": "Şifreleriniz eşleşmiyor"
       }
     },
     "create-account": "Hesap oluştur",
     "sign-in": "Giriş yap",
     "sign-up-with": "veya ",
     "sign-in-with": "veya devam et",
-    "remember-me": "Beni hatırla"
+    "remember-me": "Beni hatırla",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
   },
   "profile": {
     "title": "Profil",
@@ -103,7 +120,26 @@
     "my-profile": "Profilim",
     "user-name": "Kullanıcı adı",
     "email": "E-posta",
-    "my-arts": "Eserlerim"
+    "my-arts": "Eserlerim",
+    "my-rejected-arts": "Reddedilen Eserlerim",
+    "general-settings": "Genel Ayarlar",
+    "art": {
+      "delete": {
+        "title": "Eseri Sil",
+        "text": "Eserinizi silmek istediğinizden emin misiniz?",
+        "button": "Sil"
+      },
+      "publish": {
+        "title": "Yayınla",
+        "text": "Eserinizi yayınlamak istediğinize emin misiniz?",
+        "button": "Yayınla"
+      },
+      "unpublish": {
+        "title": "Yayından Kaldır",
+        "text": "Eserinizi yayından kaldırmak istediğinize emin misiniz? Daha sonra her zaman tekrar yayınlayabilirsiniz.",
+        "button": "Yayından Kaldır"
+      }
+    }
   },
   "apply-form": {
     "name": {
@@ -124,6 +160,9 @@
     },
     "occupation": "Meslek",
     "comment": "Yorum",
+    "comment-placeholder": "Yorum Yazın",
+    "comments": "Yorumlar",
+    "send": "Gönder",
     "in-mailing-list": "Mail listesine ekle",
     "show-in-website": "Web sitesinde göster",
     "heard-from": "Bizi nereden duydunuz?",

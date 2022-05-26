@@ -5,12 +5,12 @@ import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
 import { ChakraNextImage, Container, Layout, Markdown, ShareButtons } from '~components'
-import { useBlog, useLocaleTimeFormat } from '~hooks'
-import { getBlog, getBlogPaths } from '~lib'
+import { useLocaleTimeFormat } from '~hooks'
+import { getBlog, getBlogPaths, useBlog } from '~services'
 import { getReadingTime } from '~utils'
 
 const BlogInfo = ({ blog, link, readingTime }) => {
-  const { hasLiked, likes, views, toggleLike } = useBlog(blog)
+  const { isLiked, likes, views, toggleLike } = useBlog(blog)
   const { formattedDate } = useLocaleTimeFormat(blog?.publishedAt)
 
   return (
@@ -42,7 +42,7 @@ const BlogInfo = ({ blog, link, readingTime }) => {
         <IconButton
           rounded='full'
           aria-label='like post'
-          color={hasLiked ? 'red.400' : 'gray.400'}
+          color={isLiked ? 'red.400' : 'gray.400'}
           icon={<AiFillHeart />}
           onClick={toggleLike}
         />

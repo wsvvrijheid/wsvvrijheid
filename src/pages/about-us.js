@@ -1,7 +1,7 @@
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { AnimatedBox, ChakraNextImage, Container, Layout, PageTitle } from '~components'
+import { AnimatedBox, ChakraNextImage, Container, Hero, Layout } from '~components'
 import { ABOUT_US } from '~data'
 
 const AboutUsBlock = props => {
@@ -26,10 +26,10 @@ const AboutUsBlock = props => {
 
 export default function AboutUs({ title, content, seo }) {
   return (
-    <Layout seo={seo}>
+    <Layout seo={seo} isDark>
+      <Hero title={title} />
       <Container>
-        <PageTitle>{title}</PageTitle>
-        <VStack my={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
+        <VStack py={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
           {content.map(({ title, description, image }, i) => (
             <Box key={i} alignSelf={i % 2 === 0 ? 'start' : 'end'}>
               <AboutUsBlock

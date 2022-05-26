@@ -1,4 +1,4 @@
-import { Box, Link, SimpleGrid, Stack, Text, Wrap } from '@chakra-ui/react'
+import { Box, Link, Stack, Text, Wrap } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import NextImage from 'next/image'
 import { useTranslation } from 'react-i18next'
@@ -8,21 +8,19 @@ import { SocialButtons } from '~components'
 import { Container } from '../container'
 import { FooterNav } from './footer-nav'
 
-export const ListHeader = ({ children }) => {
-  return (
-    <Text fontWeight={600} fontSize={'lg'} mb={2}>
-      {children}
-    </Text>
-  )
-}
-
 export const Footer = () => {
   const { t } = useTranslation()
   return (
     <Box bg={'blue.900'} color='blue.200' pos='relative'>
       <Container as={Stack}>
-        <SimpleGrid columns={{ sm: 2, md: 4 }} spacing={8} py={10}>
-          <Stack align='center'>
+        <Stack
+          direction={{ base: 'column', lg: 'row' }}
+          spacing={8}
+          py={10}
+          justify='space-between'
+          align={{ base: 'center', lg: 'start' }}
+        >
+          <Stack align='center' maxW={250}>
             <motion.div
               animate={{ rotate: -360 }}
               transition={{
@@ -40,7 +38,7 @@ export const Footer = () => {
             </Text>
           </Stack>
           <FooterNav />
-        </SimpleGrid>
+        </Stack>
         <Wrap
           justify={{ base: 'center', sm: 'space-between' }}
           borderTopWidth='1px'
