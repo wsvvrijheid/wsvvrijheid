@@ -1,11 +1,21 @@
-import { Box, HStack, Spinner, Stack, useUpdateEffect } from '@chakra-ui/react'
+import { Box, HStack, Stack, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { ArtCard, CategoryFilter, Container, Layout, MasonryGrid, Pagination, SearchForm } from '~components'
+import {
+  ArtCard,
+  ArtCardSkeleton,
+  CategoryFilter,
+  CategoryFilterSkeleton,
+  Container,
+  Layout,
+  MasonryGrid,
+  Pagination,
+  SearchForm,
+} from '~components'
 import { useAuth, useChangeParams } from '~hooks'
 import { getArts, useArts, useGetArtCategories } from '~services'
 
@@ -33,7 +43,6 @@ const Club = ({ title }) => {
     searchTerm,
     page,
     locale,
-    pageSize: 2, // TODO Remove this to use the default page size
   })
 
   useUpdateEffect(() => {
@@ -47,36 +56,36 @@ const Club = ({ title }) => {
       <Container minH='inherit'>
         <HStack py={8} align='start' spacing={8} minH='inherit'>
           <Box w={200}>
-            {/* TODO Create skeleton component for category filter
-                  <CategoryFilterSkeleton 
-                    isLoaded={categoryQuery.isFetched && !categoryQuery.isLoading}>
-              */}
-            <CategoryFilter categories={categoryQuery.data} />
+            {categoryQuery.isLoading || !categoryQuery.isFetched ? (
+              Array.from({ length: 3 }).map((_, i) => <CategoryFilterSkeleton key={'category-filter-skeleton' + i} />)
+            ) : (
+              <CategoryFilter categories={categoryQuery.data} />
+            )}
           </Box>
           <Stack spacing={4} flex={1} alignSelf='stretch'>
             <SearchForm placeholder={t`club.arts.search`} onSearch={setSearchTerm} />
 
             <Stack flex={1} justify='space-between' w='full'>
-              {/* TODO Create skeleton component for masonry grid
-                    <MasonryGridSkeleton isLoaded={artsQuery.isFetched && !artsQuery.isLoading}>
-                */}
               <MasonryGrid gap={4}>
-                {artsQuery.isLoading ? (
-                  <Spinner />
-                ) : (
-                  artsQuery.data?.result.map(art => (
-                    // TODO Add link to navigate to the art page
-                    <ArtCard key={art.id} art={art} user={user} isMasonry queryKey={queryKey} />
-                  ))
-                )}
+                {artsQuery.isLoading
+                  ? Array.from({ length: 12 }).map((_, i) => (
+                      <ArtCardSkeleton isMasonry key={'masonry-grid-skeleton' + i} />
+                    ))
+                  : artsQuery.data?.result.map(art => (
+                      // TODO Add link to navigate to the art page
+                      <ArtCard key={art.id} art={art} user={user} isMasonry queryKey={queryKey} />
+                    ))}
               </MasonryGrid>
-              <Box alignSelf='center'>
-                <Pagination
-                  pageCount={artsQuery.data?.pagination.pageCount}
-                  currentPage={+page}
-                  changeParam={() => changeParam({ page })}
-                />
-              </Box>
+
+              {!artsQuery.isLoading && (
+                <Box alignSelf='center'>
+                  <Pagination
+                    pageCount={artsQuery.data?.pagination.pageCount}
+                    currentPage={+page}
+                    changeParam={() => changeParam({ page })}
+                  />
+                </Box>
+              )}
             </Stack>
           </Stack>
         </HStack>

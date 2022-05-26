@@ -9,6 +9,7 @@
   "error": "Error",
   "all": "All",
   "home": {
+    "justice": "This is a scale of humanity. Our aim is to defend the rights of the people of the world, regardless of religion, language, race, color, in the shadow of peace. The world is equal to people, people are equal to the world. If the balance is shaken and the value given to people remains light, the world will collapse on the head of the people in this balance scale. But if the value given to human then man becomes the crown of the world. Life together and humanely is happier and more meaningful with this balance.",
     "hero": "Everyone is equal before the universal law. We work to ensure that everyone benefits from universal human rights equally.",
     "about": {
       "who-we-are": {
@@ -106,7 +107,11 @@
     "sign-in": "Sign in",
     "sign-up-with": "or sign up with",
     "sign-in-with": "or continue with",
-    "remember-me": "Remember me"
+    "remember-me": "Remember me",
+    "email-taken": {
+      "title": "Email is already taken",
+      "description": "You have registered this email address before. Please use the same provider as your first login"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -156,6 +161,9 @@
     },
     "occupation": "Occupation",
     "comment": "Comment",
+    "comment-placeholder": "Write Comment",
+    "comments": "Comments",
+    "send": "Send",
     "in-mailing-list": "In mailing list",
     "show-in-website": "Show me on the website",
     "heard-from": "From where did you hear about us?",

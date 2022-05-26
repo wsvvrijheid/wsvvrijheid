@@ -1,6 +1,7 @@
 import { Avatar, Button, HStack, Stack, Text, useCheckbox, useCheckboxGroup, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useEffect, useRef } from 'react'
 import { RiFilterOffLine } from 'react-icons/ri'
 
 import { useChangeParams, useDebounce } from '~hooks'
@@ -34,10 +35,19 @@ function CustomCheckbox(props) {
 export const CategoryFilter = ({ categories = [] }) => {
   const changeParam = useChangeParams()
   const router = useRouter()
+  const initialCategorySelected = useRef(false)
+
   const { value, getCheckboxProps, setValue } = useCheckboxGroup({ defaultValue: [] })
   const { t } = useTranslation()
 
   const categoryCodes = useDebounce(value, 1000)
+
+  useEffect(() => {
+    if (router.query.categories && !initialCategorySelected.current) {
+      initialCategorySelected.current = true
+      setValue(router.query.categories?.split('&').map(item => item.split('=')[1]))
+    }
+  }, [setValue, router.query.categories])
 
   useUpdateEffect(() => {
     changeParam({ categories: categoryCodes })

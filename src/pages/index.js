@@ -2,7 +2,7 @@ import { Box, Center, Flex, Heading, SimpleGrid, Text, VStack } from '@chakra-ui
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Container, HomeAbout, HomeHero, HomeProject, Layout } from '~components'
+import { Container, HomeAbout, HomeHero, HomeJustice, HomeProject, Layout } from '~components'
 import { HOME_ABOUT, PROJECTS } from '~data'
 
 export default function Home() {
@@ -30,6 +30,11 @@ export default function Home() {
           <HomeHero />
         </Box>
       </Flex>
+      <Box bg='white' py={16}>
+        <Container maxW='container.lg'>
+          <HomeJustice />
+        </Container>
+      </Box>
       <Center bg='blue.100' py={{ base: 16, lg: 32 }} minH='50vh'>
         <Container>
           <SimpleGrid columns={{ base: 1, lg: 3 }} gap={8} textAlign='center'>

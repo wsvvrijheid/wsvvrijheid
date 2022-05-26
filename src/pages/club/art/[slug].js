@@ -1,16 +1,14 @@
-import { Avatar, Flex, Heading, HStack, Image, Stack, Text, VStack, Wrap } from '@chakra-ui/react'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
+import { Box, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { CommentForm, Comments, Container, Layout, ShareButtons } from '~components'
+import { ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
-import { getArt, useGetArt } from '~services'
+import { getArt, getArtPaths, useGetArt } from '~services'
 
-const ArtPage = ({ title }) => {
+const ArtPage = ({ seo }) => {
   const { user } = useAuth()
-  console.log('user', user)
 
   const {
     query: { slug },
@@ -19,68 +17,45 @@ const ArtPage = ({ title }) => {
 
   const artQuery = useGetArt(locale, slug)
 
-  return (
-    <Layout seo={{ title }}>
-      <Container minH='inherit'>
-        <VStack>
-          <Stack>
-            {/* Single Art Content */}
-            <Stack>
-              {/* Single Art Images */}
-              <Splide>
-                {artQuery.data?.images.map(image => (
-                  <Flex justify='center' as={SplideSlide} key={image.id} w='max-content'>
-                    <Image
-                      maxH={500}
-                      src={`${process.env.NEXT_PUBLIC_API_URL}${image.url}`}
-                      alt='single-page'
-                      objectFit='cover'
-                    />
-                  </Flex>
-                ))}
-              </Splide>
-              <Stack>
-                <Wrap spacing={4} justifyContent='space-between'>
-                  <Heading as='h2' flex={1}>
-                    {artQuery.data?.title}
-                  </Heading>
-                  <ShareButtons
-                    title={artQuery.data?.title}
-                    url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${slug}`}
-                  />
-                </Wrap>
+  // TODO fetch comments
+  // TODO fetch other arts in the same category
 
-                {/* TODO Does it supposed to be markdown? */}
-                <Text>{artQuery.data?.content}</Text>
-                <HStack>
-                  <Avatar
-                    size='md'
-                    src={`${process.env.NEXT_PUBLIC_API_URL}${artQuery.data?.artist?.user?.data?.attributes.avatar?.data?.attributes.url}`}
-                    name={artQuery.data?.artist?.user?.username}
-                  />
-                  <Text>{artQuery.data?.artist?.user?.data.attributes.username}</Text>
-                </HStack>
+  return (
+    <Layout seo={seo}>
+      <Container minH='inherit'>
+        {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
+        {artQuery.isLoading ? (
+          <Spinner />
+        ) : (
+          <SimpleGrid pos='relative' mt={4} p={4} columns={{ base: 1, lg: 2 }} gap={4} alignItems='start'>
+            {/* Single Art Images */}
+            <Box pos='sticky' top={0}>
+              <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
+            </Box>
+
+            <Stack spacing={4}>
+              {/* Single Art Content */}
+              <ArtContent art={artQuery.data} />
+              {/* Single Art Comments */}
+              <Stack spacing={4}>
+                {/*  Comment form */}
+                <CommentForm user={user} />
+
+                {/*List comments of the current art */}
+                <CommentList comments={[]} />
               </Stack>
             </Stack>
+          </SimpleGrid>
+        )}
+        {/* TODO Translate */}
+        <Text>More Like This</Text>
 
-            {/* TODO Create comment form */}
-            <CommentForm />
-
-            {/* TODO List comments of the current art */}
-            <Comments />
-          </Stack>
-          {/* TODO Translate */}
-          <Text>More Like This</Text>
-
-          {/* Other Arts List */}
-          <Stack justify='space-between' w='full'>
-            {/* TODO Create list of other arts which have the same categories as the current art 
-                We don't need to show the current art in the list, please filter it out
-              
-              TODO Create ArtListSkeleton component for ArtList 
-          */}
-          </Stack>
-        </VStack>
+        {/* Other Arts List */}
+        <Stack justify='space-between' w='full'>
+          {/* TODO Create list of other arts which have the same categories as the current art 
+          We don't need to show the current art in the list, please filter it out.
+          Remember adding list of ArtCardSkeleton for loading state. */}
+        </Stack>
       </Container>
     </Layout>
   )
@@ -88,17 +63,10 @@ const ArtPage = ({ title }) => {
 
 export default ArtPage
 
-export const getStaticPaths = async () => {
-  // TODO get paths from `lib/art/paths.js`
-  // const paths = await getArtPaths()
-  // return { paths, fallback: true } // See: `pages/blog/[slug].js`
+export const getStaticPaths = async context => {
+  const paths = await getArtPaths(context.locales)
   return {
-    paths: [
-      {
-        params: { slug: 'fire' },
-        locale: 'en',
-      },
-    ],
+    paths,
     fallback: true,
   }
 }
@@ -123,15 +91,16 @@ export const getStaticProps = async context => {
       notFound: true,
     }
 
-  // TODO Provide available seo props (description, image, etc.)
   const seo = {
     title: art.title,
+    description: art.description,
+    content: art.content,
   }
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      title: seo.title,
+      seo,
       dehydratedState: dehydrate(queryClient),
     },
   }

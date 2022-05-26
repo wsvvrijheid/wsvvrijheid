@@ -5,7 +5,7 @@ import { request } from '~lib'
 
 export const getArts = async ({
   categories,
-  populate = ['artist.user.avatar', 'categories', 'images'],
+  populate = ['artist.user.avatar', 'categories', 'images', 'likes'],
   page = 1,
   pageSize,
   searchTerm,

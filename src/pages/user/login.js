@@ -1,8 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Layout } from '~components'
-import { LoginForm } from '~components'
+import { Layout, LoginForm } from '~components'
 
 const LoginPage = ({ seo }) => {
   return (
