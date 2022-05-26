@@ -70,7 +70,7 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
               colorScheme='red'
               onClick={() => likeArt({ art })}
             />
-            <Text>{art.likes.length}</Text>
+            <Text>{art.likes?.length}</Text>
           </HStack>
         </HStack>
       </Stack>

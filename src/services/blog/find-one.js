@@ -5,6 +5,7 @@ import { request } from '~lib'
 export const getBlog = async (locale, slug) => {
   const response = await request({
     url: 'api/blogs',
+    populate: ['author.volunteer', 'image'],
     filters: { slug: { $eq: slug } },
     locale,
   })
