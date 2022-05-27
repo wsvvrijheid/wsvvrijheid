@@ -120,8 +120,10 @@
     "my-profile": "Profilim",
     "user-name": "Kullanıcı adı",
     "email": "E-posta",
-    "my-arts": "Eserlerim",
-    "my-rejected-arts": "Reddedilen Eserlerim",
+    "approved-arts": "Onaylanan Eserlerim",
+    "pending-arts": "Bekleyen Eserlerim",
+    "rejected-arts": "Reddedilen Eserlerim",
+    "upload-arts": "Eser Yükle",
     "general-settings": "Genel Ayarlar",
     "art": {
       "delete": {

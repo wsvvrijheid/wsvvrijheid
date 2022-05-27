@@ -120,8 +120,10 @@
     "my-profile": "Mijn Profiel",
     "user-name": "Gebruikersnaam",
     "email": "E-mail",
-    "my-arts": "Mijn Kunsten",
-    "my-rejected-arts": "Mijn Afgewezen Kunsten",
+    "approved-arts": "Goedgekeurde kunst",
+    "pending-arts": "Kunst in behandeling",
+    "rejected-arts": "Afgewezen Kunsten",
+    "upload-art": "Kunst Uploaden",
     "general-settings": "Algemene Instellingen",
     "art": {
       "delete": {

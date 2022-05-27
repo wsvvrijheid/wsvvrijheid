@@ -121,8 +121,10 @@
     "my-profile": "My Profile",
     "user-name": "Username",
     "email": "Email",
-    "my-arts": "My Arts",
-    "my-rejected-arts": "My Rejected Arts",
+    "approved-arts": "Approved Arts",
+    "pending-arts": "Pending Arts",
+    "rejected-arts": "Rejected Arts",
+    "upload-art": "Upload Art",
     "general-settings": "General Settings",
     "art": {
       "delete": {
