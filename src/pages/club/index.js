@@ -11,6 +11,7 @@ import {
   CategoryFilter,
   CategoryFilterSkeleton,
   Container,
+  CreateArtForm,
   Layout,
   MasonryGrid,
   Pagination,
@@ -21,7 +22,7 @@ import { getArts, useArts, useGetArtCategories } from '~services'
 
 const Club = ({ title }) => {
   const changeParam = useChangeParams()
-  const { user } = useAuth()
+  const auth = useAuth()
   const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState()
 
@@ -63,7 +64,10 @@ const Club = ({ title }) => {
             )}
           </Box>
           <Stack spacing={4} flex={1} alignSelf='stretch'>
-            <SearchForm placeholder={t`club.arts.search`} onSearch={setSearchTerm} />
+            <HStack>
+              <SearchForm placeholder={t`club.arts.search`} onSearch={setSearchTerm} />
+              <CreateArtForm auth={auth} />
+            </HStack>
 
             <Stack flex={1} justify='space-between' w='full'>
               <MasonryGrid gap={4}>
@@ -73,7 +77,7 @@ const Club = ({ title }) => {
                     ))
                   : artsQuery.data?.result.map(art => (
                       // TODO Add link to navigate to the art page
-                      <ArtCard key={art.id} art={art} user={user} isMasonry queryKey={queryKey} />
+                      <ArtCard key={art.id} art={art} user={auth.user} isMasonry queryKey={queryKey} />
                     ))}
               </MasonryGrid>
 

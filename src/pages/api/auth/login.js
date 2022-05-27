@@ -27,8 +27,8 @@ const loginRoute = async (req, res) => {
       res.json(auth)
     }
   } catch (error) {
-    console.log('error', error)
-    console.error('error', error.response?.data)
+    console.error('error', error.response?.data || error)
+
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })
     } else {

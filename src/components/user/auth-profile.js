@@ -1,22 +1,7 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  HStack,
-  SimpleGrid,
-  Stack,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Avatar, Box, HStack, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
-import { FaPaintBrush, FaSpinner, FaUpload } from 'react-icons/fa'
+import { FaPaintBrush, FaSpinner } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 import { useQuery } from 'react-query'
@@ -24,10 +9,11 @@ import { useQuery } from 'react-query'
 import { ArtCard, Container, CreateArtForm, Hero } from '~components'
 import { request } from '~lib'
 
-export const AuthenticatedUserProfile = ({ user }) => {
+export const AuthenticatedUserProfile = ({ auth }) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const { user } = auth
 
   const { data } = useQuery({
     queryKey: ['arts', user.username],
@@ -50,7 +36,6 @@ export const AuthenticatedUserProfile = ({ user }) => {
 
   return (
     <>
-      <CreateArtForm isOpen={isOpen} onClose={onClose} user={user} />
       <Hero image='/images/auth-profile-bg.avif'>
         <Stack>
           <Avatar
@@ -82,11 +67,7 @@ export const AuthenticatedUserProfile = ({ user }) => {
             <Tab ml='auto' fontWeight='semibold'>
               <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
             </Tab>
-            {user.artist && (
-              <Button colorScheme='blue' leftIcon={<FaUpload />} onClick={onOpen}>
-                {t`profile.upload-art`}
-              </Button>
-            )}
+            <CreateArtForm auth={auth} />
           </TabList>
           <TabPanels>
             {/* Approved arts */}

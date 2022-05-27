@@ -1,9 +1,21 @@
-import { Box, Button, FormControl, FormLabel, Image, Input, SimpleGrid, Stack, Text, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  HStack,
+  Image,
+  Input,
+  SimpleGrid,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import React from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { GrClearOption } from 'react-icons/gr'
 
-export const FileUploader = ({ setImages }) => {
+export const FileUploader = ({ images, setImages }) => {
   const inputRef = React.useRef(null)
   const [previews, setPreviews] = React.useState([])
 
@@ -14,6 +26,8 @@ export const FileUploader = ({ setImages }) => {
       setPreviews(prev => [...prev, URL.createObjectURL(file)])
     })
   }
+
+  const sizes = images.reduce((acc, curr) => acc + curr.size, 0)
 
   const onDrop = event => {
     // Prevent default behavior (Prevent file from being opened)
@@ -46,9 +60,9 @@ export const FileUploader = ({ setImages }) => {
         </FormLabel>
         <Input
           id='form-input'
+          accept='image/png, image/jpeg, image/jpeg, image/webp'
           type={'file'}
           multiple
-          accept={'png jpg'}
           display={'none'}
           ref={inputRef}
           onChange={onInputChange}
@@ -76,21 +90,28 @@ export const FileUploader = ({ setImages }) => {
             <>
               <Box as={AiOutlineCloudUpload} boxSize={50} />
               <Text>Drag & drop files here or click to upload.</Text>
-              <Text>Supported files: png and jpg</Text>
+              <Text>Supported files: png, jpeg, jpg, webp</Text>
             </>
           )}
         </VStack>
       </FormControl>
-      <Button
-        leftIcon={<GrClearOption />}
-        alignSelf='end'
-        onClick={() => {
-          setImages([])
-          setPreviews([])
-        }}
-      >
-        Clear
-      </Button>
+      <HStack w='full' justify='space-between'>
+        {images.length > 0 && (
+          <Text>
+            {images.length} images, {(sizes / 1000000).toFixed(2)}MB
+          </Text>
+        )}
+        <Button
+          leftIcon={<GrClearOption />}
+          ml='auto'
+          onClick={() => {
+            setImages([])
+            setPreviews([])
+          }}
+        >
+          Clear
+        </Button>
+      </HStack>
     </Stack>
   )
 }
