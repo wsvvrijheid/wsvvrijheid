@@ -2,14 +2,13 @@ import { withIronSessionSsr } from 'iron-session/next'
 import React from 'react'
 
 import { AuthenticatedUserProfile, Layout } from '~components'
+import { useAuth } from '~hooks'
 import { sessionOptions } from '~lib'
 
-const Profile = ({ auth }) => {
-  return (
-    <Layout isDark>
-      <AuthenticatedUserProfile auth={auth} />
-    </Layout>
-  )
+const Profile = () => {
+  const auth = useAuth()
+
+  return <Layout isDark>{auth.user && <AuthenticatedUserProfile auth={auth} />}</Layout>
 }
 
 export default Profile
@@ -30,7 +29,6 @@ export const getServerSideProps = withIronSessionSsr(async function ({ req, loca
 
   return {
     props: {
-      auth,
       ...(await serverSideTranslations(locale, ['common'])),
     },
   }

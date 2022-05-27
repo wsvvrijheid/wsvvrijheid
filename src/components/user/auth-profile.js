@@ -44,7 +44,7 @@ export const AuthenticatedUserProfile = ({ auth }) => {
             name={user.username}
           />
           <HStack justifyContent='center' alignItems={'center'} alignContent={'flex-end'} bg='transparent'>
-            <Text color={'white'}>{user.username}</Text>
+            <Text color={'white'}>{user.name || user.username}</Text>
           </HStack>
         </Stack>
       </Hero>

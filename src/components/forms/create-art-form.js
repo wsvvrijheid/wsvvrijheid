@@ -1,4 +1,10 @@
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Button,
   ButtonGroup,
   Center,
@@ -20,7 +26,6 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -28,11 +33,42 @@ import { FaPlus, FaUpload } from 'react-icons/fa'
 import { useMutation, useQueryClient } from 'react-query'
 import * as yup from 'yup'
 
+import { Navigate } from '~components'
 import { mutation } from '~lib'
 import { slugify, toastMessage } from '~utils'
 
 import { FileUploader } from './file-uploader'
 import { FormItem } from './form-item'
+
+const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
+  const { t } = useTranslation()
+
+  return (
+    <AlertDialog closeOnOverlayClick={false} isCentered isOpen={isOpen} onClose={onClose}>
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader bg='green.500' color='white' fontSize='lg' fontWeight='bold'>
+            {t`art.create.success`}
+          </AlertDialogHeader>
+
+          <AlertDialogBody py={4}>
+            <Text>
+              Your art updated successfully. Your art will be listed in club page after being approved by editor. You
+              can see your pending arts in your{' '}
+              <Navigate fontWeight='semibold' color='blue.500' href='/profile'>
+                profile
+              </Navigate>
+            </Text>
+          </AlertDialogBody>
+
+          <AlertDialogFooter>
+            <Button onClick={onClose}>Dismiss</Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
+  )
+}
 
 const schema = t =>
   yup.object({
@@ -46,7 +82,8 @@ const schema = t =>
 export const CreateArtForm = ({ auth }) => {
   const [images, setImages] = useState([])
   const queryClient = useQueryClient()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const formDisclosure = useDisclosure()
+  const successDisclosure = useDisclosure()
 
   const { t } = useTranslation()
   const {
@@ -60,8 +97,9 @@ export const CreateArtForm = ({ auth }) => {
     mutationKey: 'create-art',
     mutationFn: data => mutation.post('api/arts', data),
     onSuccess: () => {
-      onClose()
       reset()
+      formDisclosure.onClose()
+      successDisclosure.onOpen()
       setImages([])
       queryClient.invalidateQueries(['arts', auth.user.username])
     },
@@ -74,7 +112,7 @@ export const CreateArtForm = ({ auth }) => {
   const createArtistMutation = useMutation({
     mutationKey: 'create-artist',
     mutationFn: () => mutation.post('api/artists', { data: { user: auth.user.id } }),
-    onSuccess: () => auth.updateSession(auth.user.id),
+    onSuccess: () => auth.updateSession(),
   })
 
   const onCreateArtist = () => {
@@ -106,10 +144,20 @@ export const CreateArtForm = ({ auth }) => {
 
   return (
     <>
-      <Button colorScheme='blue' leftIcon={<FaUpload />} onClick={onOpen}>
+      <Button colorScheme='blue' leftIcon={<FaUpload />} onClick={formDisclosure.onOpen}>
         {t`profile.upload-art`}
       </Button>
-      <Modal isCentered closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size='4xl'>
+
+      {/* SUCCESS ALERT */}
+      <ArtCreateSuccessAlert isOpen={successDisclosure.isOpen} onClose={successDisclosure.onClose} />
+
+      <Modal
+        isCentered
+        closeOnOverlayClick={false}
+        isOpen={formDisclosure.isOpen}
+        onClose={formDisclosure.onClose}
+        size={auth.user.artist ? '4xl' : 'md'}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader bg='blue.500' color={'white'}>
@@ -117,20 +165,15 @@ export const CreateArtForm = ({ auth }) => {
           </ModalHeader>
           <ModalCloseButton color={'white'} />
           <ModalBody pos='relative' py={6}>
+            {/* LOADING */}
             {(createArtMutation.isLoading || createArtistMutation.isLoading) && (
               <Center zIndex={1} pos='absolute' top={0} left={0} boxSize='full' bg='whiteAlpha.900'>
                 <Spinner size='xl' colorScheme='blue' />
               </Center>
             )}
-            {createArtMutation.isSuccess ? (
-              <VStack>
-                <Text>Your art updated successfully</Text>
-                <Text>Your art will be listed in club page after being approved by editor.</Text>
-                <Text>
-                  You can see your pending arts in your <Link href='/profile'>profile</Link>
-                </Text>
-              </VStack>
-            ) : auth.user.artist ? (
+
+            {/* CREATE FORM */}
+            {auth.user.artist && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FileUploader setImages={setImages} images={images} />
                 <Stack spacing={4} as='form' onSubmit={handleSubmit(handleCreateArt)}>
@@ -162,7 +205,7 @@ export const CreateArtForm = ({ auth }) => {
                     register={register}
                   />
                   <ButtonGroup alignSelf='end'>
-                    <Button onClick={onClose} mr={3}>
+                    <Button onClick={formDisclosure.onClose} mr={3}>
                       Cancel
                     </Button>
                     <Button
@@ -176,16 +219,19 @@ export const CreateArtForm = ({ auth }) => {
                   </ButtonGroup>
                 </Stack>
               </SimpleGrid>
-            ) : (
-              <VStack>
-                <Text>
+            )}
+
+            {/* ARTIST CONFIRMATION */}
+            {!auth.user.artist && (
+              <VStack spacing={8}>
+                <Text textAlign='center'>
                   You need to be registered as artist in order to upload an art. Would you like to be registered as
                   artist?
                 </Text>
                 <ButtonGroup>
-                  <Button>Cancel</Button>
+                  <Button onClick={onClose}>Cancel</Button>
                   <Button colorScheme='blue' onClick={onCreateArtist}>
-                    Be an artist
+                    Register as artist
                   </Button>
                 </ButtonGroup>
               </VStack>

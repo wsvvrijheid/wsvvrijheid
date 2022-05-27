@@ -4,11 +4,11 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { sessionOptions } from '~lib'
 
 const updateSessionRoute = async (req, res) => {
-  const { userId } = req.body
+  const { id } = req.session.user
   const token = req.session.token
 
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}?populate=*`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}?populate=*`, {
       headers: { Authorization: `Bearer ${token}` },
     })
 

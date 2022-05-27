@@ -3,11 +3,11 @@ import Router from 'next/router'
 import { useEffect, useMemo } from 'react'
 import { useMutation, useQuery } from 'react-query'
 
-export const useAuth = (redirectTo = '', redirectIfFound = false) => {
-  const { data, isLoading, refetch } = useQuery('me', () => axios('/api/auth/user'))
+export const useAuth = (redirectTo = '', redirectIfFound = false, initialUser) => {
+  const { data, isLoading, refetch } = useQuery('me', () => axios('/api/auth/user'), { initialData: initialUser || {} })
   const updateSessionMutation = useMutation({
     mutationKey: 'update-session',
-    mutationFn: userId => axios.post('/api/auth/update-session', { userId }),
+    mutationFn: () => axios.post('/api/auth/update-session'),
     onSuccess: () => refetch(),
   })
 
