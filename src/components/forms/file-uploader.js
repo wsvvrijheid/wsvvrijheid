@@ -11,6 +11,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { GrClearOption } from 'react-icons/gr'
@@ -18,6 +19,8 @@ import { GrClearOption } from 'react-icons/gr'
 export const FileUploader = ({ images, setImages }) => {
   const inputRef = React.useRef(null)
   const [previews, setPreviews] = React.useState([])
+
+  const { t } = useTranslation()
 
   const onInputChange = event => {
     const files = [...event.target.files]
@@ -56,7 +59,7 @@ export const FileUploader = ({ images, setImages }) => {
     <Stack>
       <FormControl>
         <FormLabel htmlFor='form-input' mb={2} fontWeight={'600'}>
-          Upload
+          {t`upload.label`}
         </FormLabel>
         <Input
           id='form-input'
@@ -89,8 +92,8 @@ export const FileUploader = ({ images, setImages }) => {
           ) : (
             <>
               <Box as={AiOutlineCloudUpload} boxSize={50} />
-              <Text>Drag & drop files here or click to upload.</Text>
-              <Text>Supported files: png, jpeg, jpg, webp</Text>
+              <Text>{t`upload.description`}</Text>
+              <Text>{t`upload.support`}</Text>
             </>
           )}
         </VStack>
@@ -109,7 +112,7 @@ export const FileUploader = ({ images, setImages }) => {
             setPreviews([])
           }}
         >
-          Clear
+          {t`clear`}
         </Button>
       </HStack>
     </Stack>

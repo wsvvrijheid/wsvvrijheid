@@ -25,7 +25,7 @@ export const SearchForm = ({ placeholder, delay, onSearch, onReset, mode = 'chan
   }, [searchTerm, onReset])
 
   return (
-    <InputGroup size='lg'>
+    <InputGroup size='lg' flex='1'>
       <InputLeftElement pointerEvents='none'>{<FaSearch color='gray.400' />}</InputLeftElement>
       <Input placeholder={placeholder} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
       <InputRightElement w='max-content' right={1}>

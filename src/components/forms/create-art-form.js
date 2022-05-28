@@ -48,21 +48,18 @@ const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader bg='green.500' color='white' fontSize='lg' fontWeight='bold'>
-            {t`art.create.success`}
+            {t`art.create.success.title`}
           </AlertDialogHeader>
 
           <AlertDialogBody py={4}>
-            <Text>
-              Your art updated successfully. Your art will be listed in club page after being approved by editor. You
-              can see your pending arts in your{' '}
-              <Navigate fontWeight='semibold' color='blue.500' href='/profile'>
-                profile
-              </Navigate>
-            </Text>
+            <Text>{t`art.create.success.description`}</Text>
+            <Navigate as={Button} colorScheme='blue.500' href='/profile'>
+              {t`art.create.success.link`}
+            </Navigate>
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button onClick={onClose}>Dismiss</Button>
+            <Button onClick={onClose}>{t`dismiss`}</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
@@ -72,10 +69,10 @@ const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
 
 const schema = t =>
   yup.object({
-    locale: yup.string().required(t`art.create.form.require-locale`),
-    title: yup.string().required(t`art.create.form.require-title`),
-    description: yup.string().required(t`art.create.form.require-description`),
-    content: yup.string().required(t`art.create.form.require-content`),
+    locale: yup.string().required(t`art.create.form.locale-required`),
+    title: yup.string().required(t`art.create.form.title-required`),
+    description: yup.string().required(t`art.create.form.description-required`),
+    content: yup.string().required(t`art.create.form.content-required`),
   })
 
 // TODO Consider adding modal form instead of a new page
@@ -145,7 +142,7 @@ export const CreateArtForm = ({ auth }) => {
   return (
     <>
       <Button colorScheme='blue' leftIcon={<FaUpload />} onClick={formDisclosure.onOpen}>
-        {t`profile.upload-art`}
+        {t`art.upload`}
       </Button>
 
       {/* SUCCESS ALERT */}
@@ -161,7 +158,7 @@ export const CreateArtForm = ({ auth }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader bg='blue.500' color={'white'}>
-            {t`art.create.header`}
+            {t`art.upload`}
           </ModalHeader>
           <ModalCloseButton color={'white'} />
           <ModalBody pos='relative' py={6}>
@@ -178,8 +175,8 @@ export const CreateArtForm = ({ auth }) => {
                 <FileUploader setImages={setImages} images={images} />
                 <Stack spacing={4} as='form' onSubmit={handleSubmit(handleCreateArt)}>
                   <FormControl>
-                    <FormLabel htmlFor='locale' mb={2} mt={2} fontWeight={'600'}>
-                      {t`art.create.locale`}
+                    <FormLabel fontSize='sm' htmlFor='locale' mb={2} mt={2} fontWeight={'600'}>
+                      {t`language`}
                     </FormLabel>
                     <Select {...register('locale')} id='locale'>
                       <option value={'en'}>EN (English)</option>
@@ -187,10 +184,10 @@ export const CreateArtForm = ({ auth }) => {
                       <option value={'tr'}>TR (Türkçe)</option>
                     </Select>
                   </FormControl>
-                  <FormItem id='title' label={t`art.create.title`} isRequired errors={errors} register={register} />
+                  <FormItem id='title' label={t`title`} isRequired errors={errors} register={register} />
                   <FormItem
                     id='description'
-                    label={t`art.create.description`}
+                    label={t`description`}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -198,7 +195,7 @@ export const CreateArtForm = ({ auth }) => {
                   />
                   <FormItem
                     id='content'
-                    label={t`art.create.content`}
+                    label={t`content`}
                     as={Textarea}
                     isRequired
                     errors={errors}
@@ -206,7 +203,7 @@ export const CreateArtForm = ({ auth }) => {
                   />
                   <ButtonGroup alignSelf='end'>
                     <Button onClick={formDisclosure.onClose} mr={3}>
-                      Cancel
+                      {t`cancel`}
                     </Button>
                     <Button
                       isDisabled={!images || images?.length === 0 || !isValid}
@@ -214,7 +211,7 @@ export const CreateArtForm = ({ auth }) => {
                       colorScheme='blue'
                       rightIcon={<FaPlus />}
                     >
-                      Create
+                      {t`create`}
                     </Button>
                   </ButtonGroup>
                 </Stack>
@@ -224,14 +221,11 @@ export const CreateArtForm = ({ auth }) => {
             {/* ARTIST CONFIRMATION */}
             {!auth.user.artist && (
               <VStack spacing={8}>
-                <Text textAlign='center'>
-                  You need to be registered as artist in order to upload an art. Would you like to be registered as
-                  artist?
-                </Text>
+                <Text textAlign='center'>{t`art.create.artist-confirmation.text`}</Text>
                 <ButtonGroup>
-                  <Button onClick={onClose}>Cancel</Button>
+                  <Button onClick={formDisclosure.onClose}>{t`cancel`}</Button>
                   <Button colorScheme='blue' onClick={onCreateArtist}>
-                    Register as artist
+                    {t`art.create.artist-confirmation.button`}
                   </Button>
                 </ButtonGroup>
               </VStack>

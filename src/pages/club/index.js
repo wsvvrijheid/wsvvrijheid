@@ -65,7 +65,7 @@ const Club = ({ title }) => {
           </Box>
           <Stack spacing={4} flex={1} alignSelf='stretch'>
             <HStack>
-              <SearchForm placeholder={t`club.arts.search`} onSearch={setSearchTerm} />
+              <SearchForm placeholder={t`search`} onSearch={setSearchTerm} />
               <CreateArtForm auth={auth} />
             </HStack>
 

@@ -183,5 +183,41 @@
       "title": "Error",
       "description": "An error occured, please try again."
     }
+  },
+  "title": "Title",
+  "description": "Description",
+  "content": "Content",
+  "clear": "Clear",
+  "create": "Create",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "dismiss": "Dismiss",
+  "language": "Language",
+  "search": "Search",
+  "categories": "Categories",
+  "upload": {
+    "description": "Drag and drop or click to upload",
+    "support": "Supported formats: jpg, png, webp",
+    "label": "Upload"
+  },
+  "art": {
+    "upload": "Upload Art",
+    "create": {
+      "form": {
+        "locale-required": "You must select at least one language",
+        "title-required": "Title is required",
+        "description-required": "Description is required",
+        "content-required": "Content is required"
+      },
+      "success": {
+        "title": "Art successfully submitted",
+        "description": "Your art updated successfully. Your art will be listed in club page after being approved by editor. You can see your pending arts in your",
+        "link": "Go to my profile"
+      },
+      "artist-confirmation": {
+        "text": "You need to be registered as artist in order to upload an art. Would you like to be registered as artist?",
+        "button": "Register as artist"
+      }
+    }
   }
 }

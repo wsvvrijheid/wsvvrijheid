@@ -182,5 +182,41 @@
       "title": "Fout",
       "description": "Er is een fout opgetreden. Probeer het opnieuw."
     }
+  },
+  "title": "Titel",
+  "description": "Beschrijving",
+  "content": "Inhoud",
+  "clear": "Wissen",
+  "create": "Creëren",
+  "cancel": "Annuleren",
+  "edit": "Bewerken",
+  "dismiss": "Negeren",
+  "language": "Taal",
+  "search": "Zoeken",
+  "categories": "Categorieën",
+  "upload": {
+    "description": "Slepen en neerzetten of klikken om te uploaden",
+    "support": "Ondersteunde formaten: jpg, png, webp",
+    "label": "Upload"
+  },
+  "art": {
+    "upload": "Kunst Uploaden",
+    "create": {
+      "form": {
+        "locale-required": "U moet ten minste één taal selecteren",
+        "title-required": "Titel is vereist",
+        "description-required": "Beschrijving is vereist",
+        "content-required": "Inhoud is vereist"
+      },
+      "success": {
+        "title": "Uw kunst succesvol ingediend",
+        "description": "Uw kunst is geüpload. U kunst wordt weergegeven op de clubpagina na goedkeuring door de redacteur. U kunt je lopende kunsten zien in je",
+        "link": "Ga naar mijn profiel"
+      },
+      "artist-confirmation": {
+        "text": "Om een kunstwerk te kunnen uploaden, moet je geregistreerd zijn als artiest. Wilt u zich als artiest laten registreren?",
+        "button": "Registreer als artiest"
+      }
+    }
   }
 }
