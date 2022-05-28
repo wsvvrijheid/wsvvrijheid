@@ -2,23 +2,22 @@ import { withIronSessionSsr } from 'iron-session/next'
 import React from 'react'
 
 import { AuthenticatedUserProfile, Layout } from '~components'
+import { useAuth } from '~hooks'
 import { sessionOptions } from '~lib'
 
-const Profile = ({ user }) => {
-  return (
-    <Layout isDark>
-      <AuthenticatedUserProfile user={user} />
-    </Layout>
-  )
+const Profile = () => {
+  const auth = useAuth()
+
+  return <Layout isDark>{auth.user && <AuthenticatedUserProfile auth={auth} />}</Layout>
 }
 
 export default Profile
 
 export const getServerSideProps = withIronSessionSsr(async function ({ req, locale }) {
   const { serverSideTranslations } = require('next-i18next/serverSideTranslations')
-  const user = req.session.user
+  const auth = req.session
 
-  if (!user) {
+  if (!auth.user) {
     return {
       redirect: {
         permanent: false,
@@ -30,7 +29,6 @@ export const getServerSideProps = withIronSessionSsr(async function ({ req, loca
 
   return {
     props: {
-      user,
       ...(await serverSideTranslations(locale, ['common'])),
     },
   }

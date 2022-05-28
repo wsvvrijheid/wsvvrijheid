@@ -13,9 +13,10 @@ const loginRoute = async (req, res) => {
     })
 
     const token = response.data.jwt
+    const userId = response.data.user?.id
 
     if (token) {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me?populate=*`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}?populate=*`, {
         headers: { Authorization: `Bearer ${token}` },
       })
 
@@ -26,7 +27,8 @@ const loginRoute = async (req, res) => {
       res.json(auth)
     }
   } catch (error) {
-    console.error('error', error.response?.data)
+    console.error('error', error.response?.data || error)
+
     if (!error.response?.data?.error.message) {
       return res.status(500).json({ message: 'Internal server error' })
     } else {

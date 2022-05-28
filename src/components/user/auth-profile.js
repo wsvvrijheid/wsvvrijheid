@@ -1,18 +1,19 @@
 import { Avatar, Box, HStack, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
-import { FaPaintBrush } from 'react-icons/fa'
+import { FaPaintBrush, FaSpinner } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdRemoveModerator } from 'react-icons/md'
 import { useQuery } from 'react-query'
 
-import { ArtCard, Container, Hero } from '~components'
+import { ArtCard, Container, CreateArtForm, Hero } from '~components'
 import { request } from '~lib'
 
-export const AuthenticatedUserProfile = ({ user }) => {
+export const AuthenticatedUserProfile = ({ auth }) => {
   const { locale } = useRouter()
   const { t } = useTranslation()
+
+  const { user } = auth
 
   const { data } = useQuery({
     queryKey: ['arts', user.username],
@@ -23,14 +24,15 @@ export const AuthenticatedUserProfile = ({ user }) => {
         url: 'api/arts',
         locale,
         filters: {
-          artist: { user: { id: { $eq: user.id } } },
+          artist: { id: { $eq: user.artist?.id } },
         },
         populate: ['artist.user', 'images'],
       }),
   })
 
   const rejected = data?.result?.filter(art => art.status === 'rejected')
-  const approved = data?.result?.filter(art => art.status !== 'rejected')
+  const approved = data?.result?.filter(art => art.status === 'approved')
+  const pending = data?.result?.filter(art => art.status === 'pending')
 
   return (
     <>
@@ -42,28 +44,44 @@ export const AuthenticatedUserProfile = ({ user }) => {
             name={user.username}
           />
           <HStack justifyContent='center' alignItems={'center'} alignContent={'flex-end'} bg='transparent'>
-            <Text color={'white'}>{user.username}</Text>
+            <Text color={'white'}>{user.name || user.username}</Text>
           </HStack>
         </Stack>
       </Hero>
       <Container>
-        <Tabs isLazy my={4}>
-          <TabList>
-            <Tab fontWeight='semibold'>
-              <Box as={FaPaintBrush} mr={1} /> {t`profile.my-arts`}
-            </Tab>
-            <Tab fontWeight='semibold'>
-              <Box as={MdRemoveModerator} mr={1} /> {t`profile.my-rejected-arts`}
-            </Tab>
-            <Tab fontWeight='semibold'>
+        <Tabs isLazy my={4} overflowX='auto'>
+          <TabList overflowX='auto' minW='max-content' w='full'>
+            {user.artist && (
+              <>
+                <Tab fontWeight='semibold'>
+                  <Box as={FaPaintBrush} mr={1} /> {t`profile.approved-arts`}
+                </Tab>
+                <Tab fontWeight='semibold'>
+                  <Box as={FaSpinner} mr={1} /> {t`profile.pending-arts`}
+                </Tab>
+                <Tab fontWeight='semibold'>
+                  <Box as={MdRemoveModerator} mr={1} /> {t`profile.rejected-arts`}
+                </Tab>
+              </>
+            )}
+            <Tab ml='auto' fontWeight='semibold'>
               <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
             </Tab>
+            <CreateArtForm auth={auth} />
           </TabList>
           <TabPanels>
             {/* Approved arts */}
             <TabPanel px={0}>
               <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
                 {approved?.map(art => {
+                  return <ArtCard art={art} user={user} key={art.id} />
+                })}
+              </SimpleGrid>
+            </TabPanel>
+            {/* Pending arts */}
+            <TabPanel px={0}>
+              <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} gap={4}>
+                {pending?.map(art => {
                   return <ArtCard art={art} user={user} key={art.id} />
                 })}
               </SimpleGrid>
