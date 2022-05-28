@@ -1,15 +1,4 @@
-import {
-  Avatar,
-  Button,
-  DarkMode,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuGroup,
-  MenuItem,
-  MenuList,
-  Text,
-} from '@chakra-ui/react'
+import { Avatar, Button, DarkMode, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text } from '@chakra-ui/react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -56,7 +45,7 @@ export const ProfileMenu = ({ isDark, isScrolled, auth }) => {
     )
 
   return (
-    <Menu>
+    <Menu placement='bottom'>
       <MenuButton>
         <Avatar
           boxSize={{ base: 10, lg: 12 }}
@@ -65,13 +54,9 @@ export const ProfileMenu = ({ isDark, isScrolled, auth }) => {
         />
       </MenuButton>
       <MenuList>
-        <MenuItem>{auth.user.username}</MenuItem>
-        <MenuGroup title={t('profile.title')}>
-          <MenuItem as={Navigate} href={'/profile'}>
-            {t('profile.my-profile')}
-          </MenuItem>
-          <MenuItem>{t('profile.my-arts')}</MenuItem>
-        </MenuGroup>
+        <MenuItem as={Navigate} href={'/profile'}>
+          {t('profile.my-profile')}
+        </MenuItem>
         <MenuDivider />
         <MenuItem color='red.400' onClick={logOut}>
           <FiLogOut />

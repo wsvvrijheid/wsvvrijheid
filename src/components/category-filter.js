@@ -55,7 +55,7 @@ export const CategoryFilter = ({ categories = [] }) => {
 
   return (
     <Stack justify='stretch' w='full'>
-      <Text fontWeight='semibold'>Categories</Text>
+      <Text fontWeight='semibold'>{t`categories`}</Text>
       <Button
         isDisabled={!value[0]}
         colorScheme='orange'
