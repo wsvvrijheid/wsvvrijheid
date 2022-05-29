@@ -12,7 +12,6 @@ function CustomCheckbox(props) {
   return (
     <HStack
       as='label'
-      gridColumnGap={2}
       color={state.isChecked ? 'blue.500' : 'initial'}
       borderWidth={2}
       borderColor={state.isChecked ? 'blue.500' : 'transparent'}
@@ -26,8 +25,10 @@ function CustomCheckbox(props) {
       {...htmlProps}
     >
       <input {...getInputProps()} hidden />
-      <Avatar size='xs' name={props.title} />
-      <Text {...getLabelProps()}>{props.title}</Text>
+      <Avatar display={{ base: 'none', lg: 'block' }} size='xs' name={props.title} />
+      <Text w='max-content' {...getLabelProps()}>
+        {props.title}
+      </Text>
     </HStack>
   )
 }
@@ -54,19 +55,45 @@ export const CategoryFilter = ({ categories = [] }) => {
   }, [categoryCodes])
 
   return (
-    <Stack justify='stretch' w='full'>
-      <Text fontWeight='semibold'>{t`categories`}</Text>
+    <Stack
+      direction={{ base: 'row', lg: 'column' }}
+      justify='stretch'
+      w='full'
+      overflowX={{ base: 'auto', lg: 'hidden' }}
+    >
+      <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`categories`}</Text>
       <Button
         isDisabled={!value[0]}
         colorScheme='orange'
         rounded='full'
         h={12}
+        pr={{ base: 2, lg: 'initial' }}
         leftIcon={<RiFilterOffLine />}
         onClick={() => setValue([])}
       >
         {/* TODO Add translation */}
-        {t`clear`}
+        <Text display={{ base: 'none', lg: 'block' }}>{t`clear`}</Text>
       </Button>
+      {categories?.map(category => (
+        <CustomCheckbox
+          key={category.id}
+          {...getCheckboxProps({
+            id: category.id,
+            value: category.code,
+            title: category[`name_${router.locale}`],
+          })}
+        />
+      ))}
+      {categories?.map(category => (
+        <CustomCheckbox
+          key={category.id}
+          {...getCheckboxProps({
+            id: category.id,
+            value: category.code,
+            title: category[`name_${router.locale}`],
+          })}
+        />
+      ))}
       {categories?.map(category => (
         <CustomCheckbox
           key={category.id}
