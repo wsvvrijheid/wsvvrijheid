@@ -84,26 +84,6 @@ export const CategoryFilter = ({ categories = [] }) => {
           })}
         />
       ))}
-      {categories?.map(category => (
-        <CustomCheckbox
-          key={category.id}
-          {...getCheckboxProps({
-            id: category.id,
-            value: category.code,
-            title: category[`name_${router.locale}`],
-          })}
-        />
-      ))}
-      {categories?.map(category => (
-        <CustomCheckbox
-          key={category.id}
-          {...getCheckboxProps({
-            id: category.id,
-            value: category.code,
-            title: category[`name_${router.locale}`],
-          })}
-        />
-      ))}
     </Stack>
   )
 }
