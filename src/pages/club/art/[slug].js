@@ -35,7 +35,7 @@ const ArtPage = ({ seo }) => {
         ) : (
           <SimpleGrid pos='relative' mt={4} p={4} columns={{ base: 1, lg: 2 }} gap={4} alignItems='start'>
             {/* Single Art Images */}
-            <Box pos='sticky' top={0}>
+            <Box pos={{ lg: 'sticky' }} top={0}>
               <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
             </Box>
 

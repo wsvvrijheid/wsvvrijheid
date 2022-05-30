@@ -120,8 +120,10 @@
     "my-profile": "Profilim",
     "user-name": "Kullanıcı adı",
     "email": "E-posta",
-    "my-arts": "Eserlerim",
-    "my-rejected-arts": "Reddedilen Eserlerim",
+    "approved-arts": "Onaylanan Eserlerim",
+    "pending-arts": "Bekleyen Eserlerim",
+    "rejected-arts": "Reddedilen Eserlerim",
+    "upload-arts": "Eser Yükle",
     "general-settings": "Genel Ayarlar",
     "art": {
       "delete": {
@@ -179,6 +181,42 @@
     "error": {
       "title": "Hata",
       "description": "Bir hata oluştu, tekrar deneyiniz."
+    }
+  },
+  "title": "Başlık",
+  "description": "Açıklama",
+  "content": "İçerik",
+  "clear": "Temizle",
+  "create": "Oluştur",
+  "cancel": "Vazgeç",
+  "edit": "Düzenle",
+  "dismiss": "Kapat",
+  "language": "Dil",
+  "search": "Ara",
+  "categories": "Kategoriler",
+  "upload": {
+    "description": "Dosya yüklemek için sürükleyip bırakın ya da buraya tıklayın",
+    "support": "Desteklenen formatlar: jpg, png, webp",
+    "label": "Yükle"
+  },
+  "art": {
+    "upload": "Eser Yükle",
+    "create": {
+      "form": {
+        "locale-required": "Eserinizin dilini seçmelisiniz",
+        "title-required": "Başlık alanı zorunludur",
+        "description-required": "Açıklama alanı zorunludur",
+        "content-required": "İçerik alanı zorunludur"
+      },
+      "success": {
+        "title": "Eseriniz başarıyla oluşturuldu",
+        "description": "Eseriniz yüklendi. Eseriniz editör onayından sonra sayfada listelenecektir. Onay bekleyen eserlerinizi profil sayfanızda görebilirsiniz.",
+        "link": "Profil sayfasına git"
+      },
+      "artist-confirmation": {
+        "text": "Eser yükleyebilmek için sanatçı olarak kayıt yaptırmalısınız. Şimdi sanatçı olarak kayıt olmak ister misiniz?",
+        "button": "Sanatçı olarak kayıt ol"
+      }
     }
   }
 }
