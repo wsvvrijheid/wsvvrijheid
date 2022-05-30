@@ -1,26 +1,22 @@
-import { Box, Heading, Text, VStack } from '@chakra-ui/react'
+import { Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { AnimatedBox, ChakraNextImage, Container, Hero, Layout } from '~components'
+import { AnimatedBox, Container, Hero, Layout } from '~components'
 import { ABOUT_US } from '~data'
 
 const AboutUsBlock = props => {
-  const { directing = 'to-right', image, title, text } = props
+  const { image, title, text } = props
   return (
-    <VStack maxW='lg' align='stretch' overflow='hidden'>
-      <AnimatedBox directing={directing} delay={7}>
-        <ChakraNextImage h={250} image={image} />
-      </AnimatedBox>
+    <Stack align='center' textAlign='center' maxW='lg' overflow='hidden'>
+      <Image src={image} alt={title} w={200} />
 
-      <AnimatedBox directing='to-left' delay={5}>
-        <VStack align='stretch' p={4}>
-          <Heading as='h3' size='lg'>
-            {title}
-          </Heading>
-          <Text>{text}</Text>
-        </VStack>
-      </AnimatedBox>
-    </VStack>
+      <Stack p={4}>
+        <Heading as='h3' size='lg'>
+          {title}
+        </Heading>
+        <Text>{text}</Text>
+      </Stack>
+    </Stack>
   )
 }
 
@@ -29,18 +25,13 @@ export default function AboutUs({ title, content, seo }) {
     <Layout seo={seo} isDark>
       <Hero title={title} />
       <Container>
-        <VStack py={8} spacing={8} align='stretch' maxW='container.md' mx='auto'>
+        <SimpleGrid py={16} gap={8} columns={{ base: 1, lg: 3 }}>
           {content.map(({ title, description, image }, i) => (
-            <Box key={i} alignSelf={i % 2 === 0 ? 'start' : 'end'}>
-              <AboutUsBlock
-                title={title}
-                text={description}
-                image={image}
-                directing={i % 2 === 0 ? 'to-right' : 'to-left'}
-              />
-            </Box>
+            <AnimatedBox directing='to-down' delay={i * 3} key={i}>
+              <AboutUsBlock title={title} text={description} image={image} />
+            </AnimatedBox>
           ))}
-        </VStack>
+        </SimpleGrid>
       </Container>
     </Layout>
   )
