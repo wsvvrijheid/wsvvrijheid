@@ -26,6 +26,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -81,6 +82,8 @@ export const CreateArtForm = ({ auth }) => {
   const queryClient = useQueryClient()
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
+
+  const { locale } = useRouter()
 
   const { t } = useTranslation()
   const {
@@ -178,7 +181,7 @@ export const CreateArtForm = ({ auth }) => {
                     <FormLabel fontSize='sm' htmlFor='locale' mb={2} mt={2} fontWeight={'600'}>
                       {t`language`}
                     </FormLabel>
-                    <Select {...register('locale')} id='locale'>
+                    <Select defaultValue={locale} {...register('locale')} id='locale'>
                       <option value={'en'}>EN (English)</option>
                       <option value={'nl'}>NL (Nederlands)</option>
                       <option value={'tr'}>TR (Türkçe)</option>

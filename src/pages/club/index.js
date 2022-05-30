@@ -1,4 +1,4 @@
-import { Box, HStack, Stack, useUpdateEffect } from '@chakra-ui/react'
+import { Box, Grid, HStack, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -55,44 +55,61 @@ const Club = ({ title }) => {
     // create skeleton components for both the `MasonryGrid` and the `CategoryFilter`
     <Layout seo={{ title }}>
       <Container minH='inherit'>
-        <HStack py={8} align='start' spacing={8} minH='inherit'>
-          <Box w={200}>
+        <Grid
+          w='full'
+          gap={8}
+          py={8}
+          gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
+          gridTemplateAreas={{
+            lg: `
+              'filter search'
+              'filter list'
+              'filter pagination'
+            `,
+            base: `
+              'search search'
+              'filter filter'
+              'list list'
+              'pagination pagination'
+            `,
+          }}
+        >
+          <Box gridArea='filter'>
             {categoryQuery.isLoading || !categoryQuery.isFetched ? (
               Array.from({ length: 3 }).map((_, i) => <CategoryFilterSkeleton key={'category-filter-skeleton' + i} />)
             ) : (
               <CategoryFilter categories={categoryQuery.data} />
             )}
           </Box>
-          <Stack spacing={4} flex={1} alignSelf='stretch'>
-            <HStack>
-              <SearchForm placeholder={t`search`} onSearch={setSearchTerm} />
-              <CreateArtForm auth={auth} />
-            </HStack>
 
-            <Stack flex={1} justify='space-between' w='full'>
-              <MasonryGrid gap={4}>
-                {artsQuery.isLoading
-                  ? Array.from({ length: 12 }).map((_, i) => (
-                      <ArtCardSkeleton isMasonry key={'masonry-grid-skeleton' + i} />
-                    ))
-                  : artsQuery.data?.result.map(art => (
-                      // TODO Add link to navigate to the art page
-                      <ArtCard key={art.id} art={art} user={auth.user} isMasonry queryKey={queryKey} />
-                    ))}
-              </MasonryGrid>
+          <HStack gridArea='search'>
+            <SearchForm placeholder={t`search`} onSearch={setSearchTerm} />
+            <CreateArtForm auth={auth} />
+          </HStack>
 
-              {!artsQuery.isLoading && (
-                <Box alignSelf='center'>
-                  <Pagination
-                    pageCount={artsQuery.data?.pagination.pageCount}
-                    currentPage={+page}
-                    changeParam={() => changeParam({ page })}
-                  />
-                </Box>
-              )}
-            </Stack>
-          </Stack>
-        </HStack>
+          <Box gridArea='list'>
+            <MasonryGrid gap={4}>
+              {artsQuery.isLoading
+                ? Array.from({ length: 12 }).map((_, i) => (
+                    <ArtCardSkeleton isMasonry key={'masonry-grid-skeleton' + i} />
+                  ))
+                : artsQuery.data?.result.map(art => (
+                    // TODO Add link to navigate to the art page
+                    <ArtCard key={art.id} art={art} user={auth.user} isMasonry queryKey={queryKey} />
+                  ))}
+            </MasonryGrid>
+          </Box>
+
+          {!artsQuery.isLoading && (
+            <Box alignSelf='center' gridArea='pagination'>
+              <Pagination
+                pageCount={artsQuery.data?.pagination.pageCount}
+                currentPage={+page}
+                changeParam={() => changeParam({ page })}
+              />
+            </Box>
+          )}
+        </Grid>
       </Container>
     </Layout>
   )

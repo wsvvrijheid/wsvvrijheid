@@ -58,7 +58,9 @@ const Blog = ({ source, seo, link, blog, readingTime, blogs }) => {
       <Container maxW='container.md'>
         <Stack py={8} spacing={8}>
           <ChakraNextImage ratio='twitter' image={blog.image} rounded='lg' />
-          <Heading textAlign='center'>{blog.title}</Heading>
+          <Heading as='h1' textAlign='center'>
+            {blog.title}
+          </Heading>
           <BlogInfo blog={blog} link={link} readingTime={readingTime} />
 
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
@@ -113,7 +115,14 @@ export const getStaticProps = async context => {
     openGraph: {
       title,
       description,
+      type: 'article',
       url,
+      article: {
+        publishedTime: blog.publishedAt,
+        modifiedTime: blog.updatedAt,
+        authors: [blog.author.volunteer.name || blog.author.volunteer.username],
+        // TODO add tags
+      },
       images: image
         ? [
             {
