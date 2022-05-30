@@ -1,7 +1,9 @@
 import { Box, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react'
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
+import { useQuery } from 'react-query'
 
 import { ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
@@ -17,8 +19,12 @@ const ArtPage = ({ seo }) => {
 
   const artQuery = useGetArt(locale, slug)
 
-  // TODO fetch comments
-  // TODO fetch other arts in the same category
+  const commentsQuery = useQuery({
+    queryKey: ['comments', artQuery?.data?.id],
+    queryFn: () => axios(`https://api.samenvvv.nl/api/comments/api::art.art:${artQuery?.data?.id}`),
+  })
+
+  const comments = commentsQuery?.data?.data
 
   return (
     <Layout seo={seo}>
@@ -42,7 +48,7 @@ const ArtPage = ({ seo }) => {
                 <CommentForm user={user} />
 
                 {/*List comments of the current art */}
-                <CommentList comments={[]} />
+                <CommentList comments={comments} />
               </Stack>
             </Stack>
           </SimpleGrid>
@@ -76,7 +82,6 @@ export const getStaticProps = async context => {
   const queryClient = new QueryClient()
 
   // See: `useGetArt` (services/art/find-one.js)
-  // [arts, locale, slug]
   const queryKey = ['art', locale, params.slug]
 
   await queryClient.prefetchQuery({
