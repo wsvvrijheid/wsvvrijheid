@@ -11,6 +11,7 @@ export const styles = {
     iframe: {
       border: 'none',
       maxWidth: '100%',
+      maxHeight: '450px',
     },
   },
 }
