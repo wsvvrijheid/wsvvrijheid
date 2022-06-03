@@ -1,18 +1,14 @@
+import axios from 'axios'
 import { useQuery } from 'react-query'
 
-import { request } from '~lib'
+export const getArtComments = async id => {
+  const response = await axios(`https://api.samenvvv.nl/api/comments/api::art.art:${id}`)
 
-export const getArtComments = async ({ id }) => {
-  const response = await request({
-    url: `api/api::art.art:${id}`,
-  })
-
-  return response.result
+  return response.data
 }
 
-export const useArtComments = ({ id }) => {
-  return useQuery({
+export const useArtComments = id =>
+  useQuery({
     queryKey: ['art-comments', id],
-    queryFn: () => getArtComments({ id }),
+    queryFn: () => getArtComments(id),
   })
-}

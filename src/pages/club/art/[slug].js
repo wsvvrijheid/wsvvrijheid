@@ -1,13 +1,11 @@
 import { Box, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
-import { useQuery } from 'react-query'
 
 import { ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
-import { getArt, getArtPaths, useGetArt } from '~services'
+import { getArt, getArtPaths, useArtComments, useGetArt } from '~services'
 
 const ArtPage = ({ seo }) => {
   const { user } = useAuth()
@@ -18,13 +16,7 @@ const ArtPage = ({ seo }) => {
   } = useRouter()
 
   const artQuery = useGetArt(locale, slug)
-
-  const commentsQuery = useQuery({
-    queryKey: ['comments', artQuery?.data?.id],
-    queryFn: () => axios(`https://api.samenvvv.nl/api/comments/api::art.art:${artQuery?.data?.id}`),
-  })
-
-  const comments = commentsQuery?.data?.data
+  const commentsQuery = useArtComments(artQuery.data?.id)
 
   return (
     <Layout seo={seo}>
@@ -48,7 +40,8 @@ const ArtPage = ({ seo }) => {
                 <CommentForm user={user} />
 
                 {/*List comments of the current art */}
-                <CommentList comments={comments} />
+                {/* TODO Add CommentSkeleton */}
+                <CommentList comments={commentsQuery.data} />
               </Stack>
             </Stack>
           </SimpleGrid>
