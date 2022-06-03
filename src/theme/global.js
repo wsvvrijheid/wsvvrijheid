@@ -10,7 +10,7 @@ export const styles = {
     },
     iframe: {
       border: 'none',
-      maxWidth: '100%',
+      width: '100%',
       height: '450px',
     },
   },
