@@ -79,7 +79,7 @@ export default function Volunteers({ seo, volunteers, jobs }) {
 }
 
 export const getStaticProps = async context => {
-  const volunteers = await request({ url: 'api/volunteers' })
+  const volunteers = await request({ url: 'api/volunteers', filters: { approved: { $eq: true } } })
   const jobs = await request({ url: 'api/jobs' })
 
   const title = {
