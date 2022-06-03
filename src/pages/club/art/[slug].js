@@ -5,7 +5,7 @@ import { dehydrate, QueryClient } from 'react-query'
 
 import { ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
-import { getArt, getArtPaths, useGetArt } from '~services'
+import { getArt, getArtPaths, useArtComments, useGetArt } from '~services'
 
 const ArtPage = ({ seo }) => {
   const { user } = useAuth()
@@ -16,9 +16,7 @@ const ArtPage = ({ seo }) => {
   } = useRouter()
 
   const artQuery = useGetArt(locale, slug)
-
-  // TODO fetch comments
-  // TODO fetch other arts in the same category
+  const commentsQuery = useArtComments(artQuery.data?.id)
 
   return (
     <Layout seo={seo}>
@@ -42,7 +40,8 @@ const ArtPage = ({ seo }) => {
                 <CommentForm user={user} />
 
                 {/*List comments of the current art */}
-                <CommentList comments={[]} />
+                {/* TODO Add CommentSkeleton */}
+                <CommentList comments={commentsQuery.data} />
               </Stack>
             </Stack>
           </SimpleGrid>
@@ -76,7 +75,6 @@ export const getStaticProps = async context => {
   const queryClient = new QueryClient()
 
   // See: `useGetArt` (services/art/find-one.js)
-  // [arts, locale, slug]
   const queryKey = ['art', locale, params.slug]
 
   await queryClient.prefetchQuery({
