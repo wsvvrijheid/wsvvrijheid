@@ -7,10 +7,6 @@ import { Navigate } from '~components'
 export const Card = props => {
   const { title, description, image, link } = props
 
-  const vv = description.split('.')
-
-  console.log(vv[0])
-
   const { t } = useTranslation()
 
   return (
@@ -39,7 +35,7 @@ export const Card = props => {
           {title}
         </Heading>
         <Text fontSize='md' lineHeight='base' noOfLines={3}>
-          {description?.split('.')[0]}.
+          {description}
         </Text>
         <Spacer />
         <Box textAlign='center'>

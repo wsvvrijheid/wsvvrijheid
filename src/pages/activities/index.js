@@ -17,7 +17,7 @@ export default function Activities({ activities, query, title }) {
             <Card
               key={activity.id}
               title={activity.title}
-              description={activity.content}
+              description={activity.description}
               image={activity.image.url}
               link={`/${locale}/activities/${activity.slug}`}
               isExternal={false}
