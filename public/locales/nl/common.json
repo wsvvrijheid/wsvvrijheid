@@ -201,6 +201,7 @@
   },
   "art": {
     "upload": "Kunst Uploaden",
+    "others": "Andere Kunsten",
     "create": {
       "form": {
         "locale-required": "U moet ten minste één taal selecteren",

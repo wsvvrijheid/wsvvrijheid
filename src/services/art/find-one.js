@@ -2,25 +2,22 @@ import { useQuery } from 'react-query'
 
 import { request } from '~lib'
 
-export const getArtsByCategories = async (locale, categories, id) => {
-  console.log('categories', categories)
-  try {
-    const response = await request({
-      url: 'api/arts',
-      locale,
-      filters: {
-        categories: { code: { $in: categories } },
-        id: { $ne: id },
-      },
-      populate: ['artist.user.avatar', 'categories', 'images', 'likes'],
-      sort: 'publishedAt:desc',
-      pageSize: 4,
-    })
+import { getArtComments } from './comments'
 
-    return response?.result || []
-  } catch (error) {
-    console.log('error.respons', error.respons)
-  }
+export const getArtsByCategories = async (locale, categories, id) => {
+  const response = await request({
+    url: 'api/arts',
+    locale,
+    filters: {
+      categories: { code: { $in: categories } },
+      id: { $ne: id },
+    },
+    populate: ['artist.user.avatar', 'categories', 'images', 'likes'],
+    sort: 'publishedAt:desc',
+    pageSize: 4,
+  })
+
+  return response?.result || []
 }
 
 export const getArt = async (locale, slug) => {
@@ -41,7 +38,9 @@ export const getArt = async (locale, slug) => {
     art.id,
   )
 
-  return { ...art, arts }
+  const comments = await getArtComments(art.id)
+
+  return { ...art, arts, comments }
 }
 
 export const useGetArt = (locale, slug) =>
