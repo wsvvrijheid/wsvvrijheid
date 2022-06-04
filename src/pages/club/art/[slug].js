@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Box, Center, Grid, Heading, SimpleGrid, Spinner, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -22,26 +22,33 @@ const ArtPage = ({ seo }) => {
   return (
     <Layout seo={seo}>
       <Container minH='inherit' my={8}>
-        <Grid pos='relative' gridTemplateColumns={{ base: '1fr', lg: '3fr 2fr' }} gap={4} alignItems='start'>
-          {/* Single Art Images */}
-          <Box pos={{ lg: 'sticky' }} top={0}>
-            <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
-          </Box>
+        {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
+        {artQuery.isLoading ? (
+          <Center minH='inherit'>
+            <Spinner />
+          </Center>
+        ) : (
+          <Grid pos='relative' gridTemplateColumns={{ base: '1fr', lg: '3fr 2fr' }} gap={4} alignItems='start'>
+            {/* Single Art Images */}
+            <Box pos={{ lg: 'sticky' }} top={0}>
+              <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
+            </Box>
 
-          <Stack spacing={4}>
-            {/* Single Art Content */}
-            <ArtContent art={artQuery.data} />
-            {/* Single Art Comments */}
             <Stack spacing={4}>
-              {/*  Comment form */}
-              <CommentForm user={user} />
+              {/* Single Art Content */}
+              <ArtContent art={artQuery.data} />
+              {/* Single Art Comments */}
+              <Stack spacing={4}>
+                {/*  Comment form */}
+                <CommentForm user={user} />
 
-              {/*List comments of the current art */}
-              {/* TODO Add CommentSkeleton */}
-              <CommentList comments={artQuery.data?.comments} />
+                {/*List comments of the current art */}
+                {/* TODO Add CommentSkeleton */}
+                <CommentList comments={artQuery.data?.comments} />
+              </Stack>
             </Stack>
-          </Stack>
-        </Grid>
+          </Grid>
+        )}
 
         {/* Other Arts List */}
         {artQuery.data?.arts?.length > 0 && (
