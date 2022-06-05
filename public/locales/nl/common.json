@@ -7,6 +7,12 @@
   "projects": "Projecten",
   "all": "Alle",
   "error": "Fout",
+  "wsvvrijheid": {
+    "management": "Bestuur",
+    "chairman": "Voorzitter",
+    "treasurer": "Penningmeester",
+    "secretary": "Secretaris"
+  },
   "home": {
     "justice": "Dit is een schaal van menselijkheid. Ons doel is om de rechten van de mensen van de wereld te verdedigen, ongeacht religie, taal, ras, kleur, in de schaduw van vrede. De wereld is gelijk aan mensen, mensen zijn gelijk aan de wereld. Als de balans wordt geschud en de waarde die aan mensen wordt gegeven licht blijft, zal de wereld op het hoofd van de mensen in deze balansschaal instorten. Maar als de waarde die aan de mens wordt gegeven, dan wordt de mens de kroon van de wereld. Samen leven en humanly is gelukkiger en zinvoller met deze balans.",
     "hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten.",

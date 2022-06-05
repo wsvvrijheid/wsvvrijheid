@@ -39,7 +39,6 @@ const Contact = ({ seo }) => {
                 >
                   +31-6 85221308
                 </Button>
-
                 <Button
                   as={Link}
                   isExternal
@@ -70,25 +69,23 @@ const Contact = ({ seo }) => {
               <Stack w='full' spacing={4}>
                 <Stack w='full'>
                   <Text color='blue.200' fontWeight='semibold'>
-                    Yonetim Kurulu
+                    {t('wsvvrijheid.management')}
                   </Text>
                   <Wrap justify='space-around' spacing={4}>
                     <Box>
-                      <Text fontSize='sm'>Baskan</Text>
-                      <Text>Davut Dur</Text>
+                      <Text fontSize='sm'> {t('wsvvrijheid.chairman')}</Text>
+                      <Text>Sümeyye Ateş</Text>
                     </Box>
                     <Box>
-                      <Text fontSize='sm'>Sayman</Text>
-                      <Text>Ibrahim Ataman</Text>
+                      <Text fontSize='sm'>{t('wsvvrijheid.treasurer')}</Text>
+                      <Text>Davut Dur</Text>
                     </Box>
                   </Wrap>
                 </Stack>
-
                 <Divider borderColor='whiteAlpha.400' />
-
                 <Wrap justify='space-around' fontSize='sm' textAlign='left'>
-                  <Text>KVK: </Text>
-                  <Text>RSIN: </Text>
+                  <Text>KVK: 85680621</Text>
+                  <Text>RSIN: 863705571 </Text>
                 </Wrap>
               </Stack>
             </VStack>

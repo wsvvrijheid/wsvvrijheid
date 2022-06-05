@@ -163,10 +163,11 @@ const VolunteersJoin = ({ title, projects, jobs }) => {
 
       const heardFrom = mapObjToString(data.heardFrom || {}).join(', ')
       const jobs = mapObjToString(data.jobs)
-
+      console.log('data', data)
       mutate(
         {
           ...data,
+          name: data.fullname,
           username: Math.floor(Math.random() * 10 ** 6).toString(),
           availableHours,
           heardFrom,

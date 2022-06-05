@@ -103,5 +103,6 @@ export const getStaticProps = async context => {
       jobs: jobsResponse.result,
       seo,
     },
+    revalidate: 120,
   }
 }
