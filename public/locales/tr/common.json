@@ -45,8 +45,7 @@
       "message-required": "Mesaj alanı boş olamaz.",
       "message-delivered": "Teşekkür ederiz. Mesajınız iletildi.",
       "failed": "Oops. Birşeyler yanlış gitti, lütfen tekrar deneyin.",
-      "button": "Gönder",
-      "contactOnWhatsApp": "Bizimle WhatsApptan iletişime geçin"
+      "button": "Gönder"
     }
   },
   "subpage": {
