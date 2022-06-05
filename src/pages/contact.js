@@ -22,8 +22,8 @@ const Contact = ({ seo }) => {
               justify='center'
               spacing={8}
             >
-              <Heading textTransform='uppercase' fontWeight='black' as='h2' size='lg' color='blue.200'>
-                Stichting <br /> Wees de Stem voor Vrijheid
+              <Heading fontWeight='black' as='h2' size='lg' color='blue.200'>
+                STICHTING <br /> WEES DE STEM VOOR VRIJHEID
               </Heading>
               <Divider borderColor='whiteAlpha.400' />
 
@@ -93,11 +93,12 @@ const Contact = ({ seo }) => {
               </Stack>
             </VStack>
 
-            <Stack rounded='lg' p={{ base: 8, lg: 16 }} shadow='lg'>
+            <Stack rounded='lg' p={{ base: 8, lg: 16 }} shadow='lg' spacing={4}>
               <Stack>
-                <Heading>{t('contact.title')}</Heading>
-                <Text>{t('contact.fill-form')}</Text>
+                <Heading size='lg'>{t('contact.title')}</Heading>
+                <Text fontSize='sm'>{t('contact.fill-form')}</Text>
               </Stack>
+              <Divider />
               <ContactForm />
             </Stack>
           </SimpleGrid>
