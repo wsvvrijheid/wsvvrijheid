@@ -1,12 +1,13 @@
 import { Box, Button, Center, Heading, Spinner, Stack } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
+import { useTranslation } from 'react-i18next'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 
 import { ChakraNextImage, Container, Layout, Markdown, Navigate } from '~components'
 import { getProject, getProjectPaths } from '~services'
-
 const ProjectDetailPage = ({ seo, source, image, link }) => {
+  const { t } = useTranslation()
   if (!source) return <Spinner />
 
   return (
@@ -21,7 +22,7 @@ const ProjectDetailPage = ({ seo, source, image, link }) => {
           <Center>
             {!!link && (
               <Navigate href={link} as={Button} colorScheme='blue' size='lg' rightIcon={<FaExternalLinkAlt />}>
-                {seo.title}
+                {t('visit-website')}
               </Navigate>
             )}
           </Center>
