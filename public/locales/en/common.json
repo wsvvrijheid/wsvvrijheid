@@ -202,6 +202,7 @@
   },
   "art": {
     "upload": "Upload Art",
+    "others": "Other Arts",
     "create": {
       "form": {
         "locale-required": "You must select at least one language",

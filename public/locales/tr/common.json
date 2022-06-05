@@ -201,6 +201,7 @@
   },
   "art": {
     "upload": "Eser Yükle",
+    "others": "Diğer Eserler",
     "create": {
       "form": {
         "locale-required": "Eserinizin dilini seçmelisiniz",

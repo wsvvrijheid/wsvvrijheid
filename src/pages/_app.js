@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
@@ -12,13 +12,9 @@ import { theme } from '~theme'
 import { getDefaultSeo, pageview } from '~utils'
 
 function MyApp({ Component, pageProps }) {
-  const queryClientRef = useRef()
+  const [queryClient] = useState(() => new QueryClient())
   const { locale } = useRouter()
   const router = useRouter()
-
-  if (!queryClientRef.current) {
-    queryClientRef.current = new QueryClient()
-  }
 
   useEffect(() => {
     const handleRouteChange = url => pageview(url)
@@ -28,7 +24,7 @@ function MyApp({ Component, pageProps }) {
   }, [router.events])
 
   return (
-    <QueryClientProvider client={queryClientRef.current}>
+    <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <ChakraProvider theme={theme}>
           <DefaultSeo {...getDefaultSeo(locale)} />

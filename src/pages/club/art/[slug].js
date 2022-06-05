@@ -1,14 +1,16 @@
-import { Box, SimpleGrid, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Box, Center, Grid, Heading, SimpleGrid, Spinner, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
+import { ArtCard, ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
-import { getArt, getArtPaths, useArtComments, useGetArt } from '~services'
+import { getArt, getArtPaths, useGetArt } from '~services'
 
 const ArtPage = ({ seo }) => {
   const { user } = useAuth()
+  const { t } = useTranslation()
 
   const {
     query: { slug },
@@ -16,16 +18,17 @@ const ArtPage = ({ seo }) => {
   } = useRouter()
 
   const artQuery = useGetArt(locale, slug)
-  const commentsQuery = useArtComments(artQuery.data?.id)
 
   return (
     <Layout seo={seo}>
-      <Container minH='inherit'>
+      <Container minH='inherit' my={8}>
         {/* TODO Create skeleton components for ArtDetail ArtContent and Comments */}
         {artQuery.isLoading ? (
-          <Spinner />
+          <Center minH='inherit'>
+            <Spinner />
+          </Center>
         ) : (
-          <SimpleGrid pos='relative' mt={4} p={4} columns={{ base: 1, lg: 2 }} gap={4} alignItems='start'>
+          <Grid pos='relative' gridTemplateColumns={{ base: '1fr', lg: '3fr 2fr' }} gap={4} alignItems='start'>
             {/* Single Art Images */}
             <Box pos={{ lg: 'sticky' }} top={0}>
               <ArtDetail art={artQuery.data} slug={slug} locale={locale} />
@@ -41,20 +44,26 @@ const ArtPage = ({ seo }) => {
 
                 {/*List comments of the current art */}
                 {/* TODO Add CommentSkeleton */}
-                <CommentList comments={commentsQuery.data} />
+                <CommentList comments={artQuery.data?.comments} />
               </Stack>
             </Stack>
-          </SimpleGrid>
+          </Grid>
         )}
-        {/* TODO Translate */}
-        <Text>More Like This</Text>
 
         {/* Other Arts List */}
-        <Stack justify='space-between' w='full'>
-          {/* TODO Create list of other arts which have the same categories as the current art 
-          We don't need to show the current art in the list, please filter it out.
-          Remember adding list of ArtCardSkeleton for loading state. */}
-        </Stack>
+        {artQuery.data?.arts?.length > 0 && (
+          <Stack justify='space-between' w='full' mt={8} spacing={8}>
+            <Heading as='h3' size='lg'>
+              {t`art.others`}
+            </Heading>
+            {/* TODO Add ArtCardSkeleton for loading state. */}
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={8}>
+              {artQuery.data?.arts.map(art => (
+                <ArtCard key={art.id} art={art} />
+              ))}
+            </SimpleGrid>
+          </Stack>
+        )}
       </Container>
     </Layout>
   )
@@ -75,6 +84,7 @@ export const getStaticProps = async context => {
   const queryClient = new QueryClient()
 
   // See: `useGetArt` (services/art/find-one.js)
+  // [art, locale, slug]
   const queryKey = ['art', locale, params.slug]
 
   await queryClient.prefetchQuery({
@@ -101,5 +111,6 @@ export const getStaticProps = async context => {
       seo,
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 120,
   }
 }
