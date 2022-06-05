@@ -23,7 +23,7 @@ export const ProjectsList = ({ projects }) => {
             <Text fontSize='sm'>{p[`description_${locale}`]}</Text>
             <Spacer />
 
-            <Navigate href={`/${locale}/projects/${p.code}`}>
+            <Navigate href={`/${locale}/platforms/${p.code}`}>
               <Button rightIcon={<FaChevronRight />} variant='link' colorScheme='blue'>
                 {t`read-more`}
               </Button>
