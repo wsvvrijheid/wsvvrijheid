@@ -27,12 +27,11 @@ const ArtistPage = ({ title }) => {
           <Avatar
             size='lg'
             src={`${process.env.NEXT_PUBLIC_API_URL}${
-              artist?.user.data.attributes.avatar?.data.attributes.formats.thumbnail.url ||
-              artist?.user.data.attributes.avatar?.data.attributes.url
+              artist?.user.avatar?.formats.thumbnail.url || artist?.user.avatar?.data.url
             }`}
-            name={artist?.user.data.attributes.username}
+            name={artist?.user.username}
           />
-          <Text color={'white'}>{artist?.user.data.attributes.username}</Text>
+          <Text color={'white'}>{artist?.user.username}</Text>
         </Stack>
       </Hero>
       <Container>
