@@ -155,7 +155,8 @@
       "required": "Email field is required"
     },
     "phone": {
-      "input": "Phone"
+      "input": "Phone",
+      "required": "Phone field is required"
     },
     "available-hours": {
       "input": "Weekly Available hours",

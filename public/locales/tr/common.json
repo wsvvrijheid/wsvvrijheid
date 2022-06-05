@@ -154,7 +154,8 @@
       "required": "Eposta alanı zorunludur"
     },
     "phone": {
-      "input": "Telefon"
+      "input": "Telefon",
+      "required": "Telefon alanı zorunludur"
     },
     "available-hours": {
       "input": "Haftalık müsait saat sayısı",

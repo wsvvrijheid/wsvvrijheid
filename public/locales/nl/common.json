@@ -154,7 +154,8 @@
       "required": "E-mailveld is verplicht"
     },
     "phone": {
-      "input": "Telefoonnummer"
+      "input": "Telefoonnummer",
+      "required": "Telefoonnummerveld is verplicht"
     },
     "available-hours": {
       "input": "Wekelijks beschikbare uren",
