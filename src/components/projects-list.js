@@ -12,7 +12,7 @@ export const ProjectsList = ({ projects }) => {
   return (
     <Stack spacing={8}>
       {projects.map(p => (
-        <HStack key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
+        <HStack align='start' key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
           {/* TODO Create image component to handle internal/external image paths */}
           <Avatar size='2xl' src={process.env.NEXT_PUBLIC_API_URL + p.image.url} />
           <Stack align='start'>
