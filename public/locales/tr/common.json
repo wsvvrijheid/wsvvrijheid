@@ -5,7 +5,8 @@
   "prev": "Önceki",
   "event": "Etkinlik",
   "news": "Haber",
-  "projects": "Projeler",
+  "projects": "Platformlar",
+  "visit-website": "Web sitesini ziyaret et",
   "all": "Tümü",
   "wsvvrijheid": {
     "management": "Yönetim",
@@ -190,6 +191,7 @@
     }
   },
   "title": "Başlık",
+  "author": "Yazar",
   "description": "Açıklama",
   "content": "İçerik",
   "clear": "Temizle",

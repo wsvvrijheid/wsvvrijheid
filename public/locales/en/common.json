@@ -5,7 +5,8 @@
   "prev": "Previous",
   "event": "Event",
   "news": "News",
-  "projects": "Projects",
+  "visit-website": "Visit Website",
+  "projects": "Platforms",
   "error": "Error",
   "all": "All",
   "wsvvrijheid": {
@@ -191,6 +192,7 @@
     }
   },
   "title": "Title",
+  "author": "Author",
   "description": "Description",
   "content": "Content",
   "clear": "Clear",

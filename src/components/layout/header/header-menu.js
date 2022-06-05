@@ -6,18 +6,18 @@ export const HEADER_MENU = [
   activity,
   {
     en: {
-      label: ' Projects',
-      link: '/projects',
+      label: ' Platforms',
+      link: '/platforms',
       children: [lotus.en, artStop.en, samenvvv.en, academy.en],
     },
     nl: {
-      label: ' Projecten',
-      link: '/projects',
+      label: ' Platforms',
+      link: '/platforms',
       children: [lotus.nl, artStop.nl, samenvvv.nl, academy.nl],
     },
     tr: {
-      label: ' Projeler',
-      link: '/projects',
+      label: ' Platformlar',
+      link: '/platforms',
       children: [lotus.tr, artStop.tr, samenvvv.tr, academy.tr],
     },
   },

@@ -4,7 +4,8 @@
   "next": "Volgende",
   "prev": "Vorige",
   "event": "Evenement",
-  "projects": "Projecten",
+  "projects": "Platforms",
+  "visit-website": "Bezoek Website",
   "all": "Alle",
   "error": "Fout",
   "wsvvrijheid": {
@@ -190,6 +191,7 @@
     }
   },
   "title": "Titel",
+  "author": "Auteur",
   "description": "Beschrijving",
   "content": "Inhoud",
   "clear": "Wissen",
