@@ -190,6 +190,7 @@
     }
   },
   "title": "Başlık",
+  "author": "Yazar",
   "description": "Açıklama",
   "content": "İçerik",
   "clear": "Temizle",

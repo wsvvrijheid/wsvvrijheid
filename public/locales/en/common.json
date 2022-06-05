@@ -191,6 +191,7 @@
     }
   },
   "title": "Title",
+  "author": "Author",
   "description": "Description",
   "content": "Content",
   "clear": "Clear",
