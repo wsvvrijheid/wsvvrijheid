@@ -1,9 +1,10 @@
 import { Avatar, Button, Heading, HStack, Spacer, Stack, Text } from '@chakra-ui/react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { FaChevronRight } from 'react-icons/fa'
+
+import { Navigate } from './shared/navigate'
 
 export const ProjectsList = ({ projects }) => {
   const { t } = useTranslation()
@@ -12,7 +13,7 @@ export const ProjectsList = ({ projects }) => {
   return (
     <Stack spacing={8}>
       {projects.map(p => (
-        <HStack key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
+        <HStack align='start' key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
           {/* TODO Create image component to handle internal/external image paths */}
           <Avatar size='2xl' src={process.env.NEXT_PUBLIC_API_URL + p.image.url} />
           <Stack align='start'>
@@ -21,11 +22,12 @@ export const ProjectsList = ({ projects }) => {
             </Heading>
             <Text fontSize='sm'>{p[`description_${locale}`]}</Text>
             <Spacer />
-            <Link href={''} passHref>
-              <Button rightIcon={<FaChevronRight />} variant='link' rel='noopener noreferrer' colorScheme='blue'>
+
+            <Navigate href={`/${locale}/projects/${p.code}`}>
+              <Button rightIcon={<FaChevronRight />} variant='link' colorScheme='blue'>
                 {t`read-more`}
               </Button>
-            </Link>
+            </Navigate>
           </Stack>
         </HStack>
       ))}
