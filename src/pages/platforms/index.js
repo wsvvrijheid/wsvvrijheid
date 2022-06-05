@@ -19,7 +19,7 @@ export default function Projects({ title, projects }) {
               title={project[`name_${locale}`]}
               description={project[`description_${locale}`]}
               image={project.image.url}
-              link={`/${locale}/projects/${project.code}`}
+              link={`/${locale}/platforms/${project.code}`}
             />
           ))}
         </SimpleGrid>
@@ -34,9 +34,9 @@ export const getStaticProps = async context => {
 
   const seo = {
     title: {
-      en: 'Projects',
-      nl: 'Projecten',
-      tr: 'Projeler',
+      en: 'Platforms',
+      nl: 'Platforms',
+      tr: 'Platformlar',
     },
   }
   return {

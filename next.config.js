@@ -77,12 +77,12 @@ const nextConfig = {
       },
       {
         source: '/nl/projecten',
-        destination: '/nl/projects',
+        destination: '/nl/platforms',
         locale: false,
       },
       {
         source: '/tr/projeler',
-        destination: '/tr/projects',
+        destination: '/tr/platforms',
         locale: false,
       },
       {

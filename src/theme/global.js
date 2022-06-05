@@ -8,5 +8,10 @@ export const styles = {
       fontSize: { base: 'md', lg: 'lg' },
       lineHeight: 1.5,
     },
+    iframe: {
+      border: 'none',
+      width: '100%',
+      height: '450px',
+    },
   },
 }

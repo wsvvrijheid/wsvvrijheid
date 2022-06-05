@@ -5,8 +5,15 @@
   "prev": "Önceki",
   "event": "Etkinlik",
   "news": "Haber",
-  "projects": "Projeler",
+  "projects": "Platformlar",
+  "visit-website": "Web sitesini ziyaret et",
   "all": "Tümü",
+  "wsvvrijheid": {
+    "management": "Yönetim",
+    "chairman": "Başkan",
+    "treasurer": "Sayman",
+    "secretary": "Sekreter"
+  },
   "error": "Hata",
   "home": {
     "justice": "Bu bir insanlık terazisi. Amacımız barışın gölgesinde dini dili ırkı rengi farketmeksizin dünya insanının haklarını savunmak. Dünya eşittir insan, insan eşittir dünya demek. Denge sarsılıp insana verilen değer hafif kalırsa bu denge terazisinde  dünya insanın başına yıkılır. Ama insana verilen değer ağır basarsa o vakit insan dünyanın baş tacı olur. Birlikte ve insanca yaşam bu dengeyle daha mutlu daha anlamlı.",
@@ -45,8 +52,7 @@
       "message-required": "Mesaj alanı boş olamaz.",
       "message-delivered": "Teşekkür ederiz. Mesajınız iletildi.",
       "failed": "Oops. Birşeyler yanlış gitti, lütfen tekrar deneyin.",
-      "button": "Gönder",
-      "contactOnWhatsApp": "Bizimle WhatsApptan iletişime geçin"
+      "button": "Gönder"
     }
   },
   "subpage": {
@@ -154,7 +160,8 @@
       "required": "Eposta alanı zorunludur"
     },
     "phone": {
-      "input": "Telefon"
+      "input": "Telefon",
+      "required": "Telefon alanı zorunludur"
     },
     "available-hours": {
       "input": "Haftalık müsait saat sayısı",
@@ -184,6 +191,7 @@
     }
   },
   "title": "Başlık",
+  "author": "Yazar",
   "description": "Açıklama",
   "content": "İçerik",
   "clear": "Temizle",
@@ -201,6 +209,7 @@
   },
   "art": {
     "upload": "Eser Yükle",
+    "others": "Diğer Eserler",
     "create": {
       "form": {
         "locale-required": "Eserinizin dilini seçmelisiniz",

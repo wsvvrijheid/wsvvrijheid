@@ -5,15 +5,15 @@ const { activity, about, contact, donate, lotus, artStop, samenvvv, academy, ter
 export const FOOTER_MENU = [
   {
     en: {
-      label: 'Projects',
+      label: 'Platforms',
       children: [lotus.en, artStop.en, samenvvv.en, academy.en],
     },
     nl: {
-      label: 'Projecten',
+      label: 'Platorms',
       children: [lotus.nl, artStop.nl, samenvvv.nl, academy.nl],
     },
     tr: {
-      label: 'Projeler',
+      label: 'Platformlar',
       children: [lotus.tr, artStop.tr, samenvvv.tr, academy.tr],
     },
   },

@@ -1,16 +1,16 @@
 {
   "project": {
     "en": {
-      "label": "Projects",
-      "link": "/projects"
+      "label": "Platforms",
+      "link": "/platforms"
     },
     "nl": {
-      "label": "Projecten",
-      "link": "/projecten"
+      "label": "Platforms",
+      "link": "/platforms"
     },
     "tr": {
-      "label": "Projeler",
-      "link": "/projeler"
+      "label": "Platformlar",
+      "link": "/platformlar"
     }
   },
   "activity": {
@@ -30,57 +30,57 @@
   "lotus": {
     "en": {
       "label": "Lotus van de Media",
-      "link": "/projects/lotus"
+      "link": "/platforms/lotus"
     },
     "nl": {
       "label": "Lotus van de Media",
-      "link": "/projects/lotus"
+      "link": "/platforms/lotus"
     },
     "tr": {
       "label": "Lotus van de Media",
-      "link": "/projects/lotus"
+      "link": "/platforms/lotus"
     }
   },
   "artStop": {
     "en": {
       "label": "Art Stop",
-      "link": "/projects/art-stop"
+      "link": "/platforms/art-stop"
     },
     "nl": {
       "label": "Kunsthalte",
-      "link": "/projects/art-stop"
+      "link": "/platforms/art-stop"
     },
     "tr": {
       "label": "Sanat Durağı",
-      "link": "/projects/art-stop"
+      "link": "/platforms/art-stop"
     }
   },
   "samenvvv": {
     "en": {
       "label": "Samenvvv",
-      "link": "/projects/samenvvv"
+      "link": "/platforms/samenvvv"
     },
     "nl": {
       "label": "Samenvvv",
-      "link": "/projects/samenvvv"
+      "link": "/platforms/samenvvv"
     },
     "tr": {
       "label": "Samenvvv",
-      "link": "/projects/samenvvv"
+      "link": "/platforms/samenvvv"
     }
   },
   "academy": {
     "en": {
       "label": "Academy",
-      "link": "/projects/academy"
+      "link": "/platforms/academy"
     },
     "nl": {
       "label": "Academie",
-      "link": "/projects/academy"
+      "link": "/platforms/academy"
     },
     "tr": {
       "label": "Akademi",
-      "link": "/projects/academy"
+      "link": "/platforms/academy"
     }
   },
   "blog": {

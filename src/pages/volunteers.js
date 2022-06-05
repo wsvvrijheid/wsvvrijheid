@@ -7,15 +7,18 @@ import { useTranslation } from 'react-i18next'
 
 import { Container, Hero, Layout, UserCard } from '~components'
 import { request } from '~lib'
+import { useVolunteers } from '~services'
 
 export default function Volunteers({ seo, volunteers, jobs }) {
   const [state, setState] = useState()
   const { t } = useTranslation()
   const { locale } = useRouter()
 
+  const volunteersQuery = useVolunteers(volunteers)
+
   const data = useMemo(
-    () => volunteers.result?.filter(user => (state ? user.jobs?.some(j => j.code === state) : true)),
-    [state, volunteers.result],
+    () => volunteersQuery.data?.filter(user => (state ? user.jobs?.some(j => j.code === state) : true)),
+    [state, volunteersQuery.data],
   )
 
   return (
@@ -27,7 +30,7 @@ export default function Volunteers({ seo, volunteers, jobs }) {
             <RadioGroup onChange={setState}>
               <Stack spacing={4} justify='center'>
                 <Radio value=''>{t`all`}</Radio>
-                {jobs.result.map(job => (
+                {jobs.map(job => (
                   <Radio key={job.code} value={job.code}>
                     {job[`name_${locale}`]}
                   </Radio>
@@ -63,6 +66,7 @@ export default function Volunteers({ seo, volunteers, jobs }) {
                   transition='all 0.5s ease'
                   bg='white'
                   _groupHover={{ bg: 'blue.100' }}
+                  textAlign='center'
                 >
                   {t`joinTheTeam`}
                 </Center>
@@ -79,8 +83,8 @@ export default function Volunteers({ seo, volunteers, jobs }) {
 }
 
 export const getStaticProps = async context => {
-  const volunteers = await request({ url: 'api/volunteers' })
-  const jobs = await request({ url: 'api/jobs' })
+  const volunteersResponse = await request({ url: 'api/volunteers', filters: { approved: { $eq: true } } })
+  const jobsResponse = await request({ url: 'api/jobs' })
 
   const title = {
     en: 'Volunteers',
@@ -95,9 +99,10 @@ export const getStaticProps = async context => {
   return {
     props: {
       ...(await serverSideTranslations(context.locale, ['common'])),
-      volunteers,
-      jobs,
+      volunteers: volunteersResponse.result,
+      jobs: jobsResponse.result,
       seo,
     },
+    revalidate: 120,
   }
 }

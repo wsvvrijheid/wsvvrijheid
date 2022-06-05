@@ -5,7 +5,7 @@ export const useScroll = () => {
 
   useEffect(() => {
     const onScrolled = () => {
-      if (window.scrollY > 100) setIsScrolled(true)
+      if (window.scrollY > 50) setIsScrolled(true)
       else setIsScrolled(false)
     }
 

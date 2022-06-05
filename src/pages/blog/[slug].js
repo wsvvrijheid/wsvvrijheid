@@ -1,6 +1,7 @@
 import { Box, Heading, HStack, Icon, IconButton, SimpleGrid, Spinner, Stack, Text, Wrap } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
+import { useTranslation } from 'react-i18next'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
@@ -52,6 +53,7 @@ const BlogInfo = ({ blog, link, readingTime }) => {
 }
 
 const Blog = ({ source, seo, link, blog, readingTime, blogs }) => {
+  const { t } = useTranslation()
   if (!blog) return <Spinner />
   return (
     <Layout seo={seo}>
@@ -65,7 +67,9 @@ const Blog = ({ source, seo, link, blog, readingTime, blogs }) => {
 
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
             <Markdown source={source} />
-            <Text>{blog.author.volunteer.name}</Text>
+            <Text>
+              {t('author')}: {blog.author.volunteer.name}
+            </Text>
           </Box>
           <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2 }}>
             {blogs.map((blog, idx) => (

@@ -34,7 +34,7 @@ export const Card = props => {
         >
           {title}
         </Heading>
-        <Text fontSize='md' lineHeight='base'>
+        <Text fontSize='md' lineHeight='base' noOfLines={3}>
           {description}
         </Text>
         <Spacer />
