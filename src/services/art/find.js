@@ -29,6 +29,12 @@ export const getArts = async ({
     },
   }
 
+  const statusFilter = {
+    status: {
+      $eq: 'approved',
+    },
+  }
+
   const searchFilter = username
     ? userFilter
     : searchTerm && {
@@ -37,13 +43,17 @@ export const getArts = async ({
 
   const categoryObj = qs.parse(categories)
 
-  const filters = { ...(searchFilter || {}), categories: { code: { $in: Object.values(categoryObj) } } }
+  const filters = {
+    ...(searchFilter || {}),
+    categories: { code: { $in: Object.values(categoryObj) } },
+    ...(statusFilter || {}),
+  }
   return request({
     url: 'api/arts',
     filters,
     page,
     pageSize,
-    sort,
+    sort: sort || ['publishedAt:desc'],
     locale,
     populate,
   })

@@ -9,7 +9,7 @@ import { useAuth } from '~hooks'
 import { getArt, getArtPaths, useGetArt } from '~services'
 
 const ArtPage = ({ seo }) => {
-  const { user } = useAuth()
+  const auth = useAuth()
   const { t } = useTranslation()
 
   const {
@@ -40,7 +40,7 @@ const ArtPage = ({ seo }) => {
               {/* Single Art Comments */}
               <Stack spacing={4}>
                 {/*  Comment form */}
-                <CommentForm user={user} />
+                <CommentForm auth={auth} artId={artQuery.data?.id} />
 
                 {/*List comments of the current art */}
                 {/* TODO Add CommentSkeleton */}
