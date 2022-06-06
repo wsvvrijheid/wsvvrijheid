@@ -21,7 +21,7 @@ const ArtistPage = ({ title }) => {
   const artist = arts?.[0].artist
 
   return (
-    <Layout seo={{ title }}>
+    <Layout seo={{ title }} isDark>
       <Hero image='/images/auth-profile-bg.avif'>
         <Stack align='center'>
           <Avatar
