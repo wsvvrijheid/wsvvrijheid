@@ -34,7 +34,7 @@ const VolunteersJoin = ({ title }) => {
 
       const heardFrom = mapObjToString(data.heardFrom || {}).join(', ')
       const jobs = mapObjToString(data.jobs)
-      console.log('data', data)
+
       mutate(
         {
           ...data,

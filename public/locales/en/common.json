@@ -191,6 +191,23 @@
       "description": "An error occured, please try again."
     }
   },
+  "comment-form": {
+    "success": "Your comment has been successfully sent.",
+    "name": {
+      "placeholder": "Name",
+      "required": "Name field is required"
+    },
+    "email": {
+      "placeholder": "Email",
+      "invalid": "Invalid email address",
+      "required": "Email field is required"
+    },
+    "content": {
+      "placeholder": "Content",
+      "required": "Content field is required"
+    },
+    "send": "Send Comment"
+  },
   "title": "Title",
   "author": "Author",
   "description": "Description",

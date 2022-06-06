@@ -12,14 +12,25 @@ import {
 } from '@chakra-ui/react'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 
-export const FormItem = props => {
-  const { id, type, as, leftElement, label, helperText, errors, register, isRequired, ...rest } = props
+export const FormItem = ({
+  id,
+  type,
+  as,
+  leftElement,
+  label,
+  helperText,
+  errors,
+  register,
+  isRequired,
+  hideLabel,
+  ...rest
+}) => {
   const [isOpen, setIsOpen] = useBoolean()
   const Tag = as || Input
 
   return (
     <FormControl isInvalid={errors?.[id]} isRequired={isRequired}>
-      {label && (
+      {label && !hideLabel && (
         <FormLabel mb={1} htmlFor={id} fontSize='sm' fontWeight='semibold'>
           {label}
         </FormLabel>

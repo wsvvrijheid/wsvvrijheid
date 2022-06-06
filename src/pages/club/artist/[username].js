@@ -22,7 +22,7 @@ const ArtistPage = ({ title }) => {
 
   return (
     <Layout seo={{ title }} isDark>
-      <Hero image='/images/auth-profile-bg.avif'>
+      <Hero>
         <Stack align='center'>
           <Avatar
             size='lg'
