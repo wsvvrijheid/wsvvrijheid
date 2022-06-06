@@ -190,6 +190,23 @@
       "description": "Er is een fout opgetreden. Probeer het opnieuw."
     }
   },
+  "comment-form": {
+    "success": "Uw commentaar is succesvol verzonden.",
+    "name": {
+      "placeholder": "Naam",
+      "required": "Naamveld is verplicht"
+    },
+    "email": {
+      "placeholder": "Email",
+      "invalid": "Ongeldig e-mailadres",
+      "required": "E-mailveld is verplicht"
+    },
+    "content": {
+      "placeholder": "Inhoud",
+      "required": "Inhoudveld is verplicht"
+    },
+    "send": "Verstuur"
+  },
   "title": "Titel",
   "author": "Auteur",
   "description": "Beschrijving",

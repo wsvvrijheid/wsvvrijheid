@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 export const UserCard = ({ user }) => {
   const { locale } = useRouter()
-  console.log('user', user)
+
   return (
     <Stack p={6} spacing={4} rounded='md' bg='white' w='full' shadow='md' align='center'>
       {/* TODO Create shared image component */}

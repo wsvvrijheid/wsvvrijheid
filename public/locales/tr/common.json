@@ -43,8 +43,8 @@
     "title": "İletişim",
     "fill-form": "İletişim için formu doldurunuz",
     "form": {
-      "fullname-label": "Adınız",
-      "fullname-required": "Ad alanı boş olamaz.",
+      "fullname-label": "Adınız Soyadınız",
+      "fullname-required": "İsim alanı boş olamaz.",
       "email-required": "Mail alanı boş olamaz.",
       "email-invalid": "Geçersiz e-mail adresi.",
       "email-helper": "Mailiniz izniniz olmadan kimseyle paylaşılmayacaktır.",
@@ -189,6 +189,23 @@
       "title": "Hata",
       "description": "Bir hata oluştu, tekrar deneyiniz."
     }
+  },
+  "comment-form": {
+    "success": "Yorumunuz başarıyla gönderildi",
+    "name": {
+      "placeholder": "İsim",
+      "required": "İsim alanı zorunludur"
+    },
+    "email": {
+      "placeholder": "Eposta",
+      "invalid": "Geçersiz eposta adresi",
+      "required": "Eposta alanı zorunludur"
+    },
+    "content": {
+      "placeholder": "Yorum",
+      "required": "Yorum alanı zorunludur"
+    },
+    "send": "Yorum Gönder"
   },
   "title": "Başlık",
   "author": "Yazar",
