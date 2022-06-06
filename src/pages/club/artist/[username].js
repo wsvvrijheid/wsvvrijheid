@@ -23,7 +23,7 @@ const ArtistPage = ({ title }) => {
   return (
     <Layout seo={{ title }} isDark>
       <Hero>
-        <Stack align='center'>
+        <Stack align='center' cursor='default' userSelect='none'>
           <Avatar
             size='lg'
             src={`${process.env.NEXT_PUBLIC_API_URL}${
