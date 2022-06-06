@@ -58,7 +58,9 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
               }
               name={art.artist.user.username}
             />
-            <Text isTruncated>{art.artist.user.username}</Text>
+            <Navigate href={`/club/artist/${art.artist.user.username}`}>
+              <Text isTruncated>{art.artist.user.username}</Text>
+            </Navigate>
           </HStack>
           <HStack spacing={1}>
             <IconButton
