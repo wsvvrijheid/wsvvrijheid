@@ -36,7 +36,7 @@ export const AuthenticatedUserProfile = ({ auth }) => {
 
   return (
     <>
-      <Hero image='/images/auth-profile-bg.avif'>
+      <Hero>
         <Stack>
           <Avatar
             size='lg'
