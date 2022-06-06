@@ -8,7 +8,7 @@ import { getBlogs } from '~services'
 const Blogs = ({ seo, blogs }) => {
   return (
     <Layout seo={seo} isDark>
-      <Hero title='Blog' />
+      <Hero title='Blog' image='/images/blog-bg.jpeg' />
       {blogs?.[0] ? (
         <>
           <Container maxW='container.lg'>
