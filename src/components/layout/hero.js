@@ -2,7 +2,7 @@ import { Box, Heading, Text, VStack } from '@chakra-ui/react'
 
 import { ChakraNextImage, Container } from '~components'
 
-export const Hero = ({ title, description, video, image, isFullHeight = false, children }) => {
+export const Hero = ({ title, description, video, image = '/images/hero-bg.jpeg', isFullHeight = false, children }) => {
   return (
     <Box
       className='hero'
@@ -27,7 +27,7 @@ export const Hero = ({ title, description, video, image, isFullHeight = false, c
         left={0}
         w='full'
         h='full'
-        bg='blue.500'
+        bg='gray.500'
         blendMode='multiply'
       />
       <Container h='full'>
