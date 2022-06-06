@@ -14,6 +14,7 @@ const nextConfig = {
       'api.samenvvv.nl',
       'wsvvrijheid.nl',
       'vercel.app',
+      'wsvvrijheid.vercel.app',
       'media.istockphoto.com',
       'pbs.twimg.com',
       'unsplash.it',
