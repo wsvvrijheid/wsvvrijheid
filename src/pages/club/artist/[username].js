@@ -1,11 +1,11 @@
-import { Avatar, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { Avatar, SimpleGrid, SkeletonCircle, SkeletonText, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { ArtCard, Container, Hero, Layout } from '~components'
+import { ArtCard, ArtCardSkeleton, Container, Hero, Layout } from '~components'
 import { useAuth } from '~hooks'
-import { getArtistsPaths, getArts, useArts } from '~services'
+import { getArtist, getArtistsPaths, useGetArtist } from '~services'
 
 const ArtistPage = ({ title }) => {
   const { user } = useAuth()
@@ -15,30 +15,29 @@ const ArtistPage = ({ title }) => {
     locale,
   } = useRouter()
 
-  const artsQuery = useArts(['arts', locale, username], { locale, username })
-  const arts = artsQuery?.data?.result
-
-  const artist = arts?.[0].artist
+  const { data: artist, isLoading } = useGetArtist(locale, username)
 
   return (
     <Layout seo={{ title }} isDark>
       <Hero>
         <Stack align='center' cursor='default' userSelect='none'>
-          <Avatar
-            size='lg'
-            src={`${process.env.NEXT_PUBLIC_API_URL}${
-              artist?.user.avatar?.formats.thumbnail.url || artist?.user.avatar?.data.url
-            }`}
-            name={artist?.user.username}
-          />
-          <Text color={'white'}>{artist?.user.username}</Text>
+          {isLoading ? (
+            <SkeletonCircle size={16} />
+          ) : (
+            <Avatar
+              size='lg'
+              src={`${process.env.NEXT_PUBLIC_API_URL}${artist?.user.avatar?.formats.thumbnail.url}`}
+              name={artist?.user.username}
+            />
+          )}
+          {isLoading ? <SkeletonText noOfLines={1} w={32} /> : <Text color={'white'}>{artist?.user.username}</Text>}
         </Stack>
       </Hero>
       <Container>
         <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2, lg: 4 }}>
-          {arts?.map(art => (
-            <ArtCard key={art.id} art={art} user={user} />
-          ))}
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, i) => <ArtCardSkeleton key={i} />)
+            : artist.arts?.map(art => <ArtCard key={art.id} art={art} user={user} />)}
         </SimpleGrid>
       </Container>
     </Layout>
@@ -59,19 +58,17 @@ export const getStaticProps = async context => {
   const { locale, params } = context
   const queryClient = new QueryClient()
 
-  const artist = await getArts({ locale, username: params.username })
+  await queryClient.prefetchQuery({
+    queryKey: ['artist', locale, params.username],
+    queryFn: () => getArtist(locale, params.username),
+  })
+
+  const artist = queryClient.getQueryData(['artist', locale, params.username])
 
   if (!artist)
     return {
       notFound: true,
     }
-
-  queryClient.prefetchQuery({
-    // See: `useGetArt` (services/art/find-one.js)
-    // [arts, locale, slug]
-    queryKey: ['arts', locale, params.username],
-    queryFn: () => getArts({ locale, username: params.username }),
-  })
 
   // TODO Provide available seo props (description, image, etc.)
   const seo = {
