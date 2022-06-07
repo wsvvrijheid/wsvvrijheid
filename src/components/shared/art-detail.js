@@ -41,7 +41,11 @@ export const ArtDetail = ({ art, slug, locale }) => {
         {/* TODO when I change size of the SharedButtons as shown in Figma, 
                     it will affect other SharedButtons component. Customize it to have different sizes
                     or create a new component for here */}
-        <ShareButtons title={art?.title} url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${slug}`} />
+        <ShareButtons
+          title={art?.title}
+          url={`${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${slug}`}
+          quote={art?.description}
+        />
       </HStack>
     </VStack>
   )
