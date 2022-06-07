@@ -99,10 +99,40 @@ export const getStaticProps = async context => {
       notFound: true,
     }
 
+  const title = art.title || null
+  const description = art.description || null
+  const adminUrl = process.env.NEXT_PUBLIC_API_URL
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  const images = art.images
+  const url = `${siteUrl}/${locale}/club/art/${art.slug}`
+
   const seo = {
     title: art.title,
     description: art.description,
     content: art.content,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url,
+      article: {
+        publishedTime: art.publishedAt,
+        modifiedTime: art.updatedAt,
+        authors: [art.artist.user.username],
+        // TODO add tags
+      },
+      images:
+        images?.length > 0
+          ? images.map(image => ({
+              url: adminUrl + image?.url,
+              secureUrl: adminUrl + image?.url,
+              type: image?.mime,
+              width: image?.width,
+              height: image?.height,
+              alt: art.title,
+            }))
+          : [],
+    },
   }
 
   return {
