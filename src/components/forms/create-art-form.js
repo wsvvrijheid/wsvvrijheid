@@ -109,16 +109,6 @@ export const CreateArtForm = ({ auth }) => {
     },
   })
 
-  const createArtistMutation = useMutation({
-    mutationKey: 'create-artist',
-    mutationFn: () => mutation.post('api/artists', { data: { user: auth.user.id } }),
-    onSuccess: () => auth.updateSession(),
-  })
-
-  const onCreateArtist = () => {
-    createArtistMutation.mutate()
-  }
-
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
@@ -140,8 +130,6 @@ export const CreateArtForm = ({ auth }) => {
     createArtMutation.mutate(formData)
   }
 
-  if (!auth.isLoggedIn) return null
-
   return (
     <>
       <Button colorScheme='blue' leftIcon={<FaUpload />} onClick={formDisclosure.onOpen}>
@@ -156,7 +144,7 @@ export const CreateArtForm = ({ auth }) => {
         closeOnOverlayClick={false}
         isOpen={formDisclosure.isOpen}
         onClose={formDisclosure.onClose}
-        size={auth.user.artist ? '4xl' : 'md'}
+        size={auth?.isLoggedIn ? '4xl' : 'md'}
       >
         <ModalOverlay />
         <ModalContent>
@@ -166,14 +154,25 @@ export const CreateArtForm = ({ auth }) => {
           <ModalCloseButton color={'white'} />
           <ModalBody pos='relative' py={6}>
             {/* LOADING */}
-            {(createArtMutation.isLoading || createArtistMutation.isLoading) && (
+            {createArtMutation.isLoading && (
               <Center zIndex={1} pos='absolute' top={0} left={0} boxSize='full' bg='whiteAlpha.900'>
                 <Spinner size='xl' colorScheme='blue' />
               </Center>
             )}
 
+            {!auth.isLoggedIn && (
+              <VStack>
+                <Text>
+                  {t`art.create.require-auth.text`}{' '}
+                  <Navigate href='/user/login' color='blue.500'>
+                    {t`art.create.require-auth.button`}
+                  </Navigate>
+                </Text>
+              </VStack>
+            )}
+
             {/* CREATE FORM */}
-            {auth.user.artist && (
+            {auth.isLoggedIn && (
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FileUploader setImages={setImages} images={images} />
                 <Stack spacing={4} as='form' onSubmit={handleSubmit(handleCreateArt)}>
@@ -219,19 +218,6 @@ export const CreateArtForm = ({ auth }) => {
                   </ButtonGroup>
                 </Stack>
               </SimpleGrid>
-            )}
-
-            {/* ARTIST CONFIRMATION */}
-            {!auth.user.artist && (
-              <VStack spacing={8}>
-                <Text textAlign='center'>{t`art.create.artist-confirmation.text`}</Text>
-                <ButtonGroup>
-                  <Button onClick={formDisclosure.onClose}>{t`cancel`}</Button>
-                  <Button colorScheme='blue' onClick={onCreateArtist}>
-                    {t`art.create.artist-confirmation.button`}
-                  </Button>
-                </ButtonGroup>
-              </VStack>
             )}
           </ModalBody>
         </ModalContent>

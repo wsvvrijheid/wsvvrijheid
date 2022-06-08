@@ -56,10 +56,10 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
                 // FIXME `formatStrapiData` should be refactored
                 (isOwner ? user?.avatar?.formats.thumbnail.url : art.artist.user.avatar?.formats.thumbnail.url)
               }
-              name={art.artist.user.username}
+              name={art.artist.name || art.artist.user.username}
             />
             <Navigate href={`/club/artist/${art.artist.user.username}`}>
-              <Text isTruncated>{art.artist.user.username}</Text>
+              <Text isTruncated>{art.artist.name || art.artist.user.username}</Text>
             </Navigate>
           </HStack>
           <HStack spacing={1}>

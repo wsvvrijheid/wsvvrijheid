@@ -14,10 +14,10 @@ export const ArtContent = ({ art }) => {
           <Avatar
             size='sm'
             src={`${process.env.NEXT_PUBLIC_API_URL}${art.artist.user?.avatar?.url}`}
-            name={art.artist.user?.username}
+            name={art.artist.name || art.artist.user?.username}
           />
           <Text fontWeight='semibold' lineHeight={6} fontSize='md'>
-            {art.artist.user?.username}
+            {art.artist.name || art.artist.user?.username}
           </Text>
         </HStack>
       </Navigate>

@@ -27,10 +27,14 @@ const ArtistPage = ({ title }) => {
             <Avatar
               size='lg'
               src={`${process.env.NEXT_PUBLIC_API_URL}${artist?.user.avatar?.formats.thumbnail.url}`}
-              name={artist?.user.username}
+              name={artist?.name || artist?.user.username}
             />
           )}
-          {isLoading ? <SkeletonText noOfLines={1} w={32} /> : <Text color={'white'}>{artist?.user.username}</Text>}
+          {isLoading ? (
+            <SkeletonText noOfLines={1} w={32} />
+          ) : (
+            <Text color={'white'}>{artist?.name || artist?.user.username}</Text>
+          )}
         </Stack>
       </Hero>
       <Container>
