@@ -1,4 +1,5 @@
-import { Box, Heading, HStack, Icon, IconButton, SimpleGrid, Spinner, Stack, Text, Wrap } from '@chakra-ui/react'
+import { Box, Heading, HStack, Icon, IconButton, SimpleGrid, SkeletonText, Stack, Text, Wrap } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { useTranslation } from 'react-i18next'
@@ -7,39 +8,43 @@ import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
 
 import { BlogCard, ChakraNextImage, Container, Layout, Markdown, ShareButtons } from '~components'
 import { useLocaleTimeFormat } from '~hooks'
-import { getAuthorBlogs, getBlog, getBlogPaths, useBlog } from '~services'
-import { getReadingTime } from '~utils'
+import { getBlog, getBlogPaths, useBlog, useGetBlog } from '~services'
 
-const BlogInfo = ({ blog, link, readingTime }) => {
+const BlogInfo = ({ blog, isLoading, link }) => {
   const { isLiked, likes, views, toggleLike } = useBlog(blog)
+
   const { formattedDate } = useLocaleTimeFormat(blog?.publishedAt)
 
   return (
     <Wrap fontSize='md' justify={{ base: 'center', md: 'space-between' }} color='gray.500' spacing={4}>
-      <Wrap spacing={4} justify='center'>
-        <Box>
-          <HStack>
-            <Icon as={FaCalendarDay} />
-            <Text>{formattedDate}</Text>
-          </HStack>
-          <HStack>
-            <Icon as={FaClock} />
-            <Text>{readingTime}</Text>
-          </HStack>
-        </Box>
-        <Box>
-          <HStack>
-            <Box as={FaEye} />
-            <Text>{views} views</Text>
-          </HStack>
-          <HStack>
-            <Box as={AiFillHeart} />
-            <Text>{likes} likes</Text>
-          </HStack>
-        </Box>
-      </Wrap>
+      {isLoading ? (
+        <SkeletonText w='48' noOfLines={2} />
+      ) : (
+        <Wrap spacing={4} justify='center'>
+          <Box>
+            <HStack>
+              <Icon as={FaCalendarDay} />
+              <Text>{formattedDate}</Text>
+            </HStack>
+            <HStack>
+              <Icon as={FaClock} />
+              <Text>{blog.readingTime}</Text>
+            </HStack>
+          </Box>
+          <Box>
+            <HStack>
+              <Box as={FaEye} />
+              <Text>{views} views</Text>
+            </HStack>
+            <HStack>
+              <Box as={AiFillHeart} />
+              <Text>{likes} likes</Text>
+            </HStack>
+          </Box>
+        </Wrap>
+      )}
 
-      <ShareButtons title={blog.title} url={link} quote={blog.description}>
+      <ShareButtons title={blog?.title} url={link} quote={blog?.description}>
         <IconButton
           rounded='full'
           aria-label='like post'
@@ -52,9 +57,15 @@ const BlogInfo = ({ blog, link, readingTime }) => {
   )
 }
 
-const Blog = ({ source, seo, link, blog, readingTime, blogs }) => {
+const Blog = ({ source, seo, link, blog }) => {
   const { t } = useTranslation()
-  if (!blog) return <Spinner />
+  const { locale } = useRouter()
+
+  const { data, isLoading } = useGetBlog(locale, blog?.slug)
+
+  // FIXME Why blog is undefined on the first render?
+  if (!blog) return null
+
   return (
     <Layout seo={seo}>
       <Container maxW='container.md'>
@@ -63,7 +74,7 @@ const Blog = ({ source, seo, link, blog, readingTime, blogs }) => {
           <Heading as='h1' textAlign='center'>
             {blog.title}
           </Heading>
-          <BlogInfo blog={blog} link={link} readingTime={readingTime} />
+          <BlogInfo blog={data} isLoading={isLoading} link={link} />
 
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
             <Markdown source={source} />
@@ -72,7 +83,7 @@ const Blog = ({ source, seo, link, blog, readingTime, blogs }) => {
             </Text>
           </Box>
           <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2 }}>
-            {blogs.map((blog, idx) => (
+            {blog.blogs.map((blog, idx) => (
               <BlogCard key={idx} post={blog} featured={true}></BlogCard>
             ))}
           </SimpleGrid>
@@ -108,10 +119,6 @@ export const getStaticProps = async context => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const image = blog.image
   const url = `${siteUrl}/${locale}/blog/${blog.slug}`
-
-  const readingTime = getReadingTime(blog?.content, locale)
-
-  const blogs = await getAuthorBlogs(locale, blog.author.id, blog.id)
 
   const seo = {
     title,
@@ -149,8 +156,6 @@ export const getStaticProps = async context => {
       source,
       link: url,
       blog,
-      blogs,
-      readingTime,
       seo,
       ...(await serverSideTranslations(locale, ['common'])),
     },

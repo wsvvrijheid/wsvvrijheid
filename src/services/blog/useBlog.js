@@ -10,19 +10,24 @@ const LOCAL_STORAGE_BLOG_KEY = 'blog'
 
 export const useBlog = blog => {
   const [blogStorage, setBlogStorage] = useLocalStorage(LOCAL_STORAGE_BLOG_KEY, { views: [], likes: [] })
-  const [isLiked, setIsLiked] = useState(false)
-  const [isViewed, setIsViewed] = useState(false)
+  const [isLiked, setIsLiked] = useState(blogStorage.likes.some(id => id === blog?.id))
+  const [isViewed, setIsViewed] = useState(blogStorage.views.some(id => id === blog?.id))
   const [views, setViews] = useState(blog?.views || 0)
   const [likes, setLikes] = useState(blog?.likes || 0)
+
+  useEffect(() => {
+    if (blog) {
+      setViews(blog.views)
+      setLikes(blog.likes)
+    }
+  }, [blog])
 
   // Update local storage when blog is liked or viewed
   // Perform optimistic updates for views and likes
   useEffect(() => {
     if (blog) {
-      setIsLiked(blogStorage.likes.some(id => id === blog.id))
-      setIsViewed(blogStorage.views.some(id => id === blog.id))
-
-      localStorage.setItem(LOCAL_STORAGE_BLOG_KEY, JSON.stringify(blogStorage))
+      setIsLiked(blogStorage.likes.some(id => id === blog?.id))
+      setIsViewed(blogStorage.views.some(id => id === blog?.id))
     }
   }, [blogStorage, blog])
 
@@ -56,5 +61,5 @@ export const useBlog = blog => {
     isLiked ? undoLikeBlog() : likeBlog()
   }
 
-  return { hasLiked: isLiked, toggleLike, likes, views }
+  return { isLiked, toggleLike, likes, views }
 }
