@@ -87,6 +87,10 @@
       "title": "Naam",
       "required": "Naamveld is verplicht"
     },
+    "username": {
+      "title": "Gebruikersnaam",
+      "required": "Gebruikersnaam is verplicht"
+    },
     "email": {
       "title": "E-mail",
       "invalid": "Ongeldig e-mailadres",

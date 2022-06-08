@@ -88,6 +88,10 @@
       "title": "Name",
       "required": "Name field is required"
     },
+    "username": {
+      "title": "Username",
+      "required": "Username field is required"
+    },
     "email": {
       "title": "Email",
       "invalid": "Invalid email address",

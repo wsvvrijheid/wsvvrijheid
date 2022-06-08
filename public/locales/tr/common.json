@@ -88,6 +88,10 @@
       "title": "İsim",
       "required": "İsim alanı zorunludur"
     },
+    "username": {
+      "title": "Kullanıcı Adı",
+      "required": "Kullanıcı adı alanı zorunludurs"
+    },
     "email": {
       "title": "E-posta",
       "invalid": "Geçersiz e-posta adresi",

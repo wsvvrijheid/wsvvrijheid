@@ -4,7 +4,7 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { mutation, sessionOptions } from '~lib'
 
 const registerRoute = async (req, res) => {
-  const { username, email, password } = req.body
+  const { name, username, email, password } = req.body
 
   try {
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local/register`, {
@@ -16,7 +16,7 @@ const registerRoute = async (req, res) => {
     const token = response.data.jwt
     const userId = response.data.user?.id
 
-    await mutation.post('api/artists', { data: { user: userId } })
+    await mutation.post('api/artists', { data: { user: userId, name } })
 
     if (token) {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}?populate=*`, {
