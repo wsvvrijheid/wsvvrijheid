@@ -239,9 +239,9 @@
         "description": "Your art updated successfully. Your art will be listed in club page after being approved by editor. You can see your pending arts in your",
         "link": "Go to my profile"
       },
-      "artist-confirmation": {
-        "text": "You need to be registered as artist in order to upload an art. Would you like to be registered as artist?",
-        "button": "Register as artist"
+      "require-auth": {
+        "text": "You must be logged in in order to be able to upload an art!",
+        "button": "Login now"
       }
     }
   }

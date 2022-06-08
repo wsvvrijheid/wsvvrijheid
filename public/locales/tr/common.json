@@ -238,9 +238,9 @@
         "description": "Eseriniz yüklendi. Eseriniz editör onayından sonra sayfada listelenecektir. Onay bekleyen eserlerinizi profil sayfanızda görebilirsiniz.",
         "link": "Profil sayfasına git"
       },
-      "artist-confirmation": {
-        "text": "Eser yükleyebilmek için sanatçı olarak kayıt yaptırmalısınız. Şimdi sanatçı olarak kayıt olmak ister misiniz?",
-        "button": "Sanatçı olarak kayıt ol"
+      "require-auth": {
+        "text": "Eser yükleyebilmek için giriş yapmalısınız!",
+        "button": "Şimdi giriş yapın"
       }
     }
   }
