@@ -61,7 +61,10 @@ const Blog = ({ source, seo, link, blog }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
-  const { data, isLoading } = useGetBlog(locale, blog.slug)
+  const { data, isLoading } = useGetBlog(locale, blog?.slug)
+
+  // FIXME Why blog is undefined on the first render?
+  if (!blog) return null
 
   return (
     <Layout seo={seo}>
