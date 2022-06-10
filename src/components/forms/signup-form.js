@@ -16,7 +16,8 @@ import { OAuthButtonGroup } from './oauth-button-group'
 
 const schema = t =>
   yup.object({
-    username: yup.string().required(t`login.name.required`),
+    name: yup.string().required(t('login.name.required')),
+    username: yup.string().required(t`login.username.required`),
     password: yup
       .string()
       .min(8, t('login.password.warning'))
@@ -91,7 +92,8 @@ export const SignupForm = () => {
         <Stack spacing='6' as='form' onSubmit={handleSubmit(handleSubmitSignUp)}>
           <Stack spacing='5'>
             {errorMessage && <Text color='red.500'>{errorMessage}</Text>}
-            <FormItem id='username' label={t('login.name.title')} register={register} errors={errors} />
+            <FormItem id='name' label={t('login.name.title')} register={register} errors={errors} />
+            <FormItem id='username' label={t('login.username.title')} register={register} errors={errors} />
             <FormItem id='email' type='email' label={t('login.email.title')} register={register} errors={errors} />
             <FormItem
               id='password'

@@ -15,7 +15,6 @@
     "secretary": "Secretaris"
   },
   "home": {
-    "justice": "Dit is een schaal van menselijkheid. Ons doel is om de rechten van de mensen van de wereld te verdedigen, ongeacht religie, taal, ras, kleur, in de schaduw van vrede. De wereld is gelijk aan mensen, mensen zijn gelijk aan de wereld. Als de balans wordt geschud en de waarde die aan mensen wordt gegeven licht blijft, zal de wereld op het hoofd van de mensen in deze balansschaal instorten. Maar als de waarde die aan de mens wordt gegeven, dan wordt de mens de kroon van de wereld. Samen leven en humanly is gelukkiger en zinvoller met deze balans.",
     "hero": "Iedereen is gelijk voor de universele wet. We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten.",
     "about": {
       "who-we-are": {
@@ -87,6 +86,10 @@
     "name": {
       "title": "Naam",
       "required": "Naamveld is verplicht"
+    },
+    "username": {
+      "title": "Gebruikersnaam",
+      "required": "Gebruikersnaam is verplicht"
     },
     "email": {
       "title": "E-mail",
@@ -239,9 +242,9 @@
         "description": "Uw kunst is geüpload. U kunst wordt weergegeven op de clubpagina na goedkeuring door de redacteur. U kunt je lopende kunsten zien in je",
         "link": "Ga naar mijn profiel"
       },
-      "artist-confirmation": {
-        "text": "Om een kunstwerk te kunnen uploaden, moet je geregistreerd zijn als artiest. Wilt u zich als artiest laten registreren?",
-        "button": "Registreer als artiest"
+      "require-auth": {
+        "text": "Je moet ingelogd zijn om een kunstwerk te kunnen uploaden!",
+        "button": "Log nu in"
       }
     }
   }

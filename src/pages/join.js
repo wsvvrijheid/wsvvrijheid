@@ -2,6 +2,7 @@ import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Center, SimpleGrid
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient, useMutation, useQuery } from 'react-query'
+import { v4 as uuidV4 } from 'uuid'
 
 import { Container, JoinForm, Layout, PageTitle, ProjectsList } from '~components'
 import { mutation, request } from '~lib'
@@ -38,8 +39,7 @@ const VolunteersJoin = ({ title }) => {
       mutate(
         {
           ...data,
-          name: data.fullname,
-          username: Math.floor(Math.random() * 10 ** 6).toString(),
+          username: uuidV4(),
           availableHours,
           heardFrom,
           jobs,

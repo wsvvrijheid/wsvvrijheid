@@ -24,7 +24,7 @@ export const AuthenticatedUserProfile = ({ auth }) => {
         url: 'api/arts',
         locale,
         filters: {
-          artist: { id: { $eq: user.artist?.id } },
+          artist: { id: { $eq: user.artist?.id || null } },
         },
         populate: ['artist.user', 'images'],
       }),

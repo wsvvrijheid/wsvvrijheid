@@ -16,7 +16,6 @@
     "secretary": "Secretary: "
   },
   "home": {
-    "justice": "This is a scale of humanity. Our aim is to defend the rights of the people of the world, regardless of religion, language, race, color, in the shadow of peace. The world is equal to people, people are equal to the world. If the balance is shaken and the value given to people remains light, the world will collapse on the head of the people in this balance scale. But if the value given to human then man becomes the crown of the world. Life together and humanely is happier and more meaningful with this balance.",
     "hero": "Everyone is equal before the universal law. We work to ensure that everyone benefits from universal human rights equally.",
     "about": {
       "who-we-are": {
@@ -88,6 +87,10 @@
     "name": {
       "title": "Name",
       "required": "Name field is required"
+    },
+    "username": {
+      "title": "Username",
+      "required": "Username field is required"
     },
     "email": {
       "title": "Email",
@@ -240,9 +243,9 @@
         "description": "Your art updated successfully. Your art will be listed in club page after being approved by editor. You can see your pending arts in your",
         "link": "Go to my profile"
       },
-      "artist-confirmation": {
-        "text": "You need to be registered as artist in order to upload an art. Would you like to be registered as artist?",
-        "button": "Register as artist"
+      "require-auth": {
+        "text": "You must be logged in in order to be able to upload an art!",
+        "button": "Login now"
       }
     }
   }

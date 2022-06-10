@@ -74,7 +74,7 @@ export const CommentForm = ({ auth, artId }) => {
       </Text>
       <VStack as='form' onSubmit={handleSubmit(onSubmit)} alignItems='flex-start' justify='flex-start'>
         <Stack w='100%' alignItems='flex-start'>
-          {auth.isLoggedIn && <Avatar size='sm' src={`${auth.user?.avatar?.url}`} name={`${auth.user?.username}`} />}
+          {auth.isLoggedIn && <Avatar size='sm' src={`${auth.user?.avatar?.url}`} name={auth.user?.username} />}
           {!auth.isLoggedIn && (
             <Stack direction={{ base: 'column', lg: 'row' }} w='full'>
               <FormItem
