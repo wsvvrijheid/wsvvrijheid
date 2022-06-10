@@ -12,7 +12,7 @@ export const getArtsByCategories = async (locale, categories, id) => {
       categories: { code: { $in: categories } },
       id: { $ne: id },
     },
-    populate: ['artist.user.avatar', 'categories', 'images', 'likes'],
+    populate: ['artist.user.avatar', 'categories', 'images', 'likers'],
     sort: 'publishedAt:desc',
     pageSize: 4,
   })
