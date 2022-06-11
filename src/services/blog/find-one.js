@@ -1,31 +1,38 @@
+import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
+import { useLocaleTimeFormat } from '~hooks'
 import { request } from '~lib'
 import { getReadingTime } from '~utils'
-
-import { getAuthorBlogs } from './find'
 
 export const getBlog = async (locale, slug) => {
   const response = await request({
     url: 'api/blogs',
-    populate: ['author.volunteer', 'image'],
+    populate: ['author.volunteer', 'image', 'likers'],
     filters: { slug: { $eq: slug } },
     locale,
   })
 
   const blog = response.result?.[0]
 
-  if (!blog) return null
-
-  const readingTime = getReadingTime(blog.content, locale)
-
-  const authorBlogs = (await getAuthorBlogs(locale, blog.author.id, blog.id)) || []
-
-  return { ...blog, blogs: authorBlogs, readingTime }
+  return blog || null
 }
 
-export const useGetBlog = (locale, slug) =>
-  useQuery({
+export const useGetBlog = () => {
+  const {
+    locale,
+    query: { slug },
+  } = useRouter()
+
+  const { data, ...rest } = useQuery({
     queryKey: ['blog', locale, slug],
     queryFn: () => getBlog(locale, slug),
   })
+
+  const { formattedDate } = useLocaleTimeFormat(data?.publishedAt)
+  const readingTime = getReadingTime(data?.content, locale)
+
+  const blog = data ? { ...data, formattedDate, readingTime } : null
+
+  return { ...rest, data: blog }
+}

@@ -1,10 +1,15 @@
 import { Box, Heading, HStack, Icon, Stack, Text, useBreakpointValue, Wrap } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { memo } from 'react'
 import { FaCalendarDay, FaClock, FaEye, FaHeart } from 'react-icons/fa'
 
 import { ChakraNextImage, Navigate } from '~components'
 import { useLocaleTimeFormat } from '~hooks'
 import { getReadingTime } from '~utils'
+
+const BlogCardImage = memo(function BlogCardImage({ featured, image }) {
+  return <ChakraNextImage minH={featured ? 450 : 200} image={image} />
+})
 
 export const BlogCard = ({ post, isFeatured }) => {
   const { locale } = useRouter()
@@ -23,7 +28,7 @@ export const BlogCard = ({ post, isFeatured }) => {
       href={`/blog/${post.slug}`}
     >
       <Box shadow='lg' pos='relative' bg='white' rounded='sm' overflow='hidden'>
-        <ChakraNextImage minH={featured ? 450 : 200} image={post.image?.url} />
+        <BlogCardImage featured={featured} image={post.image?.url} />
         <Stack
           rounded='sm'
           mx={{ base: 4, lg: 8 }}
