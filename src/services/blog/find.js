@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
 import { request } from '~lib'
@@ -23,8 +24,11 @@ export const getAuthorBlogs = async (locale, authorID, blogId) => {
   return response?.result || null
 }
 
-export const useGetBlogs = locale =>
-  useQuery({
-    queryKey: 'blogs',
+export const useGetBlogs = () => {
+  const { locale } = useRouter()
+
+  return useQuery({
+    queryKey: ['blogs', locale],
     queryFn: () => getBlogs(locale),
   })
+}
