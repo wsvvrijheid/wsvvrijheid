@@ -29,12 +29,12 @@ export const useLikeArt = (art, user, queryKey) => {
   const [likersStorage, setLikersStorage] = useLocalStorage('like-art', [])
 
   const isLikedStorage = likersStorage.some(id => id === art.id)
-  const isLikedByUser = user && art.likers.length > 0 && art.likers.some(({ id }) => id === user.id)
+  const isLikedByUser = user && art.likers?.length > 0 && art.likers?.some(({ id }) => id === user.id)
 
   const likeArtByUserMutation = useLikeArtByUserMutation()
   const likeArtPublicMutation = useLikeArtPublicMutation()
 
-  const likers = user && (isLikedByUser ? art.likers.filter(liker => liker?.id !== user.id) : [...art.likers, user.id])
+  const likers = user && (isLikedByUser ? art.likers?.filter(liker => liker?.id !== user.id) : [...art.likers, user.id])
   const likes = isLikedStorage ? art.likes - 1 : art.likes + 1
 
   const invalidateQueries = (updatedData, isSinglePage) => {
