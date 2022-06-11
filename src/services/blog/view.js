@@ -38,5 +38,5 @@ export const useViewBlog = async () => {
     if (blog && !isViewed) {
       mutate(blog)
     }
-  }, 5 * 1000)
+  }, 10 * 1000)
 }
