@@ -1,48 +1,49 @@
-import { Box, Heading, HStack, Icon, IconButton, SimpleGrid, SkeletonText, Stack, Text, Wrap } from '@chakra-ui/react'
+import { Box, Heading, HStack, Icon, IconButton, SimpleGrid, Stack, Text, Wrap } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
+import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AiFillHeart } from 'react-icons/ai'
 import { FaCalendarDay, FaClock, FaEye } from 'react-icons/fa'
+import { dehydrate, QueryClient } from 'react-query'
 
 import { BlogCard, ChakraNextImage, Container, Layout, Markdown, ShareButtons } from '~components'
-import { useLocaleTimeFormat } from '~hooks'
-import { getBlog, getBlogPaths, useBlog, useGetBlog } from '~services'
+import { useAuth } from '~hooks'
+import { getAuthorBlogs, getBlog, getBlogPaths, useGetBlog, useLikeBlog, useViewBlog } from '~services'
 
-const BlogInfo = ({ blog, isLoading, link }) => {
-  const { isLiked, likes, views, toggleLike } = useBlog(blog)
+const BlogInfo = ({ link, isLiked, toggleLike }) => {
+  const {
+    locale,
+    query: { slug },
+  } = useRouter()
 
-  const { formattedDate } = useLocaleTimeFormat(blog?.publishedAt)
+  const { data: blog } = useGetBlog(locale, slug)
 
   return (
     <Wrap fontSize='md' justify={{ base: 'center', md: 'space-between' }} color='gray.500' spacing={4}>
-      {isLoading ? (
-        <SkeletonText w='48' noOfLines={2} />
-      ) : (
-        <Wrap spacing={4} justify='center'>
-          <Box>
-            <HStack>
-              <Icon as={FaCalendarDay} />
-              <Text>{formattedDate}</Text>
-            </HStack>
-            <HStack>
-              <Icon as={FaClock} />
-              <Text>{blog.readingTime}</Text>
-            </HStack>
-          </Box>
-          <Box>
-            <HStack>
-              <Box as={FaEye} />
-              <Text>{views} views</Text>
-            </HStack>
-            <HStack>
-              <Box as={AiFillHeart} />
-              <Text>{likes} likes</Text>
-            </HStack>
-          </Box>
-        </Wrap>
-      )}
+      <Wrap spacing={4} justify='center'>
+        <Box>
+          <HStack>
+            <Icon as={FaCalendarDay} />
+            <Text>{blog.formattedDate}</Text>
+          </HStack>
+          <HStack>
+            <Icon as={FaClock} />
+            <Text>{blog.readingTime}</Text>
+          </HStack>
+        </Box>
+        <Box>
+          <HStack>
+            <Box as={FaEye} />
+            <Text>{blog.views} views</Text>
+          </HStack>
+          <HStack>
+            <Box as={AiFillHeart} />
+            <Text>{(blog.likes || 0) + (blog.likers.length || 0)} likes</Text>
+          </HStack>
+        </Box>
+      </Wrap>
 
       <ShareButtons title={blog?.title} url={link} quote={blog?.description}>
         <IconButton
@@ -57,24 +58,30 @@ const BlogInfo = ({ blog, isLoading, link }) => {
   )
 }
 
-const Blog = ({ source, seo, link, blog }) => {
+const BlogImage = memo(function BlogImage({ image }) {
+  return <ChakraNextImage ratio='twitter' rounded='lg' image={image} />
+})
+
+const Blog = ({ source, seo, link, authorBlogs }) => {
   const { t } = useTranslation()
-  const { locale } = useRouter()
+  const { user } = useAuth()
 
-  const { data, isLoading } = useGetBlog(locale, blog?.slug)
+  const { data: blog } = useGetBlog()
 
-  // FIXME Why blog is undefined on the first render?
+  useViewBlog()
+  const { isLiked, toggleLike } = useLikeBlog(user)
+
   if (!blog) return null
 
   return (
     <Layout seo={seo}>
       <Container maxW='container.md'>
         <Stack py={8} spacing={8}>
-          <ChakraNextImage ratio='twitter' image={blog.image} rounded='lg' />
+          <BlogImage image={blog.image} />
           <Heading as='h1' textAlign='center'>
             {blog.title}
           </Heading>
-          <BlogInfo blog={data} isLoading={isLoading} link={link} />
+          <BlogInfo link={link} isLiked={isLiked} toggleLike={toggleLike} />
 
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
             <Markdown source={source} />
@@ -83,7 +90,7 @@ const Blog = ({ source, seo, link, blog }) => {
             </Text>
           </Box>
           <SimpleGrid m={4} gap={8} columns={{ base: 1, md: 2 }}>
-            {blog.blogs.map((blog, idx) => (
+            {authorBlogs.map((blog, idx) => (
               <BlogCard key={idx} post={blog} featured={true}></BlogCard>
             ))}
           </SimpleGrid>
@@ -105,11 +112,17 @@ export const getStaticPaths = async context => {
 }
 
 export const getStaticProps = async context => {
+  const queryClient = new QueryClient()
   const locale = context.locale
 
   const slug = context.params?.slug
 
-  const blog = await getBlog(locale, slug)
+  await queryClient.prefetchQuery({
+    queryKey: ['blog', locale, slug],
+    queryFn: () => getBlog(locale, slug),
+  })
+
+  const blog = queryClient.getQueryData(['blog', locale, slug])
 
   if (!blog) return { notFound: true }
 
@@ -118,7 +131,9 @@ export const getStaticProps = async context => {
   const adminUrl = process.env.NEXT_PUBLIC_API_URL
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const image = blog.image
-  const url = `${siteUrl}/${locale}/blog/${blog.slug}`
+  const url = `${siteUrl}/${locale}/blog/${slug}`
+
+  const authorBlogs = (await getAuthorBlogs(locale, blog.author.id, blog.id)) || []
 
   const seo = {
     title,
@@ -155,8 +170,9 @@ export const getStaticProps = async context => {
     props: {
       source,
       link: url,
-      blog,
+      authorBlogs,
       seo,
+      dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 120,
