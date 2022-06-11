@@ -12,13 +12,19 @@ import { BlogCard, ChakraNextImage, Container, Layout, Markdown, ShareButtons } 
 import { useAuth } from '~hooks'
 import { getAuthorBlogs, getBlog, getBlogPaths, useGetBlog, useLikeBlog, useViewBlog } from '~services'
 
-const BlogInfo = ({ link, isLiked, toggleLike }) => {
+const BlogInfo = () => {
   const {
     locale,
     query: { slug },
   } = useRouter()
+  const { user } = useAuth()
 
   const { data: blog } = useGetBlog(locale, slug)
+  const { isLiked, toggleLike } = useLikeBlog(user)
+
+  const link = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/blog/${slug}`
+
+  useViewBlog()
 
   return (
     <Wrap fontSize='md' justify={{ base: 'center', md: 'space-between' }} color='gray.500' spacing={4}>
@@ -45,7 +51,7 @@ const BlogInfo = ({ link, isLiked, toggleLike }) => {
         </Box>
       </Wrap>
 
-      <ShareButtons title={blog?.title} url={link} quote={blog?.description}>
+      <ShareButtons title={blog.title} url={link} quote={blog.description}>
         <IconButton
           rounded='full'
           aria-label='like post'
@@ -62,15 +68,10 @@ const BlogImage = memo(function BlogImage({ image }) {
   return <ChakraNextImage ratio='twitter' rounded='lg' image={image} />
 })
 
-const Blog = ({ source, seo, link, authorBlogs }) => {
+const Blog = ({ source, seo, authorBlogs }) => {
   const { t } = useTranslation()
-  const { user } = useAuth()
 
   const { data: blog } = useGetBlog()
-
-  useViewBlog()
-  const { isLiked, toggleLike } = useLikeBlog(user)
-
   if (!blog) return null
 
   return (
@@ -81,7 +82,7 @@ const Blog = ({ source, seo, link, authorBlogs }) => {
           <Heading as='h1' textAlign='center'>
             {blog.title}
           </Heading>
-          <BlogInfo link={link} isLiked={isLiked} toggleLike={toggleLike} />
+          <BlogInfo />
 
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
             <Markdown source={source} />
@@ -169,7 +170,6 @@ export const getStaticProps = async context => {
   return {
     props: {
       source,
-      link: url,
       authorBlogs,
       seo,
       dehydratedState: dehydrate(queryClient),
