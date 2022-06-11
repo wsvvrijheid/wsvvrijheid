@@ -8,15 +8,12 @@ import {
   Button,
   ButtonGroup,
   Center,
-  FormControl,
-  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Select,
   SimpleGrid,
   Spinner,
   Stack,
@@ -31,11 +28,11 @@ import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaPlus, FaUpload } from 'react-icons/fa'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import * as yup from 'yup'
 
 import { Navigate } from '~components'
-import { mutation } from '~lib'
+import { mutation, request } from '~lib'
 import { slugify, toastMessage } from '~utils'
 
 import { FileUploader } from './file-uploader'
@@ -70,10 +67,22 @@ const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
 
 const schema = t =>
   yup.object({
-    locale: yup.string().required(t`art.create.form.locale-required`),
+    locale: yup
+      .object()
+      .shape({
+        label: yup.string(),
+        value: yup.string(),
+      })
+      .required(t`art.create.form.locale-required`),
     title: yup.string().required(t`art.create.form.title-required`),
     description: yup.string().required(t`art.create.form.description-required`),
     content: yup.string().required(t`art.create.form.content-required`),
+    categories: yup.array().of(
+      yup.object().shape({
+        label: yup.string(),
+        value: yup.string(),
+      }),
+    ),
   })
 
 // TODO Consider adding modal form instead of a new page
@@ -83,6 +92,15 @@ export const CreateArtForm = ({ auth }) => {
   const formDisclosure = useDisclosure()
   const successDisclosure = useDisclosure()
 
+  const { data: categories } = useQuery({
+    queryKey: 'categories',
+    queryFn: () =>
+      request({
+        url: 'api/categories',
+        pageSize: 100,
+      }),
+  })
+
   const { locale } = useRouter()
 
   const { t } = useTranslation()
@@ -91,6 +109,7 @@ export const CreateArtForm = ({ auth }) => {
     formState: { errors, isValid },
     reset,
     handleSubmit,
+    control,
   } = useForm({ resolver: yupResolver(schema(t)), mode: 'all' })
 
   const createArtMutation = useMutation({
@@ -119,11 +138,16 @@ export const CreateArtForm = ({ auth }) => {
 
   const handleCreateArt = async data => {
     const formData = new FormData()
+    const categories = data.categories.map(c => c.value)
 
     // TODO add content field (We need to discuss if content field will be markdown)
-    // TODO An authenticated user must be an artist in order to create an art
-    //      We should add this form (register as an artist) in the future
-    const art = { ...data, slug: slugify(data.title), artist: auth.user.artist?.id }
+    const art = {
+      ...data,
+      locale: data.locale.value,
+      categories,
+      slug: slugify(data.title),
+      artist: auth.user.artist?.id,
+    }
     formData.append('data', JSON.stringify(art))
     images.forEach(image => formData.append(`files.images`, image, image.name))
 
@@ -176,17 +200,32 @@ export const CreateArtForm = ({ auth }) => {
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FileUploader setImages={setImages} images={images} />
                 <Stack spacing={4} as='form' onSubmit={handleSubmit(handleCreateArt)}>
-                  <FormControl>
-                    <FormLabel fontSize='sm' htmlFor='locale' mb={2} mt={2} fontWeight={'600'}>
-                      {t`language`}
-                    </FormLabel>
-                    <Select defaultValue={locale} {...register('locale')} id='locale'>
-                      <option value={'en'}>EN (English)</option>
-                      <option value={'nl'}>NL (Nederlands)</option>
-                      <option value={'tr'}>TR (Türkçe)</option>
-                    </Select>
-                  </FormControl>
+                  <FormItem
+                    id='locale'
+                    label={t`language`}
+                    selectOptions={{
+                      options: [
+                        { label: 'English', value: 'en' },
+                        { label: 'Türkçe', value: 'nl' },
+                        { label: 'Nederlands', value: 'tr' },
+                      ],
+                    }}
+                    control={control}
+                  />
                   <FormItem id='title' label={t`title`} isRequired errors={errors} register={register} />
+                  <FormItem
+                    id='categories'
+                    label={t`categories`}
+                    selectOptions={{
+                      isMulti: true,
+                      options:
+                        categories?.result.map(c => ({
+                          value: c.id,
+                          label: c[`name_${locale}`],
+                        })) || [],
+                    }}
+                    control={control}
+                  />
                   <FormItem
                     id='description'
                     label={t`description`}
@@ -203,6 +242,7 @@ export const CreateArtForm = ({ auth }) => {
                     errors={errors}
                     register={register}
                   />
+
                   <ButtonGroup alignSelf='end'>
                     <Button onClick={formDisclosure.onClose} mr={3}>
                       {t`cancel`}
