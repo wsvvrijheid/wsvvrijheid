@@ -1,5 +1,5 @@
 import { Box, Button, ButtonGroup, Link, VisuallyHidden } from '@chakra-ui/react'
-import { FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa'
+import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from 'react-icons/fa'
 
 const providers = [
   {
@@ -16,6 +16,11 @@ const providers = [
     name: 'Facebook',
     icon: <Box as={FaFacebook} color='facebook.500' boxSize='5' />,
     url: '/api/connect/facebook',
+  },
+  {
+    name: 'Instagram',
+    icon: <Box as={FaInstagram} color='#F56040' boxSize='5' />,
+    url: '/api/connect/instagram',
   },
 ]
 
