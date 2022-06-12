@@ -15,9 +15,10 @@ export const HEADER_MENU = [
   club,
   donate,
   {
-    children: [volunteer, about, contact],
+    link: '/',
     en: 'Wsvvrijheid',
     nl: 'Wsvvrijheid',
     tr: 'Wsvvrijheid',
+    children: [volunteer, about, contact],
   },
 ]
