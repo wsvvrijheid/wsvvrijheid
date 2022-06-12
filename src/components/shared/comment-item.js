@@ -2,6 +2,9 @@ import { Avatar, HStack, Stack, Text } from '@chakra-ui/react'
 import { formatDistanceStrict } from 'date-fns'
 
 export const CommentItem = ({ comment }) => {
+  // TODO Check comment authors. Author field should not be empty
+  if (!comment.author) return null
+
   return (
     <HStack align='start'>
       <Avatar size='sm' src={`${comment.author.avatar}`} name={`${comment.author.name}`} />
