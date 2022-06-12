@@ -25,7 +25,7 @@ export const getArt = async (locale, slug) => {
   const response = await request({
     url: 'api/arts',
     filters: { slug: { $eq: slug } },
-    populate: ['artist.user.avatar', 'categories', 'images'],
+    populate: ['artist.user.avatar', 'categories', 'images', 'localizations'],
     locale,
   })
 

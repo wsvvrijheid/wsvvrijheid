@@ -91,6 +91,12 @@ export const getStaticProps = async context => {
       notFound: true,
     }
 
+  const slugs =
+    art.localizations?.reduce((acc, l) => {
+      acc[l.locale] = l.slug
+      return acc
+    }, {}) || {}
+
   const title = art.title || null
   const description = art.description || null
   const adminUrl = process.env.NEXT_PUBLIC_API_URL
@@ -130,6 +136,7 @@ export const getStaticProps = async context => {
       ...(await serverSideTranslations(locale, ['common'])),
       seo,
       queryKey,
+      slugs: { ...slugs, [locale]: art.slug },
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: 120,
