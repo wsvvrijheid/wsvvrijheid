@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Radio, RadioGroup, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Box, Center, Grid, Radio, RadioGroup, SimpleGrid, Stack } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -25,20 +25,40 @@ export default function Volunteers({ seo, volunteers, jobs }) {
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />
       <Container minH='inherit' maxW='container.xl'>
-        <HStack pb={8} align='start' spacing={8} my={16}>
-          <Box rounded='lg' bg='white' shadow='lg' p={{ base: 4, lg: 8 }}>
+        <Grid
+          w='full'
+          gap={8}
+          py={8}
+          gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
+          gridTemplateAreas={{
+            lg: `
+              'jobs volunteers'
+            `,
+            base: `
+              'jobs jobs'
+              'volunteers volunteers'
+            `,
+          }}
+        >
+          <Box rounded='lg' bg='white' shadow='lg' p={{ base: 4, lg: 8 }} mb={{ base: 4 }} gridArea='jobs'>
             <RadioGroup onChange={setState}>
-              <Stack spacing={4} justify='center'>
+              <Stack
+                spacing={4}
+                direction={{ base: 'row', lg: 'column' }}
+                justify='stretch'
+                w='full'
+                overflowX={{ base: 'auto', lg: 'hidden' }}
+              >
                 <Radio value=''>{t`all`}</Radio>
                 {jobs.map(job => (
-                  <Radio key={job.code} value={job.code}>
+                  <Radio key={job.code} value={job.code} isTruncated>
                     {job[`name_${locale}`]}
                   </Radio>
                 ))}
               </Stack>
             </RadioGroup>
           </Box>
-          <SimpleGrid flex={1} columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 4, lg: 8 }}>
+          <SimpleGrid flex={1} columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 4, lg: 8 }} gridArea='volunteers'>
             <Link href='/join' passHref>
               <Stack
                 role='group'
@@ -76,7 +96,7 @@ export default function Volunteers({ seo, volunteers, jobs }) {
               <UserCard key={i} user={user} />
             ))}
           </SimpleGrid>
-        </HStack>
+        </Grid>
       </Container>
     </Layout>
   )
