@@ -51,12 +51,12 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
         <Box
           display={{ base: 'none', lg: 'block' }}
           position={{ base: 'static', lg: 'absolute' }}
-          bottom='-150%'
+          bottom={2}
           h='full'
-          left={0}
+          left='-150%'
           right={0}
           w='full'
-          _groupHover={{ bottom: 2 }}
+          _groupHover={{ left: 0 }}
           transition='all 0.2s ease-in-out'
           bgGradient='linear(to-t, blackAlpha.700, transparent, transparent, blackAlpha.700)'
         />
