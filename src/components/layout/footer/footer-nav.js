@@ -14,10 +14,10 @@ export const FooterNav = () => {
         return (
           <Stack key={i} align='center' marginX={4} fontSize='lg' color={'blue.300'} py={4}>
             <Text fontWeight={600} fontSize={'lg'} mb={2} textTransform='uppercase'>
-              {t(item[locale].label)}
+              {t(item[locale])}
             </Text>
-            {item[locale].children.map((item, j) => {
-              return <FooterNavItem key={j} navItem={item} />
+            {item.children.map((item, j) => {
+              return <FooterNavItem key={j} link={item.link} label={item[locale]} />
             })}
           </Stack>
         )

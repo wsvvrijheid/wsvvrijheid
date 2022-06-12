@@ -12,9 +12,8 @@ import { useRouter } from 'next/router'
 
 import { Navigate } from '~components'
 
-const ChildMenuItem = ({ item }) => {
+const ChildMenuItem = ({ label, link }) => {
   const { asPath } = useRouter()
-  const { link, label } = item
 
   return (
     <Navigate
@@ -31,12 +30,14 @@ const ChildMenuItem = ({ item }) => {
   )
 }
 
-const ParentMenuItem = ({ item }) => {
+const ParentMenuItem = ({ label, link, submenu }) => {
+  const { locale } = useRouter()
+
   return (
     <Popover trigger='hover' arrowSize={16}>
       <PopoverTrigger>
-        <Navigate className='header-menu-item' href={item.link} fontWeight={600}>
-          {item.label}
+        <Navigate className='header-menu-item' href={link} fontWeight={600}>
+          {label}
         </Navigate>
       </PopoverTrigger>
       <Portal>
@@ -44,8 +45,8 @@ const ParentMenuItem = ({ item }) => {
           <PopoverArrow />
           <PopoverBody>
             <Stack spacing={4} py={4}>
-              {item.children.map(item => (
-                <ChildMenuItem key={item.link} item={item} />
+              {submenu.map(item => (
+                <ChildMenuItem key={item.link} link={item.link} label={item[locale]} />
               ))}
             </Stack>
           </PopoverBody>
@@ -55,22 +56,13 @@ const ParentMenuItem = ({ item }) => {
   )
 }
 
-export const HeaderNavItem = ({ item }) => {
+export const HeaderNavItem = ({ label, link, submenu }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false })
 
-  const isParentLink = item.children
-
-  if (isParentLink) {
-    if (isMobile)
-      return (
-        <>
-          {item.children.map(child => (
-            <ChildMenuItem key={child.link} item={child} />
-          ))}
-        </>
-      )
-    return <ParentMenuItem item={item} />
+  if (submenu) {
+    if (isMobile) return submenu.map(child => <ChildMenuItem key={child.link} item={child} />)
+    return <ParentMenuItem label={label} link={link} submenu={submenu} />
   }
 
-  return <ChildMenuItem item={item} />
+  return <ChildMenuItem label={label} link={link} />
 }
