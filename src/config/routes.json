@@ -1,227 +1,99 @@
 {
-  "project": {
-    "en": {
-      "label": "Platforms",
-      "link": "/platforms"
-    },
-    "nl": {
-      "label": "Platforms",
-      "link": "/platforms"
-    },
-    "tr": {
-      "label": "Platformlar",
-      "link": "/platformlar"
-    }
+  "platform": {
+    "link": "/platforms",
+    "en": "Platforms",
+    "nl": "Platformen",
+    "tr": "Platformlar"
   },
   "activity": {
-    "en": {
-      "label": "Activities",
-      "link": "/activities"
-    },
-    "nl": {
-      "label": "Activiteiten",
-      "link": "/activiteiten"
-    },
-    "tr": {
-      "label": "Faaliyetler",
-      "link": "/faaliyetler"
-    }
+    "link": "/activities",
+    "en": "Activities",
+    "nl": "Activiteiten",
+    "tr": "Etkinlikler"
   },
   "lotus": {
-    "en": {
-      "label": "Lotus van de Media",
-      "link": "/platforms/lotus"
-    },
-    "nl": {
-      "label": "Lotus van de Media",
-      "link": "/platforms/lotus"
-    },
-    "tr": {
-      "label": "Lotus van de Media",
-      "link": "/platforms/lotus"
-    }
+    "link": "/platforms/lotus",
+    "en": "Lotus van de Media",
+    "nl": "Lotus van de Media",
+    "tr": "Lotus van de Media"
   },
   "artStop": {
-    "en": {
-      "label": "Art Stop",
-      "link": "/platforms/art-stop"
-    },
-    "nl": {
-      "label": "Kunsthalte",
-      "link": "/platforms/art-stop"
-    },
-    "tr": {
-      "label": "Sanat Durağı",
-      "link": "/platforms/art-stop"
-    }
+    "link": "/platforms/art-stop",
+    "en": "Art Stop",
+    "nl": "Kunsthalte",
+    "tr": "Sanat Durağı"
   },
   "samenvvv": {
-    "en": {
-      "label": "Samenvvv",
-      "link": "/platforms/samenvvv"
-    },
-    "nl": {
-      "label": "Samenvvv",
-      "link": "/platforms/samenvvv"
-    },
-    "tr": {
-      "label": "Samenvvv",
-      "link": "/platforms/samenvvv"
-    }
+    "link": "/platforms/samenvvv",
+    "en": "Samenvvv",
+    "nl": "Samenvvv",
+    "tr": "Samenvvv"
   },
   "academy": {
-    "en": {
-      "label": "Academy",
-      "link": "/platforms/academy"
-    },
-    "nl": {
-      "label": "Academie",
-      "link": "/platforms/academy"
-    },
-    "tr": {
-      "label": "Akademi",
-      "link": "/platforms/academy"
-    }
+    "link": "/platforms/academy",
+    "en": "Academy",
+    "nl": "Academie",
+    "tr": "Akademi"
   },
   "blog": {
-    "en": {
-      "label": "Blog",
-      "link": "/blog"
-    },
-    "nl": {
-      "label": "Blog",
-      "link": "/blog"
-    },
-    "tr": {
-      "label": "Blog",
-      "link": "/blog"
-    }
+    "link": "/blog",
+    "en": "Blog",
+    "nl": "Blog",
+    "tr": "Blog"
   },
   "announcement": {
-    "en": {
-      "label": "Announcements",
-      "link": "/announcements"
-    },
-    "nl": {
-      "label": "Aankondigingen",
-      "link": "/aankondigingen"
-    },
-    "tr": {
-      "label": "Duyurular",
-      "link": "/duyurular"
-    }
+    "link": "/announcements",
+    "en": "Announcements",
+    "nl": "Aankondigingen",
+    "tr": "Duyurular"
   },
   "club": {
-    "en": {
-      "label": "Club",
-      "link": "/club"
-    },
-    "nl": {
-      "label": "Club",
-      "link": "/club"
-    },
-    "tr": {
-      "label": "Club",
-      "link": "/kulup"
-    }
+    "link": "/club",
+    "en": "Club",
+    "nl": "Club",
+    "tr": "Kulüp"
   },
   "about": {
-    "en": {
-      "label": "About Us",
-      "link": "/about-us"
-    },
-    "nl": {
-      "label": "Over Ons",
-      "link": "/over-ons"
-    },
-    "tr": {
-      "label": "Hakkımızda",
-      "link": "/hakkimizda"
-    }
+    "link": "/about-us",
+    "en": "About Us",
+    "nl": "Over Ons",
+    "tr": "Hakkımızda"
   },
   "donate": {
-    "en": {
-      "label": "Donate",
-      "link": "/donate"
-    },
-    "nl": {
-      "label": "Doneren",
-      "link": "/doneren"
-    },
-    "tr": {
-      "label": "Bağış",
-      "link": "/bagis"
-    }
+    "link": "/donate",
+    "en": "Donate",
+    "nl": "Doneren",
+    "tr": "Bağış"
   },
   "terms": {
-    "en": {
-      "label": "Terms of service",
-      "link": "/terms"
-    },
-    "nl": {
-      "label": "Algemene Voorwaarden ",
-      "link": "/voorwaarden"
-    },
-    "tr": {
-      "label": "Kullanım Şartları",
-      "link": "/kullanim-sartlari"
-    }
+    "link": "/terms",
+    "en": "Terms of service",
+    "nl": "Algemene Voorwaarden ",
+    "tr": "Kullanım Şartları"
   },
   "privacy": {
-    "en": {
-      "label": "Privacy Policy",
-      "link": "/privacy"
-    },
-    "nl": {
-      "label": "Privacybeleid",
-      "link": "/privacy"
-    },
-    "tr": {
-      "label": "Gizlilik Politikası",
-      "link": "/gizlilik"
-    }
+    "link": "/privacy",
+    "en": "Privacy Policy",
+    "nl": "Privacybeleid",
+    "tr": "Gizlilik Politikası"
   },
   "contact": {
-    "en": {
-      "label": "Contact",
-      "link": "/contact"
-    },
-    "nl": {
-      "label": "Contact",
-      "link": "/contact"
-    },
-    "tr": {
-      "label": "İletişim",
-      "link": "/iletisim"
-    }
+    "link": "/contact",
+    "en": "Contact",
+    "nl": "Contact",
+    "tr": "İletişim"
   },
   "volunteer": {
-    "en": {
-      "label": "Volunteers",
-      "link": "/volunteers"
-    },
-    "nl": {
-      "label": "Vrijwilligers",
-      "link": "/vrijwilligers"
-    },
-    "tr": {
-      "label": "Gönüllüler",
-      "link": "/gonulluler"
-    }
+    "link": "/volunteers",
+    "en": "Volunteers",
+    "nl": "Vrijwilligers",
+    "tr": "Gönüllüler"
   },
 
   "sign-up": {
-    "en": {
-      "label": "Sign-Up",
-      "link": "/sign-up"
-    },
-    "nl": {
-      "label": "Aanmelden",
-      "link": "/aanmelden"
-    },
-    "tr": {
-      "label": "Üye ol",
-      "link": "/uye-ol"
-    }
+    "link": "/sign-up",
+    "en": "Sign-Up",
+    "nl": "Aanmelden",
+    "tr": "Kayıt ol"
   }
 }

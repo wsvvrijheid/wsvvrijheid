@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -10,7 +11,18 @@ import {
   InputRightElement,
   useBoolean,
 } from '@chakra-ui/react'
+import { Select } from 'chakra-react-select'
+import { useController } from 'react-hook-form'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
+
+const SelectItem = ({ control, id, ...rest }) => {
+  const { field } = useController({
+    name: id,
+    control,
+  })
+
+  return <Box as={Select} w='full' {...field} {...rest} />
+}
 
 export const FormItem = ({
   id,
@@ -23,6 +35,8 @@ export const FormItem = ({
   register,
   isRequired,
   hideLabel,
+  selectOptions,
+  control,
   ...rest
 }) => {
   const [isOpen, setIsOpen] = useBoolean()
@@ -47,7 +61,17 @@ export const FormItem = ({
             />
           </InputRightElement>
         )}
-        <Tag id={id} type={isOpen ? 'text' : type} placeholder={label} {...register(id)} {...rest} />
+        {selectOptions ? (
+          <SelectItem control={control} id={id} {...selectOptions} placeholder={label} />
+        ) : (
+          <Tag
+            id={id}
+            type={!selectOptions && isOpen ? 'text' : type}
+            placeholder={label}
+            {...register(id)}
+            {...rest}
+          />
+        )}
       </InputGroup>
       <FormErrorMessage>{errors?.[id]?.message}</FormErrorMessage>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}

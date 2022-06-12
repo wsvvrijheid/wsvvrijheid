@@ -1,8 +1,16 @@
 import { Box, Heading, Text, VStack } from '@chakra-ui/react'
+import { memo } from 'react'
 
 import { ChakraNextImage, Container } from '~components'
 
-export const Hero = ({ title, description, video, image = '/images/hero-bg.jpeg', isFullHeight = false, children }) => {
+export const Hero = memo(function Hero({
+  title,
+  description,
+  video,
+  image = '/images/hero-bg.jpeg',
+  isFullHeight = false,
+  children,
+}) {
   return (
     <Box
       className='hero'
@@ -57,4 +65,4 @@ export const Hero = ({ title, description, video, image = '/images/hero-bg.jpeg'
       </Container>
     </Box>
   )
-}
+})

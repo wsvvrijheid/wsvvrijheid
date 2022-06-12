@@ -10,7 +10,6 @@ const CardImage = ({ art, isMasonry, image }) => (
     objectFit='cover'
     src={process.env.NEXT_PUBLIC_API_URL + image.url}
     alt={art.title}
-    rounded='md'
     userSelect='none'
   />
 )

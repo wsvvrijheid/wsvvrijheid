@@ -1,19 +1,22 @@
 import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { dehydrate, QueryClient } from 'react-query'
 
 import { BlogCard, Container, Hero, Layout } from '~components'
-import { getBlogs } from '~services'
+import { getBlogs, useGetBlogs } from '~services'
 
 // TODO: Implement author filter
-const Blogs = ({ seo, blogs }) => {
+const Blogs = ({ seo }) => {
+  const { data: blogs } = useGetBlogs()
+
   return (
     <Layout seo={seo} isDark>
       <Hero title='Blog' image='/images/blog-bg.jpeg' />
-      {blogs?.[0] ? (
+      {blogs.result?.[0] ? (
         <>
           <Container maxW='container.lg'>
             <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
-              {blogs?.map((blog, index) => (
+              {blogs.result?.map((blog, index) => (
                 <BlogCard key={index} isFeatured={index === 0} post={blog} />
               ))}
             </SimpleGrid>
@@ -34,8 +37,14 @@ const Blogs = ({ seo, blogs }) => {
 export default Blogs
 
 export const getStaticProps = async context => {
+  const queryClient = new QueryClient()
+
   const locale = context.locale
-  const response = await getBlogs(locale)
+
+  await queryClient.prefetchQuery({
+    queryKey: ['blogs', locale],
+    queryFn: () => getBlogs(locale),
+  })
 
   const blogSeo = {
     en: {
@@ -57,7 +66,7 @@ export const getStaticProps = async context => {
   return {
     props: {
       seo,
-      blogs: response?.result || null,
+      dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 120,
