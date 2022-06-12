@@ -88,7 +88,7 @@ const Club = ({ title }) => {
           </HStack>
 
           <Box gridArea='list'>
-            <MasonryGrid gap={4}>
+            <MasonryGrid gap={1}>
               {artsQuery.isLoading
                 ? Array.from({ length: 12 }).map((_, i) => (
                     <ArtCardSkeleton isMasonry key={'masonry-grid-skeleton' + i} />
