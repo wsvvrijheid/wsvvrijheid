@@ -34,7 +34,8 @@ export const useLikeArt = (art, user, queryKey) => {
   const likeArtByUserMutation = useLikeArtByUserMutation()
   const likeArtPublicMutation = useLikeArtPublicMutation()
 
-  const likers = user && (isLikedByUser ? art.likers?.filter(liker => liker?.id !== user.id) : [...art.likers, user.id])
+  const likers =
+    user && (isLikedByUser ? art.likers?.filter(liker => liker?.id !== user.id) : [...(art.likers || []), user.id])
   const likes = isLikedStorage ? art.likes - 1 : art.likes + 1
 
   const invalidateQueries = (updatedData, isSinglePage) => {
