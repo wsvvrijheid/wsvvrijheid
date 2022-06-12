@@ -8,12 +8,15 @@ import {
   Button,
   ButtonGroup,
   Center,
+  FormControl,
+  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Select,
   SimpleGrid,
   Spinner,
   Stack,
@@ -67,13 +70,7 @@ const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
 
 const schema = t =>
   yup.object({
-    locale: yup
-      .object()
-      .shape({
-        label: yup.string(),
-        value: yup.string(),
-      })
-      .required(t`art.create.form.locale-required`),
+    locale: yup.string().required(t`art.create.form.locale-required`),
     title: yup.string().required(t`art.create.form.title-required`),
     description: yup.string().required(t`art.create.form.description-required`),
     content: yup.string().required(t`art.create.form.content-required`),
@@ -143,7 +140,6 @@ export const CreateArtForm = ({ auth }) => {
     // TODO add content field (We need to discuss if content field will be markdown)
     const art = {
       ...data,
-      locale: data.locale.value,
       categories,
       slug: slugify(data.title),
       artist: auth.user.artist?.id,
@@ -200,18 +196,16 @@ export const CreateArtForm = ({ auth }) => {
               <SimpleGrid columns={{ base: 1, lg: 2 }} gap={4}>
                 <FileUploader setImages={setImages} images={images} />
                 <Stack spacing={4} as='form' onSubmit={handleSubmit(handleCreateArt)}>
-                  <FormItem
-                    id='locale'
-                    label={t`language`}
-                    selectOptions={{
-                      options: [
-                        { label: 'English', value: 'en' },
-                        { label: 'Türkçe', value: 'nl' },
-                        { label: 'Nederlands', value: 'tr' },
-                      ],
-                    }}
-                    control={control}
-                  />
+                  <FormControl>
+                    <FormLabel fontSize='sm' htmlFor='locale' mb={2} mt={2} fontWeight={'600'}>
+                      {t`language`}
+                    </FormLabel>
+                    <Select defaultValue={locale} {...register('locale')} id='locale'>
+                      <option value={'en'}>EN (English)</option>
+                      <option value={'nl'}>NL (Nederlands)</option>
+                      <option value={'tr'}>TR (Türkçe)</option>
+                    </Select>
+                  </FormControl>
                   <FormItem id='title' label={t`title`} isRequired errors={errors} register={register} />
                   <FormItem
                     id='categories'
