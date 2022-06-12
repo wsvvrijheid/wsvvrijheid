@@ -9,7 +9,7 @@ export const HeaderNav = ({ direction = 'row' }) => {
   return (
     <Stack direction={direction}>
       {HEADER_MENU.map((item, i) => {
-        return <HeaderNavItem key={i} item={item[locale]} />
+        return <HeaderNavItem key={i} label={item[locale]} link={item.link} submenu={item.children} />
       })}
     </Stack>
   )

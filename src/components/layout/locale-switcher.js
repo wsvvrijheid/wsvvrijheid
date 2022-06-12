@@ -4,21 +4,20 @@ import { useRouter } from 'next/router'
 import { useScroll } from '~hooks'
 
 export const LocaleSwitcher = ({ isDark }) => {
-  const { locales, push, pathname, locale, asPath, components } = useRouter()
+  const { locales, push, pathname, locale, asPath, components, query } = useRouter()
   const isScrolled = useScroll()
 
-  const slug =
-    components?.[pathname]?.props?.pageProps?.pageData?.slugs || components?.[pathname]?.props?.pageProps?.slug
+  const slugs = components?.[pathname].props.pageProps.slugs
 
   // TODO: Redirect to localized path for static pages
   const handleChangeLanguage = async locale => {
-    await push(pathname, slug?.[locale]?.join('/') || asPath, { locale })
+    await push(pathname, slugs?.[locale] || asPath, { locale })
   }
 
   return (
     <ButtonGroup spacing={0} size='sm' alignItems='center'>
       {locales.map(code => {
-        if (slug && (!slug?.[code] || !slug?.[code]?.[0])) return null
+        if (query.slug && !slugs?.[code]) return null
 
         let variant = 'ghost'
         if (locale === code) {
