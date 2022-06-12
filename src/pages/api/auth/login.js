@@ -20,7 +20,15 @@ const loginRoute = async (req, res) => {
         headers: { Authorization: `Bearer ${token}` },
       })
 
-      const auth = { user: response.data, token, isLoggedIn: true }
+      const user = {
+        id: response.data.id,
+        username: response.data.username,
+        volunteer: response.data.volunteer,
+        avatar: response.data.avatar,
+        artist: response.data.artist,
+      }
+
+      const auth = { user, token, isLoggedIn: true }
 
       req.session = auth
       await req.session.save()

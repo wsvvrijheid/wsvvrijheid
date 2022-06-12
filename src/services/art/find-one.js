@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
 import { request } from '~lib'
@@ -39,12 +40,18 @@ export const getArt = async (locale, slug) => {
   )
 
   const comments = await getArtComments(art.id)
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${art.slug}`
 
-  return { ...art, arts, comments }
+  return { ...art, arts, comments, url }
 }
 
-export const useGetArt = (locale, slug) =>
-  useQuery({
+export const useGetArt = () => {
+  const {
+    locale,
+    query: { slug },
+  } = useRouter()
+  return useQuery({
     queryKey: ['art', locale, slug],
     queryFn: () => getArt(locale, slug),
   })
+}
