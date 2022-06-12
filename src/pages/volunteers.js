@@ -1,4 +1,4 @@
-import { Box, Center, Grid, Radio, RadioGroup, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Box, Center, Grid, Radio, RadioGroup, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -40,8 +40,27 @@ export default function Volunteers({ seo, volunteers, jobs }) {
             `,
           }}
         >
-          <Box rounded='lg' bg='white' shadow='lg' p={{ base: 4, lg: 8 }} mb={{ base: 4 }} gridArea='jobs'>
-            <RadioGroup onChange={setState}>
+          <Box
+            rounded='lg'
+            bg='white'
+            shadow='lg'
+            p={{ base: 4, lg: 8 }}
+            mb={{ base: 4 }}
+            gridArea='jobs'
+            position='sticky'
+            top={2}
+            h={{ base: '56px', lg: 'auto' }}
+            overflowX='hidden'
+            zIndex='docked'
+          >
+            <RadioGroup
+              position={{ base: 'absolute', lg: 'static' }}
+              top={0}
+              left={2}
+              w='full'
+              onChange={setState}
+              overflow='hidden'
+            >
               <Stack
                 spacing={4}
                 direction={{ base: 'row', lg: 'column' }}
@@ -51,8 +70,8 @@ export default function Volunteers({ seo, volunteers, jobs }) {
               >
                 <Radio value=''>{t`all`}</Radio>
                 {jobs.map(job => (
-                  <Radio key={job.code} value={job.code} isTruncated>
-                    {job[`name_${locale}`]}
+                  <Radio p={{ base: 4, lg: 'initial' }} key={job.code} value={job.code}>
+                    <Text isTruncated>{job[`name_${locale}`]}</Text>
                   </Radio>
                 ))}
               </Stack>
