@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Radio, RadioGroup, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Box, Center, Grid, Radio, RadioGroup, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -25,20 +25,59 @@ export default function Volunteers({ seo, volunteers, jobs }) {
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />
       <Container minH='inherit' maxW='container.xl'>
-        <HStack pb={8} align='start' spacing={8} my={16}>
-          <Box rounded='lg' bg='white' shadow='lg' p={{ base: 4, lg: 8 }}>
-            <RadioGroup onChange={setState}>
-              <Stack spacing={4} justify='center'>
+        <Grid
+          w='full'
+          gap={8}
+          py={8}
+          gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
+          gridTemplateAreas={{
+            lg: `
+              'jobs volunteers'
+            `,
+            base: `
+              'jobs jobs'
+              'volunteers volunteers'
+            `,
+          }}
+        >
+          <Box
+            rounded='lg'
+            bg='white'
+            shadow='lg'
+            p={{ base: 4, lg: 8 }}
+            mb={{ base: 4 }}
+            gridArea='jobs'
+            position='sticky'
+            top={2}
+            h={{ base: '56px', lg: 'auto' }}
+            overflowX='hidden'
+            zIndex='docked'
+          >
+            <RadioGroup
+              position={{ base: 'absolute', lg: 'static' }}
+              top={0}
+              left={2}
+              w='full'
+              onChange={setState}
+              overflow='hidden'
+            >
+              <Stack
+                spacing={4}
+                direction={{ base: 'row', lg: 'column' }}
+                justify='stretch'
+                w='full'
+                overflowX={{ base: 'auto', lg: 'hidden' }}
+              >
                 <Radio value=''>{t`all`}</Radio>
                 {jobs.map(job => (
-                  <Radio key={job.code} value={job.code}>
-                    {job[`name_${locale}`]}
+                  <Radio p={{ base: 4, lg: 'initial' }} key={job.code} value={job.code}>
+                    <Text isTruncated>{job[`name_${locale}`]}</Text>
                   </Radio>
                 ))}
               </Stack>
             </RadioGroup>
           </Box>
-          <SimpleGrid flex={1} columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 4, lg: 8 }}>
+          <SimpleGrid flex={1} columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 4, lg: 8 }} gridArea='volunteers'>
             <Link href='/join' passHref>
               <Stack
                 role='group'
@@ -76,7 +115,7 @@ export default function Volunteers({ seo, volunteers, jobs }) {
               <UserCard key={i} user={user} />
             ))}
           </SimpleGrid>
-        </HStack>
+        </Grid>
       </Container>
     </Layout>
   )
