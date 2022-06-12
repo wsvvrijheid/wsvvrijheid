@@ -1,6 +1,6 @@
 import { Avatar, Badge, HStack, IconButton, Stack, Text, useDisclosure } from '@chakra-ui/react'
 import { useState } from 'react'
-import { FaRegHeart } from 'react-icons/fa'
+import { AiFillHeart } from 'react-icons/ai'
 
 import { Navigate } from '~components'
 import { useLikeArt } from '~services'
@@ -14,7 +14,7 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { mutate: likeArt } = useLikeArt(queryKey)
+  const { toggleLike, isLiked } = useLikeArt(art, user, queryKey)
 
   const isOwner = user?.id === art.artist.user.id
 
@@ -65,14 +65,13 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
           <HStack spacing={1}>
             <IconButton
               size='sm'
-              isRound
-              aria-label='Like art'
-              icon={<FaRegHeart />}
-              variant='ghost'
-              colorScheme='red'
-              onClick={() => likeArt({ art })}
+              rounded='full'
+              aria-label='like post'
+              color={isLiked ? 'red.400' : 'gray.400'}
+              icon={<AiFillHeart />}
+              onClick={toggleLike}
             />
-            <Text>{art.likes?.length}</Text>
+            <Text>{(art?.likes || 0) + (art.likers?.length || 0)}</Text>
           </HStack>
         </HStack>
       </Stack>
