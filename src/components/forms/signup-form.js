@@ -1,4 +1,4 @@
-import { Button, Container, Divider, Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import { Button, Checkbox, Container, Divider, Heading, HStack, Stack, Text } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -36,6 +36,7 @@ export const SignupForm = () => {
   useAuth('/profile', true)
 
   const [errorMessage, setErrorMessage] = useState(null)
+  const [isTermsAccepted, setIsTermsAccepted] = useState(true)
 
   const { t } = useTranslation()
   const router = useRouter()
@@ -75,6 +76,10 @@ export const SignupForm = () => {
     }
   }
 
+  const handleTermsAccepted = () => {
+    setIsTermsAccepted(!isTermsAccepted)
+  }
+
   return (
     <Container maxW='lg' py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
       <Stack spacing='8' shadow='lg' bg='white' p={{ base: 8, lg: 12 }} rounded='lg'>
@@ -103,9 +108,17 @@ export const SignupForm = () => {
               register={register}
               errors={errors}
             />
+
+            <HStack>
+              {/* TODO Set session exp time */}
+              <Checkbox defaultIsChecked onChange={handleTermsAccepted} />
+              <Navigate as={Button} href='/terms' variant='link' colorScheme='gray' size='sm'>
+                {t('login.terms-use')}
+              </Navigate>
+            </HStack>
           </Stack>
           <Stack spacing='6'>
-            <Button type='submit' colorScheme='blue'>
+            <Button type='submit' colorScheme='blue' disabled={!isTermsAccepted}>
               {t('login.create-account')}
             </Button>
             <HStack>

@@ -1,4 +1,5 @@
 import { Box, Button, ButtonGroup, Link } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 import { FaGoogle } from 'react-icons/fa'
 
 const providers = [
@@ -27,6 +28,7 @@ const providers = [
 const backendUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const OAuthButtonGroup = () => {
+  const { t } = useTranslation()
   const onSocialLogin = async url => {
     window.open(`${backendUrl}${url}`, '_self')
   }
@@ -43,7 +45,7 @@ export const OAuthButtonGroup = () => {
             onSocialLogin(url)
           }}
         >
-          Sing in with {name}
+          {t('login.sign-with')} {name}
         </Button>
       ))}
     </ButtonGroup>
