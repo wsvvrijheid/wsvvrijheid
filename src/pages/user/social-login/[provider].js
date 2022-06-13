@@ -15,9 +15,6 @@ const AuthProvider = () => {
   const { t } = useTranslation()
   const router = useRouter()
   useAuth('/profile', true)
-
-  console.log({ router })
-
   useEffect(() => {
     setLoading(true)
     if (router.query.provider && router.query.access_token) {
