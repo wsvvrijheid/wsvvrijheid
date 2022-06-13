@@ -16,15 +16,21 @@ import React from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { GrClearOption } from 'react-icons/gr'
 
-export const FileUploader = ({ images, setImages }) => {
+import { resizeImage } from '~utils'
+
+export const FileUploader = ({ images, setImages, maxSize }) => {
   const inputRef = React.useRef(null)
   const [previews, setPreviews] = React.useState([])
 
   const { t } = useTranslation()
 
-  const onInputChange = event => {
+  const onInputChange = async event => {
     const files = [...event.target.files]
-    files.forEach(file => {
+    const compressedFiles = await Promise.all(files.map(file => resizeImage({ file, maxSize })))
+
+    console.log('compressedFiles', compressedFiles)
+
+    compressedFiles.forEach(file => {
       setImages(prev => [...prev, file])
       setPreviews(prev => [...prev, URL.createObjectURL(file)])
     })
