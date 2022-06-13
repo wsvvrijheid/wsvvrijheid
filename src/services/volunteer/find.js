@@ -1,5 +1,7 @@
 import { useQuery } from 'react-query'
 
+import { request } from '~lib'
+
 export const getVolunteers = async () => {
   const response = await request({ url: 'api/volunteers', filters: { approved: { $eq: true } } })
 

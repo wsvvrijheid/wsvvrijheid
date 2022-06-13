@@ -3557,6 +3557,11 @@ import-local@^3.0.2:
     pkg-dir "^4.2.0"
     resolve-cwd "^3.0.0"
 
+imtool@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/imtool/-/imtool-1.1.5.tgz#c748e23c6d944b72cd3fcdef932915f16fd66fdd"
+  integrity sha512-m1mx/oQ0yjaWKalOQ7elEo7q4A7Cm7NUC3o3PDN7GYgwUZwKxEp5QQys7axMITs79r97BPTuEILHyYfifMFmIQ==
+
 imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
@@ -5519,10 +5524,10 @@ react-i18next@^11.16.2:
     html-escaper "^2.0.2"
     html-parse-stringify "^3.0.1"
 
-react-icons@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.3.1.tgz#2fa92aebbbc71f43d2db2ed1aed07361124e91ca"
-  integrity sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==
+react-icons@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
+  integrity sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==
 
 react-intersection-observer@^8.34.0:
   version "8.34.0"

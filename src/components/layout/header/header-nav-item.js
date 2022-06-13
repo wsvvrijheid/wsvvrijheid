@@ -58,9 +58,11 @@ const ParentMenuItem = ({ label, link, submenu }) => {
 
 export const HeaderNavItem = ({ label, link, submenu }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false })
+  const { locale } = useRouter()
 
   if (submenu) {
-    if (isMobile) return submenu.map(child => <ChildMenuItem key={child.link} item={child} />)
+    if (isMobile)
+      return submenu.map(child => <ChildMenuItem key={child.link} label={child[locale]} link={child.link} />)
     return <ParentMenuItem label={label} link={link} submenu={submenu} />
   }
 
