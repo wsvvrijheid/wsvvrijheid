@@ -1,11 +1,12 @@
-import { Box, Center, Grid, Radio, RadioGroup, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Grid, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { IoPeopleCircle } from 'react-icons/io5'
 
-import { Container, Hero, Layout, UserCard } from '~components'
+import { Container, Hero, Layout, MasonryGrid, UserCard } from '~components'
 import { request } from '~lib'
 import { useVolunteers } from '~services'
 
@@ -25,96 +26,61 @@ export default function Volunteers({ seo, volunteers, jobs }) {
     <Layout seo={seo} isDark>
       <Hero title={seo.title} />
       <Container minH='inherit' maxW='container.xl'>
-        <Grid
-          w='full'
-          gap={8}
-          py={8}
-          gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
-          gridTemplateAreas={{
-            lg: `
-              'jobs volunteers'
-            `,
-            base: `
-              'jobs jobs'
-              'volunteers volunteers'
-            `,
-          }}
-        >
+        <Grid w='full' gap={{ base: 4, lg: 8 }} py={8} gridTemplateColumns={{ base: '1fr', lg: 'max-content 1fr' }}>
           <Box
-            rounded='lg'
-            bg='white'
-            shadow='lg'
-            p={{ base: 4, lg: 8 }}
-            mb={{ base: 4 }}
-            gridArea='jobs'
+            m={-2}
+            p={2}
+            spacing={{ base: 4, lg: 8 }}
+            w='calc(100% + 16px)'
+            overflow='hidden'
             position='sticky'
             top={2}
-            h={{ base: '56px', lg: 'auto' }}
-            overflowX='hidden'
             zIndex='docked'
           >
-            <RadioGroup
-              position={{ base: 'absolute', lg: 'static' }}
-              top={0}
-              left={2}
-              w='full'
-              onChange={setState}
-              overflow='hidden'
-            >
-              <Stack
-                spacing={4}
-                direction={{ base: 'row', lg: 'column' }}
-                justify='stretch'
-                w='full'
-                overflowX={{ base: 'auto', lg: 'hidden' }}
-              >
-                <Radio value=''>{t`all`}</Radio>
-                {jobs.map(job => (
-                  <Radio p={{ base: 4, lg: 'initial' }} key={job.code} value={job.code}>
-                    <Text isTruncated>{job[`name_${locale}`]}</Text>
-                  </Radio>
-                ))}
-              </Stack>
-            </RadioGroup>
-          </Box>
-          <SimpleGrid flex={1} columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 4, lg: 8 }} gridArea='volunteers'>
             <Link href='/join' passHref>
-              <Stack
-                role='group'
-                p={6}
-                spacing={4}
-                rounded='md'
-                bg='white'
+              <Button
+                position={{ base: 'fixed', lg: 'static' }}
+                bottom={0}
+                rounded={{ base: 0, lg: 'md' }}
+                left={0}
                 w='full'
+                size='lg'
                 shadow='md'
-                align='center'
-                justify='center'
-                cursor='pointer'
-                minH={200}
-                transition='all 0.3s ease'
-                _hover={{ bg: 'blue.500', borderColor: 'white' }}
-              >
-                <Center
-                  color='blue.500'
-                  fontWeight='semibold'
-                  fontSize='xl'
-                  borderWidth={3}
-                  borderColor='blue.500'
-                  boxSize='full'
-                  borderStyle='dashed'
-                  transition='all 0.5s ease'
-                  bg='white'
-                  _groupHover={{ bg: 'blue.100' }}
-                  textAlign='center'
-                >
-                  {t`joinTheTeam`}
-                </Center>
-              </Stack>
+                py={8}
+                mb={{ base: 0, lg: 8 }}
+                leftIcon={
+                  <Box fontSize='3xl'>
+                    <IoPeopleCircle />
+                  </Box>
+                }
+                colorScheme='blue'
+              >{t`joinTheTeam`}</Button>
             </Link>
+
+            <Box rounded='md' bg='white' shadow='md' p={{ base: 4, lg: 8 }} overflowX='hidden'>
+              <RadioGroup w='full' onChange={setState} overflow='hidden'>
+                <Stack
+                  spacing={4}
+                  direction={{ base: 'row', lg: 'column' }}
+                  justify='stretch'
+                  w='full'
+                  overflowX={{ base: 'auto', lg: 'hidden' }}
+                >
+                  <Radio value=''>{t`all`}</Radio>
+                  {jobs.map(job => (
+                    <Radio p={{ base: 4, lg: 'initial' }} key={job.code} value={job.code}>
+                      <Text isTruncated>{job[`name_${locale}`]}</Text>
+                    </Radio>
+                  ))}
+                </Stack>
+              </RadioGroup>
+            </Box>
+          </Box>
+          <MasonryGrid flex={1} columns={[1, 2, 3, 4]} gap={{ base: 4, lg: 8 }}>
             {data?.map((user, i) => (
               <UserCard key={i} user={user} />
             ))}
-          </SimpleGrid>
+          </MasonryGrid>
         </Grid>
       </Container>
     </Layout>
