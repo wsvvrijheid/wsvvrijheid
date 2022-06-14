@@ -116,7 +116,7 @@
     "terms-use": "Do you accept the terms of use?",
     "sign-in": "Sign in",
     "sign-up-with": "or sign up with",
-    "sign-with": "Sign in with",
+    "sign-with": "Sign in with {{provider}}",
     "sign-in-with": "or continue with",
     "remember-me": "Remember me",
     "email-taken": {

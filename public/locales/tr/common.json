@@ -115,7 +115,7 @@
     "terms-use": "Kullanım koşullarını kabul ediyor musunuz?",
     "sign-in": "Giriş yap",
     "sign-up-with": "veya ",
-    "sign-with": "ile giriş yap",
+    "sign-with": "{{provider}} ile giriş yap",
     "sign-in-with": "veya devam et",
     "remember-me": "Beni hatırla",
     "email-taken": {

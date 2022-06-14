@@ -115,7 +115,7 @@
     "terms-use": "Accepteert u de gebruiksvoorwaarden?",
     "sign-in": "Inloggen",
     "sign-up-with": "of zingen met",
-    "sign-with": "Inloggen met",
+    "sign-with": "Inloggen met {{provider}}",
     "sign-in-with": "of ga verder met",
     "remember-me": "Onthoud mij",
     "email-taken": {

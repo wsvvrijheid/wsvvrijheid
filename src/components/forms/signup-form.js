@@ -128,7 +128,7 @@ export const SignupForm = () => {
               </Text>
               <Divider />
             </HStack>
-            <OAuthButtonGroup />
+            <OAuthButtonGroup isDisabled={!isTermsAccepted} />
           </Stack>
         </Stack>
       </Stack>

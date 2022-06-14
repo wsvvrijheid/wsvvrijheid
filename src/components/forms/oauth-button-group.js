@@ -27,25 +27,25 @@ const providers = [
 
 const backendUrl = process.env.NEXT_PUBLIC_API_URL
 
-export const OAuthButtonGroup = () => {
+export const OAuthButtonGroup = ({ isDisabled }) => {
   const { t } = useTranslation()
   const onSocialLogin = async url => {
     window.open(`${backendUrl}${url}`, '_self')
   }
   return (
-    <ButtonGroup variant='outline' spacing='4' width='full'>
+    <ButtonGroup variant='outline' spacing='4' width='full' isDisabled={isDisabled}>
       {providers.map(({ name, icon, url }) => (
         <Button
           as={Link}
           key={name}
           isFullWidth
           leftIcon={icon}
-          textColor='blue.400'
+          colorScheme='red'
           onClick={() => {
             onSocialLogin(url)
           }}
         >
-          {t('login.sign-with')} {name}
+          {t('login.sign-with', { provider: name })}
         </Button>
       ))}
     </ButtonGroup>
