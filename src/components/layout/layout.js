@@ -14,7 +14,7 @@ export const Layout = ({ children, seo, isLoading = false, isDark }) => {
   return (
     <>
       {seo && <NextSeo {...seo} />}
-      <Flex flexDir='column' minHeight='100vh'>
+      <Flex flexDir='column' minHeight='100vh' overflowX='hidden'>
         <Header isScrolled={isScrolled} isDark={isDark} auth={auth} />
         {isLoading ? (
           <Center minH={{ base: 'calc(100vh - 64px)', lg: 'calc(100vh - 100px)' }}>
