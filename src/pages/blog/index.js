@@ -2,7 +2,7 @@ import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { BlogCard, Container, Hero, Layout } from '~components'
+import { AnimatedBox, BlogCard, Container, Hero, Layout } from '~components'
 import { getBlogs, useGetBlogs } from '~services'
 
 // TODO: Implement author filter
@@ -17,7 +17,18 @@ const Blogs = ({ seo }) => {
           <Container maxW='container.lg'>
             <SimpleGrid gap={8} py={8} columns={{ base: 1, lg: 2 }}>
               {blogs.result?.map((blog, index) => (
-                <BlogCard key={index} isFeatured={index === 0} post={blog} />
+                <AnimatedBox
+                  key={index}
+                  directing='to-down'
+                  delay={index * 3}
+                  gridColumn={{
+                    base: undefined,
+                    lg: index === 0 ? 'span 2' : undefined,
+                  }}
+                  h='full'
+                >
+                  <BlogCard isFeatured={index === 0} post={blog} />
+                </AnimatedBox>
               ))}
             </SimpleGrid>
           </Container>

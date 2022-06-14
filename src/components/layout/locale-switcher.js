@@ -7,7 +7,7 @@ export const LocaleSwitcher = ({ isDark }) => {
   const { locales, push, pathname, locale, asPath, components, query } = useRouter()
   const isScrolled = useScroll()
 
-  const slugs = components?.[pathname].props.pageProps.slugs
+  const slugs = components?.[pathname].props.pageProps?.slugs
 
   // TODO: Redirect to localized path for static pages
   const handleChangeLanguage = async locale => {

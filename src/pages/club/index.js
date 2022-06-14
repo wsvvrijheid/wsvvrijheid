@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
 
 import {
+  AnimatedBox,
   ArtCard,
   ArtCardSkeleton,
   CategoryFilter,
@@ -91,11 +92,13 @@ const Club = ({ title }) => {
             <MasonryGrid gap={1}>
               {artsQuery.isLoading
                 ? Array.from({ length: 12 }).map((_, i) => (
-                    <ArtCardSkeleton isMasonry key={'masonry-grid-skeleton' + i} />
+                    <ArtCardSkeleton key={'masonry-grid-skeleton' + i} isMasonry />
                   ))
-                : artsQuery.data?.result.map(art => (
+                : artsQuery.data?.result.map((art, i) => (
                     // TODO Add link to navigate to the art page
-                    <ArtCard key={art.id} art={art} user={auth.user} isMasonry queryKey={queryKey} />
+                    <AnimatedBox key={art.id} directing='to-down' delay={i * 1}>
+                      <ArtCard art={art} user={auth.user} isMasonry queryKey={queryKey} />
+                    </AnimatedBox>
                   ))}
             </MasonryGrid>
           </Box>
