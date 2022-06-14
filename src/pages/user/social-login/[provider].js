@@ -15,13 +15,13 @@ const AuthProvider = () => {
   const { t } = useTranslation()
   const router = useRouter()
   useAuth('/profile', true)
-
   useEffect(() => {
     setLoading(true)
     if (router.query.provider && router.query.access_token) {
       axios
         .post(`/api/auth/social-auth/${router.query.provider}`, {
           access_token: router.query.access_token,
+          ...(router.query.provider === 'twitter' && { access_secret: router.query.access_secret }),
         })
         .then(response => {
           if (response.data.token) {
@@ -58,7 +58,7 @@ const AuthProvider = () => {
 }
 
 export const getStaticPaths = async () => {
-  const providers = ['google', 'twitter', 'facebook']
+  const providers = ['google', 'twitter', 'facebook', 'instagram']
 
   return {
     paths: providers.map(provider => ({ params: { provider } })),
