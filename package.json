@@ -24,6 +24,7 @@
     "date-fns": "^2.28.0",
     "eslint-plugin-prettier": "^4.0.0",
     "framer-motion": "^6.3.0",
+    "hyvor-talk-react": "^2.0.0",
     "imtool": "^1.1.5",
     "iron-session": "^6.1.2",
     "next": "12.1.5",

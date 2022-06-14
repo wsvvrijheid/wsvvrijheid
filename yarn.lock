@@ -3517,6 +3517,11 @@ husky@>=7.0.4:
   resolved "https://registry.yarnpkg.com/husky/-/husky-7.0.4.tgz#242048245dc49c8fb1bf0cc7cfb98dd722531535"
   integrity sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==
 
+hyvor-talk-react@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hyvor-talk-react/-/hyvor-talk-react-2.0.0.tgz#20071c112e81a7cfb319c68d16ea84cd8ca05a7c"
+  integrity sha512-Ez3cTi8TmjILRZWbbi6KCQkVLf+oy7KCSBRtUZg7XRznd46MPZHBQiX0BJlRHJA9wz2xaUrk/1up9OXHrMj+VA==
+
 i18next-fs-backend@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.1.4.tgz#d0e9b9ed2fa7a0f11002d82b9fa69c3c3d6482da"

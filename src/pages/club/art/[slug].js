@@ -1,15 +1,23 @@
 import { Box, Grid, Heading, SimpleGrid, Stack } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 
-import { ArtCard, ArtContent, ArtDetail, CommentForm, CommentList, Container, Layout } from '~components'
+import { ArtCard, ArtContent, ArtDetail, Container, Layout } from '~components'
 import { useAuth } from '~hooks'
 import { getArt, getArtPaths, useGetArt, useViewArt } from '~services'
+
+const CommentsComp = dynamic(() => import('../../../components/shared/comment'), { ssr: false })
 
 const ArtPage = ({ seo, queryKey }) => {
   const auth = useAuth()
   const { t } = useTranslation()
+
+  const {
+    query: { slug },
+  } = useRouter()
 
   const { data: art } = useGetArt()
   useViewArt()
@@ -33,11 +41,7 @@ const ArtPage = ({ seo, queryKey }) => {
             {/* Single Art Comments */}
             <Stack spacing={4}>
               {/*  Comment form */}
-              <CommentForm auth={auth} />
-
-              {/*List comments of the current art */}
-              {/* TODO Add CommentSkeleton */}
-              <CommentList comments={art.comments} />
+              <CommentsComp page={slug} />
             </Stack>
           </Stack>
         </Grid>
