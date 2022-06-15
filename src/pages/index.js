@@ -2,7 +2,7 @@ import { Box, Center, Flex, Heading, SimpleGrid, Text, VStack } from '@chakra-ui
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Container, HomeAbout, HomeHero, HomeProject, Layout } from '~components'
+import { AnimatedBox, Container, HomeAbout, HomeHero, HomeProject, Layout } from '~components'
 import { HOME_ABOUT, PROJECTS } from '~data'
 
 export default function Home() {
@@ -21,20 +21,26 @@ export default function Home() {
         zIndex={0}
       >
         <Container maxW='container.md' pos='relative' zIndex={1}>
-          <VStack flex={1} py={16} spacing={4} textAlign='center'>
-            <Heading fontWeight='black'>Wees de Stem voor Vrijheid</Heading>
-            <Text fontSize='xl'>{t`home.hero`}</Text>
-          </VStack>
+          <AnimatedBox directing='to-down'>
+            <VStack flex={1} py={16} spacing={4} textAlign='center'>
+              <Heading fontWeight='black'>Wees de Stem voor Vrijheid</Heading>
+              <Text fontSize='xl'>{t`home.hero`}</Text>
+            </VStack>
+          </AnimatedBox>
         </Container>
         <Box overflow='hidden' mt={-100}>
-          <HomeHero />
+          <AnimatedBox delay={4} duration={3} directing='to-up'>
+            <HomeHero />
+          </AnimatedBox>
         </Box>
       </Flex>
       <Center bg='blue.100' py={{ base: 16, lg: 32 }} minH='50vh'>
         <Container>
           <SimpleGrid columns={{ base: 1, lg: 3 }} gap={8} textAlign='center'>
             {HOME_ABOUT.map((item, i) => (
-              <HomeAbout key={i} item={item} />
+              <AnimatedBox key={i} delay={i * 3} directing='to-down'>
+                <HomeAbout item={item} />
+              </AnimatedBox>
             ))}
           </SimpleGrid>
         </Container>

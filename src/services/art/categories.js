@@ -12,6 +12,9 @@ export const getArtCategories = async locale => {
         locale: {
           $eq: locale,
         },
+        status: {
+          $eq: 'approved',
+        },
       },
     },
   })

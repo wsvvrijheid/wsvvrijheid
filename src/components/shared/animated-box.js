@@ -5,7 +5,17 @@ import { useInView } from 'react-intersection-observer'
 import { MotionBox } from './motion-box'
 
 export const AnimatedBox = props => {
-  const { children, directing, distance = 50, hasHover = false, delay = 0, duration = 1, transition, variants } = props
+  const {
+    children,
+    directing,
+    distance = 50,
+    hasHover = false,
+    delay = 0,
+    duration = 1,
+    transition,
+    variants,
+    ...rest
+  } = props
   const controls = useAnimation()
   const [ref, inView] = useInView()
 
@@ -51,6 +61,7 @@ export const AnimatedBox = props => {
       w='full'
       {...(variants && { variants: variants })}
       {...(directing && { variants: initialVariants[directing] })}
+      {...rest}
     >
       <MotionBox
         {...(hasHover && {
