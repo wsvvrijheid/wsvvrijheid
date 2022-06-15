@@ -23,7 +23,7 @@ const route = async (req, res) => {
       if (token) {
         const artistResponse = await request({
           url: 'api/artists',
-          filters: { user: { $eq: userId } },
+          filters: { user: { id: { $eq: userId } } },
         })
 
         // TODO Remove this after debugging
