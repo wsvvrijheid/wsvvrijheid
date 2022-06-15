@@ -29,9 +29,11 @@ const backendUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const OAuthButtonGroup = ({ isDisabled }) => {
   const { t } = useTranslation()
+
   const onSocialLogin = async url => {
     window.open(`${backendUrl}${url}`, '_self')
   }
+
   return (
     <ButtonGroup variant='outline' spacing='4' width='full' isDisabled={isDisabled}>
       {providers.map(({ name, icon, url }) => (
