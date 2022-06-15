@@ -29,7 +29,7 @@ const route = async (req, res) => {
         // TODO Remove this after debugging
         console.log('Artist Response', artistResponse)
 
-        if (!artistResponse?.result) {
+        if (!artistResponse?.result?.[0]) {
           await mutation.post('api/artists', {
             data: { user: userId, name: socialLoginResponse.data.user?.name || artistResponse.data.username },
           })
