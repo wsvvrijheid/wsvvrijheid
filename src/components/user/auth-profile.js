@@ -49,26 +49,30 @@ export const AuthenticatedUserProfile = ({ auth }) => {
         </Stack>
       </Hero>
       <Container>
-        <Tabs isLazy my={4} overflowX='auto'>
-          <TabList overflowX='auto' minW='max-content' w='full'>
-            {user.artist && (
-              <>
-                <Tab fontWeight='semibold'>
-                  <Box as={FaPaintBrush} mr={1} /> {t`profile.approved-arts`}
-                </Tab>
-                <Tab fontWeight='semibold'>
-                  <Box as={FaSpinner} mr={1} /> {t`profile.pending-arts`}
-                </Tab>
-                <Tab fontWeight='semibold'>
-                  <Box as={MdRemoveModerator} mr={1} /> {t`profile.rejected-arts`}
-                </Tab>
-              </>
-            )}
-            <Tab ml='auto' fontWeight='semibold'>
-              <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
-            </Tab>
-            <CreateArtForm auth={auth} />
-          </TabList>
+        <Tabs isLazy my={4}>
+          <Box overflowX='auto'>
+            <TabList overflowX='auto' minW='max-content' w='full'>
+              {user.artist && (
+                <>
+                  <Tab fontWeight='semibold'>
+                    <Box as={FaPaintBrush} mr={1} /> {t`profile.approved-arts`}
+                  </Tab>
+                  <Tab fontWeight='semibold'>
+                    <Box as={FaSpinner} mr={1} /> {t`profile.pending-arts`}
+                  </Tab>
+                  <Tab fontWeight='semibold'>
+                    <Box as={MdRemoveModerator} mr={1} /> {t`profile.rejected-arts`}
+                  </Tab>
+                </>
+              )}
+              <Tab ml='auto' fontWeight='semibold'>
+                <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
+              </Tab>
+              <Box my={1} ml={2}>
+                <CreateArtForm auth={auth} />
+              </Box>
+            </TabList>
+          </Box>
           <TabPanels>
             {/* Approved arts */}
             <TabPanel px={0}>
