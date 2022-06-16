@@ -6,7 +6,7 @@ export const CommentItem = ({ comment }) => {
 
   return (
     <HStack align='start'>
-      <Avatar size='sm' src={comment.user?.avatar.url} name={name} />
+      <Avatar size='sm' src={`${process.env.NEXT_PUBLIC_API_URL}${comment.user?.avatar.url}`} name={name} />
       <Stack fontSize='sm'>
         <HStack>
           <Text fontWeight='semibold'>{name}</Text>
