@@ -1,14 +1,13 @@
 import { Avatar, Button, HStack, IconButton, Stack, Text, Textarea, useBreakpointValue, VStack } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import axios from 'axios'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { FiArrowRight } from 'react-icons/fi'
-import { useMutation } from 'react-query'
-import { v4 as uuidv4 } from 'uuid'
+import { useMutation, useQueryClient } from 'react-query'
 import * as yup from 'yup'
 
+import { mutation } from '~lib'
 import { toastMessage } from '~utils'
 
 import { FormItem } from './form-item'
@@ -28,7 +27,7 @@ const publicSchema = t =>
     content: yup.string().required(t`comment-form.content.required`),
   })
 
-export const CommentForm = ({ auth, artId }) => {
+export const CommentForm = ({ auth, art }) => {
   const { t } = useTranslation()
 
   const {
@@ -41,24 +40,29 @@ export const CommentForm = ({ auth, artId }) => {
     mode: 'all',
   })
 
+  const queryClient = useQueryClient()
+
   const { mutate: createComment, isLoading } = useMutation({
     mutationKey: 'create-comment',
     mutationFn: ({ content, name, email }) => {
       if (auth.isLoggedIn) {
-        return axios.post(
-          `https://api.samenvvv.nl/api/comments/api::art.art:${artId}`,
-          { content },
-          { headers: { Authorization: `Bearer ${auth.token}` } },
-        )
+        return mutation.post(`api/comments`, {
+          data: { content, art: art.id, user: auth.user.id },
+        })
       }
 
-      return axios.post(`https://api.samenvvv.nl/api/comments/api::art.art:${artId}`, {
-        content,
-        author: { id: uuidv4(), name, email },
+      return mutation.post(`api/comments`, {
+        data: {
+          content,
+          name,
+          email,
+          art: art.id,
+        },
       })
     },
     onSuccess: () => {
       toastMessage(t`comment-form.success`, null, 'success')
+      queryClient.invalidateQueries(['art', art.locale, art.slug])
       reset()
     },
   })
@@ -74,7 +78,6 @@ export const CommentForm = ({ auth, artId }) => {
       </Text>
       <VStack as='form' onSubmit={handleSubmit(onSubmit)} alignItems='flex-start' justify='flex-start'>
         <Stack w='100%' alignItems='flex-start'>
-          {auth.isLoggedIn && <Avatar size='sm' src={`${auth.user?.avatar?.url}`} name={auth.user?.username} />}
           {!auth.isLoggedIn && (
             <Stack direction={{ base: 'column', lg: 'row' }} w='full'>
               <FormItem
@@ -95,6 +98,7 @@ export const CommentForm = ({ auth, artId }) => {
             </Stack>
           )}
           <HStack w='full' align='start'>
+            {auth.isLoggedIn && <Avatar size='sm' src={`${auth.user?.avatar?.url}`} name={auth.user?.username} />}
             <FormItem
               as={Textarea}
               id='content'
