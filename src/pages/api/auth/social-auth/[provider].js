@@ -14,9 +14,6 @@ const route = async (req, res) => {
 
       const socialLoginResponse = await fetcher.get(url)
 
-      // TODO Remove this after debugging
-      console.log('Social Auth Response', socialLoginResponse)
-
       const token = socialLoginResponse.data.jwt
       const userId = socialLoginResponse.data.user?.id
 
@@ -26,36 +23,39 @@ const route = async (req, res) => {
           filters: { user: { id: { $eq: userId } } },
         })
 
-        // TODO Remove this after debugging
-        console.log('Artist Response', artistResponse)
-
         if (!artistResponse?.result?.[0]) {
           await mutation.post('api/artists', {
-            data: { user: userId, name: socialLoginResponse.data.user?.name || artistResponse.data.username },
+            data: { user: userId, name: socialLoginResponse.data.user?.username },
           })
         }
 
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}?populate=*`, {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await request({
+          url: 'api/users',
+          filters: { id: { $eq: userId } },
         })
 
-        const user = {
-          id: response.data.id,
-          username: response.data.username,
-          volunteer: response.data.volunteer,
-          avatar: response.data.avatar,
-          artist: response.data.artist,
+        const userData = response.result?.[0]
+
+        if (userData) {
+          const user = {
+            id: userData.id,
+            username: userData.username,
+            email: userData.email,
+            volunteer: userData.volunteer,
+            avatar: userData.avatar,
+            artist: userData.artist,
+          }
+
+          const auth = { user, token, isLoggedIn: true }
+
+          req.session = auth
+          await req.session.save()
+          res.json(auth)
         }
-
-        const auth = { user, token, isLoggedIn: true }
-
-        req.session = auth
-        await req.session.save()
-        res.json(auth)
       }
     } catch (error) {
       if (!error.response?.data?.error.message) {
-        return res.status(500).json({ message: 'Internal server error' })
+        return res.status(500).json({ message: 'Internal server error', error })
       } else {
         const messages = error.response?.data?.error.message
         return res.status(403).json({ message: messages })
