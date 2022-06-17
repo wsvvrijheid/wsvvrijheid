@@ -11,16 +11,12 @@ export const ArtCardActions = ({ art, onHandleAction }) => {
       <MenuButton
         as={IconButton}
         aria-label='Art actions'
-        pos='absolute'
-        zIndex={1}
-        top={0}
-        right={2}
-        colorScheme='blackAlpha'
         color='white'
+        colorScheme='blackAlpha'
+        borderColor='whiteAlpha.500'
+        borderWidth={1}
         icon={<BsThreeDotsVertical />}
-        opacity={0}
-        _groupHover={{ opacity: 1 }}
-        transition='opacity 0.2s'
+        rounded='full'
       />
       <MenuList fontSize='md'>
         {/* Publish */}
