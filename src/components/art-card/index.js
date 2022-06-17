@@ -1,7 +1,7 @@
 import { Avatar, Badge, Box, HStack, IconButton, Stack, Text, useDisclosure, useMediaQuery } from '@chakra-ui/react'
 import { useState } from 'react'
 import { AiFillHeart } from 'react-icons/ai'
-import { GoLinkExternal } from 'react-icons/go'
+import { FaExternalLinkSquareAlt } from 'react-icons/fa'
 
 import { Navigate } from '~components'
 import { useLikeArt } from '~services'
@@ -35,9 +35,6 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
         {/* Card Image */}
         <ArtCardImage art={art} isMasonry={isMasonry} />
 
-        {/* Card Owner Actions */}
-        {isOwner && <ArtCardActions art={art} onHandleAction={onHandleAction} />}
-
         {!art.publishedAt && (
           <Badge userSelect='none' pos='absolute' top={0} left={2}>
             Draft
@@ -45,9 +42,6 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
         )}
 
         {/* Card Body */}
-        {/* TODO Show link button when hover on card */}
-        {/* TODO Navigate to `/club/art/:slug` page */}
-
         <Box
           display={{ base: 'none', lg: 'block' }}
           position={{ base: 'static', lg: 'absolute' }}
@@ -61,35 +55,47 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
           bgGradient='linear(to-t, blackAlpha.700, transparent, transparent, blackAlpha.700)'
         />
 
-        {!isOwner && (
-          <HStack
-            position='absolute'
-            top={{ base: 2, lg: '-150%' }}
-            right={{ base: 2, lg: '-150%' }}
-            w='full'
-            _groupHover={{ top: 2, right: 2 }}
-            transition='all 0.2s'
-            justify='end'
-          >
-            <HStack spacing={1}>
-              <Text fontSize={{ base: 'md', lg: 'sm' }} fontWeight={600} color='white'>
-                {(art?.likes || 0) + (art.likers?.length || 0)}
-              </Text>
-              <IconButton
-                size='sm'
-                rounded='full'
-                aria-label='like post'
-                color={isLiked ? 'red.400' : 'gray.500'}
-                // colorScheme={{ base: 'gray', lg: 'whiteAlpha' }}
-                icon={<AiFillHeart />}
-                onClick={toggleLike}
-              />
-            </HStack>
-            <Navigate href={`/club/art/${art.slug}`}>
-              <IconButton size='sm' rounded='full' aria-label='view art' colorScheme='blue' icon={<GoLinkExternal />} />
-            </Navigate>
+        <HStack
+          position='absolute'
+          top={{ base: 2, lg: '-150%' }}
+          right={{ base: 2, lg: '-150%' }}
+          w='full'
+          _groupHover={{ top: 2, right: 2 }}
+          transition='all 0.2s'
+          justify='end'
+        >
+          <HStack spacing={1}>
+            <Text fontWeight={600} color='white'>
+              {(art?.likes || 0) + (art.likers?.length || 0)}
+            </Text>
+            <IconButton
+              rounded='full'
+              aria-label='like post'
+              color={isLiked ? 'red.400' : 'white'}
+              colorScheme='blackAlpha'
+              borderColor='whiteAlpha.500'
+              borderWidth={1}
+              disabled={isOwner}
+              icon={<AiFillHeart />}
+              onClick={toggleLike}
+              _hover={{ color: isLiked ? 'red.200' : 'gray.100' }}
+            />
           </HStack>
-        )}
+          <Navigate href={`/club/art/${art.slug}`}>
+            <IconButton
+              rounded='full'
+              aria-label='view art'
+              color='white'
+              colorScheme='blackAlpha'
+              borderColor='whiteAlpha.500'
+              borderWidth={1}
+              icon={<FaExternalLinkSquareAlt />}
+              _hover={{ bg: 'blue.400' }}
+            />
+          </Navigate>
+          {/* Card Owner Actions */}
+          {isOwner && <ArtCardActions art={art} onHandleAction={onHandleAction} />}
+        </HStack>
 
         <HStack
           align='center'
