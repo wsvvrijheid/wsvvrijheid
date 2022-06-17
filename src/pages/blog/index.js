@@ -20,7 +20,7 @@ const Blogs = ({ seo }) => {
                 <AnimatedBox
                   key={index}
                   directing='to-down'
-                  delay={index * 3}
+                  delay={index * 0.5}
                   gridColumn={{
                     base: undefined,
                     lg: index === 0 ? 'span 2' : undefined,
