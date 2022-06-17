@@ -1,14 +1,16 @@
 import { Flex, HStack, Image, Link, Stack } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import Headroom from 'react-headroom'
 
 import { useScroll } from '~hooks'
 
 import { Container } from '../container'
-import { LocaleSwitcher } from '../locale-switcher'
 import { ProfileMenu } from '../profile-menu'
 import { HeaderMobile } from './header-mobile'
 import { HeaderNav } from './header-nav'
+
+const LocaleSwitcher = dynamic(() => import('../locale-switcher'), { ssr: false })
 
 export const Header = ({ isDark, auth }) => {
   const isScrolled = useScroll()

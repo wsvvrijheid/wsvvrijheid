@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import { useScroll } from '~hooks'
 
-export const LocaleSwitcher = ({ isDark }) => {
+const LocaleSwitcher = ({ isDark }) => {
   const { locales, push, pathname, locale, asPath, components, query } = useRouter()
   const isScrolled = useScroll()
 
@@ -51,3 +51,5 @@ export const LocaleSwitcher = ({ isDark }) => {
     </ButtonGroup>
   )
 }
+
+export default LocaleSwitcher
