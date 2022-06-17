@@ -1,22 +1,23 @@
 import { Box, Heading, HStack, Icon, Stack, Text, useBreakpointValue, Wrap } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { memo } from 'react'
 import { FaCalendarDay, FaClock, FaEye, FaHeart } from 'react-icons/fa'
 
 import { ChakraNextImage, Navigate } from '~components'
-import { useLocaleTimeFormat } from '~hooks'
 import { getReadingTime } from '~utils'
 
 const BlogCardImage = memo(function BlogCardImage({ featured, image }) {
   return <ChakraNextImage minH={featured ? 450 : 200} image={image} />
 })
 
+const FormattedDate = dynamic(() => import('../shared/formatted-date'), { ssr: false })
+
 export const BlogCard = ({ post, isFeatured }) => {
   const { locale } = useRouter()
   const isMobile = useBreakpointValue({ base: true, lg: false })
 
   const featured = isFeatured && !isMobile
-  const { formattedDate } = useLocaleTimeFormat(post.publishedAt)
   const readingTime = getReadingTime(post.content, locale)
 
   return (
@@ -51,7 +52,9 @@ export const BlogCard = ({ post, isFeatured }) => {
             <HStack>
               <HStack>
                 <Icon as={FaCalendarDay} />
-                <Text>{formattedDate}</Text>
+                <Text>
+                  <FormattedDate date={post.publishedAt} />
+                </Text>
               </HStack>
               <HStack>
                 <Icon as={FaClock} />

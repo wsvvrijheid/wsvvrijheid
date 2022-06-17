@@ -82,7 +82,7 @@ export const ContactForm = () => {
         register={register}
       />
 
-      <Button variant='solid' colorScheme='blue' type='submit' isDisabled={!isValid} isLoading={isLoading} isFullWidth>
+      <Button variant='solid' colorScheme='blue' type='submit' isDisabled={!isValid} isLoading={isLoading} w='full'>
         {t`contact.form.button`}
       </Button>
 

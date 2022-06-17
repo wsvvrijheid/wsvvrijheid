@@ -111,7 +111,7 @@ export const SignupForm = () => {
 
             <HStack>
               {/* TODO Set session exp time */}
-              <Checkbox defaultIsChecked onChange={handleTermsAccepted} />
+              <Checkbox defaultChecked onChange={handleTermsAccepted} />
               <Navigate as={Button} href='/terms' variant='link' colorScheme='gray' size='sm'>
                 {t('login.terms-use')}
               </Navigate>

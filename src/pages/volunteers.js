@@ -69,7 +69,7 @@ export default function Volunteers({ seo, volunteers, jobs }) {
                   <Radio value=''>{t`all`}</Radio>
                   {jobs.map(job => (
                     <Radio p={{ base: 4, lg: 'initial' }} key={job.code} value={job.code}>
-                      <Text isTruncated>{job[`name_${locale}`]}</Text>
+                      <Text noOfLines={1}>{job[`name_${locale}`]}</Text>
                     </Radio>
                   ))}
                 </Stack>

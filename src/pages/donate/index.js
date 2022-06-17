@@ -136,7 +136,7 @@ const DonatePage = ({ projects, title }) => {
             <ButtonGroup w='full' isAttached alignSelf='center' size='lg'>
               {useBreakpointValue({ base: [10, 20, 30, 50], sm: [10, 20, 30, 50, 100] }).map(val => (
                 <Button
-                  isFullWidth
+                  w='full'
                   key={val}
                   variant={amount === val ? 'solid' : 'outline'}
                   colorScheme={amount === val ? 'green' : 'gray'}
