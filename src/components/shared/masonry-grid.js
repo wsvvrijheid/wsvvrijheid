@@ -12,7 +12,7 @@ export const MasonryGrid = ({ children, gap = 4, cols = [1, 2, 3, 4] }) => {
       columnClassName='masonry-grid_column'
       sx={{
         '& .masonry-grid_column': {
-          '&:not(:nth-child(1))': {
+          '&:not(:nth-of-type(1))': {
             bgClip: 'padding-box',
             pl: { base: cols[0] === 1 ? 0 : gap, lg: gap },
           },
