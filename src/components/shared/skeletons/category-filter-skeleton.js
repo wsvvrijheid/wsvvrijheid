@@ -1,11 +1,11 @@
-import { SimpleGrid, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { HStack, Skeleton, SkeletonCircle } from '@chakra-ui/react'
 import React from 'react'
 
 export const CategoryFilterSkeleton = () => {
   return (
-    <SimpleGrid display={'flex'} flexDirection={'row'} mt={3}>
-      <SkeletonCircle size='8' />
-      <SkeletonText mt='4' noOfLines={1} spacing='4' w={'60%'} ml={2} />
-    </SimpleGrid>
+    <HStack spacing={2}>
+      <SkeletonCircle flexShrink={0} size='8' />
+      <Skeleton rounded='lg' h={4} w={32} />
+    </HStack>
   )
 }

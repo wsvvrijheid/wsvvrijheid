@@ -1,4 +1,4 @@
-import { Box, Center, Grid, HStack, useUpdateEffect } from '@chakra-ui/react'
+import { Box, Center, Grid, HStack, Skeleton, Stack, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -76,8 +76,21 @@ const Club = ({ title }) => {
           }}
         >
           <Box gridArea='filter'>
-            {categoryQuery.isLoading || !categoryQuery.isFetched ? (
-              Array.from({ length: 3 }).map((_, i) => <CategoryFilterSkeleton key={'category-filter-skeleton' + i} />)
+            {categoryQuery.isLoading ? (
+              <Stack
+                direction={{ base: 'row', lg: 'column' }}
+                justify='stretch'
+                align='center'
+                w='full'
+                overflowX={{ base: 'auto', lg: 'hidden' }}
+                spacing={4}
+              >
+                <Skeleton h={8} w='full' rounded='md' />
+                <Skeleton h={12} w='full' rounded='full' />
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <CategoryFilterSkeleton key={'category-filter-skeleton' + i} />
+                ))}
+              </Stack>
             ) : (
               <CategoryFilter categories={categoryQuery.data} />
             )}
