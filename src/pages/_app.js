@@ -1,6 +1,6 @@
 import '@splidejs/react-splide/css'
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next'
 import { DefaultSeo } from 'next-seo'
@@ -10,6 +10,8 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { theme } from '~theme'
 import { getDefaultSeo, pageview } from '~utils'
+
+const { ToastContainer } = createStandaloneToast()
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
@@ -29,6 +31,7 @@ function MyApp({ Component, pageProps }) {
         <ChakraProvider theme={theme}>
           <DefaultSeo {...getDefaultSeo(locale)} />
           <Component {...pageProps} />
+          <ToastContainer />
         </ChakraProvider>
       </Hydrate>
       <ReactQueryDevtools />

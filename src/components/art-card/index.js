@@ -31,7 +31,7 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
         <ArtCardAlertDialog art={art} actionType={actionType} isOpen={isOpen} onClose={onClose} queryKey={queryKey} />
       )}
 
-      <Stack pos='relative' role='group' w='full' overflow='hidden' userSelect='none'>
+      <Box pos='relative' role='group' w='full' overflow='hidden' userSelect='none'>
         {/* Card Image */}
         <ArtCardImage art={art} isMasonry={isMasonry} />
 
@@ -138,12 +138,12 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
                   }
                   name={art.artist.name || art.artist.user.username}
                 />
-                <Text isTruncated>{art.artist.name || art.artist.user.username}</Text>
+                <Text noOfLines={1}>{art.artist.name || art.artist.user.username}</Text>
               </HStack>
             </Navigate>
           </Stack>
         </HStack>
-      </Stack>
+      </Box>
     </>
   )
 }

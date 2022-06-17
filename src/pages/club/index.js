@@ -1,4 +1,4 @@
-import { Box, Grid, HStack, useUpdateEffect } from '@chakra-ui/react'
+import { Box, Center, Grid, HStack, useUpdateEffect } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -104,13 +104,13 @@ const Club = ({ title }) => {
           </Box>
 
           {!artsQuery.isLoading && (
-            <Box alignSelf='center' gridArea='pagination'>
+            <Center gridArea='pagination'>
               <Pagination
                 pageCount={artsQuery.data?.pagination.pageCount}
                 currentPage={+page}
                 changeParam={() => changeParam({ page })}
               />
-            </Box>
+            </Center>
           )}
         </Grid>
       </Container>
