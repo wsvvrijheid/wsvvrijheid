@@ -78,7 +78,7 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
               disabled={isOwner}
               icon={<AiFillHeart />}
               onClick={toggleLike}
-              _hover={{ bg: isLiked ? 'blackAlpha.500' : 'red.400', color: 'white' }}
+              _hover={{ color: isLiked ? 'red.200' : 'gray.100' }}
             />
           </HStack>
           <Navigate href={`/club/art/${art.slug}`}>
