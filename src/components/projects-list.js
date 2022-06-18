@@ -1,4 +1,4 @@
-import { Avatar, Button, Heading, HStack, Spacer, Stack, Text } from '@chakra-ui/react'
+import { Avatar, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -13,10 +13,19 @@ export const ProjectsList = ({ projects }) => {
   return (
     <Stack spacing={8}>
       {projects.map(p => (
-        <HStack align='start' key={p.code} p={8} spacing={4} bg='white' rounded='lg' shadow='md'>
+        <Stack
+          direction={{ base: 'column', lg: 'row' }}
+          align={{ base: 'center', lg: 'start' }}
+          key={p.code}
+          p={8}
+          spacing={4}
+          bg='white'
+          rounded='lg'
+          shadow='md'
+        >
           {/* TODO Create image component to handle internal/external image paths */}
           <Avatar size='2xl' src={process.env.NEXT_PUBLIC_API_URL + p.image.url} />
-          <Stack align='start'>
+          <Stack align={{ base: 'center', lg: 'start' }}>
             <Heading textAlign='center' size='md' as='h3' fontWeight='black'>
               {p[`name_${locale}`]}
             </Heading>
@@ -29,7 +38,7 @@ export const ProjectsList = ({ projects }) => {
               </Button>
             </Navigate>
           </Stack>
-        </HStack>
+        </Stack>
       ))}
     </Stack>
   )

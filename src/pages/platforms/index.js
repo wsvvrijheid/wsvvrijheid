@@ -1,8 +1,8 @@
-import { Container, SimpleGrid } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { AnimatedBox, Card, Hero, Layout } from '~components'
+import { AnimatedBox, Card, Container, Hero, Layout } from '~components'
 import { request } from '~lib'
 
 export default function Projects({ title, projects }) {
@@ -11,8 +11,8 @@ export default function Projects({ title, projects }) {
   return (
     <Layout seo={{ title }} isDark>
       <Hero title={title} />
-      <Container maxW='container.lg' centerContent>
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} my={16}>
+      <Container centerContent>
+        <SimpleGrid alignContent='stretch' columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 6, lg: 8 }} my={16}>
           {projects.result.map((project, i) => (
             <AnimatedBox key={project.id} delay={i * 3} directing='to-down'>
               <Card
@@ -20,6 +20,7 @@ export default function Projects({ title, projects }) {
                 description={project[`description_${locale}`]}
                 image={project.image.url}
                 link={`/${locale}/platforms/${project.code}`}
+                rounded
               />
             </AnimatedBox>
           ))}
