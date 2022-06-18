@@ -1,4 +1,4 @@
-import { Center, Heading, Image, Spinner, VStack } from '@chakra-ui/react'
+import { Center, Heading, Image, Spinner, useBreakpointValue, VStack } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect, useState } from 'react'
 import { useRef } from 'react'
@@ -7,20 +7,21 @@ import { Collection, CollectionItem, Container, Layout } from '~components'
 import { getCollection, getCollectionPaths } from '~services'
 
 const CollectionPage = ({ seo, collection }) => {
+  const pageShow = useBreakpointValue({ base: 1, lg: 2 })
   const centerRef = useRef(null)
   const [height, setHeight] = useState()
   const [width, setWidth] = useState()
   const [isLoading, setIsloading] = useState(true)
 
   useEffect(() => {
-    if (centerRef.current) {
+    if (centerRef.current && pageShow) {
       setTimeout(() => {
         setHeight(centerRef.current.offsetHeight - 60)
-        setWidth(centerRef.current.offsetWidth / 2 - 16)
+        setWidth(centerRef.current.offsetWidth / pageShow - 16)
         setIsloading(false)
       }, 1000)
     }
-  }, [centerRef])
+  }, [centerRef, pageShow])
 
   if (!collection) return null
 
