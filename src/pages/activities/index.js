@@ -1,8 +1,8 @@
-import { Container, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { AnimatedBox, Card, Hero, Layout, Pagination } from '~components'
+import { AnimatedBox, Card, Container, Hero, Layout, Pagination } from '~components'
 import { request } from '~lib'
 
 export default function Activities({ activities, query, title, pagination }) {
@@ -13,8 +13,8 @@ export default function Activities({ activities, query, title, pagination }) {
       <Hero title={title} />
       {activities?.[0] ? (
         <>
-          <Container maxW='container.lg' centerContent>
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, lg: 8 }} my={16}>
+          <Container>
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={{ base: 6, lg: 8 }} my={16}>
               {activities?.map((activity, i) => (
                 <AnimatedBox directing='to-down' delay={i * 3} key={activity.id}>
                   <Card
