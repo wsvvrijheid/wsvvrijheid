@@ -28,7 +28,6 @@ function CustomCheckbox(props) {
       borderColor={state.isChecked ? 'blue.500' : 'transparent'}
       _hover={{ bg: 'blackAlpha.50' }}
       rounded='full'
-      px={2}
       py={2}
       fontWeight='semibold'
       cursor='pointer'
@@ -71,8 +70,9 @@ export const CategoryFilter = ({ categories = [] }) => {
       justify='stretch'
       w='full'
       overflowX={{ base: 'auto', lg: 'hidden' }}
+      spacing={1}
     >
-      <HStack w='full' justify='space-between' align='center'>
+      <HStack px={2} py={1.5} w='full' justify='space-between' align='center'>
         <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`categories`}</Text>
         <IconButton
           isDisabled={!value[0]}
