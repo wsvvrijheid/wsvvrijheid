@@ -1,83 +1,65 @@
-import { Center, Heading, Image, Stack, Text, VStack } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
+import { Center, Heading, Image, Spinner, VStack } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { forwardRef } from 'react'
+import { useEffect, useState } from 'react'
+import { useRef } from 'react'
 
-import { Container, Layout } from '~components'
+import { Collection, CollectionItem, Container, Layout } from '~components'
 import { getCollection, getCollectionPaths } from '~services'
 
-const FlipBook = dynamic(() => import('../../../components/shared/flip-book'), { ssr: false })
-
-// eslint-disable-next-line react/display-name
-const Page = forwardRef((props, ref) => {
-  return (
-    <Stack ref={ref} {...props}>
-      {props.children}
-    </Stack>
-  )
-})
-
 const CollectionPage = ({ seo, collection }) => {
+  const centerRef = useRef(null)
+  const [height, setHeight] = useState()
+  const [width, setWidth] = useState()
+  const [isLoading, setIsloading] = useState(true)
+
+  useEffect(() => {
+    if (centerRef.current) {
+      setTimeout(() => {
+        setHeight(centerRef.current.offsetHeight - 60)
+        setWidth(centerRef.current.offsetWidth / 2 - 16)
+        setIsloading(false)
+      }, 1000)
+    }
+  }, [centerRef])
+
   if (!collection) return null
 
   return (
     <Layout seo={seo}>
-      <Container>
-        <Center py={8}>
-          <FlipBook
-            width={550}
-            height={733}
-            size='stretch'
-            minWidth={315}
-            maxWidth={1000}
-            minHeight={420}
-            maxHeight={1350}
-            maxShadowOpacity={0.5}
-            showCover={true}
-          >
-            <VStack p={8} shadow='inner' bg='red.100' borderColor='black' borderWidth={2} rounded='md'>
-              <Image src='/images/kunsthalte.svg' alt='kunsthalte' />
-              <Heading textAlign='center' color='red.500'>
-                Kunsthalte <br /> {collection.title}
-              </Heading>
-            </VStack>
-            {collection.arts?.map(art => (
-              <Page
-                key={art.id}
-                borderWidth={1}
-                borderColor='blackAlpha.200'
-                rounded='md'
-                shadow='inner'
-                spacing={4}
-                p={8}
-                bg='gray.50'
-              >
-                <Heading textAlign='center' color='red.500' size='md' as='h2'>
-                  {art.title}
-                </Heading>
-
-                <Image
-                  maxH={{ base: 300, md: 400, lg: 500 }}
-                  w='full'
-                  objectFit='contain'
-                  src={process.env.NEXT_PUBLIC_API_URL + art.images[0].url}
-                  alt={art.title}
-                  rounded='lg'
+      <Container minH='inherit'>
+        <Center ref={centerRef} py={8} minH='inherit'>
+          {isLoading || !height ? (
+            <Spinner />
+          ) : (
+            <Collection
+              flipboxProps={{
+                height,
+                maxHeight: height,
+                minHeight: height,
+                width,
+                minWidth: width,
+                maxWidth: width,
+              }}
+              cover={
+                <VStack h='full' justify='center' p={8}>
+                  <Image maxH={300} src='/images/kunsthalte.svg' alt='kunsthalte' />
+                  <Heading textAlign='center' color='inherit'>
+                    Kunsthalte <br /> {collection.title}
+                  </Heading>
+                </VStack>
+              }
+              back={<Image maxH='300' mx='auto' src='/images/kunsthalte.svg' alt='kunsthalte' />}
+            >
+              {collection.arts?.map((art, i) => (
+                <CollectionItem
+                  key={i}
+                  title={art.title}
+                  image={process.env.NEXT_PUBLIC_API_URL + art.images[0].url}
+                  text={art.description}
                 />
-
-                <Text flex={1} noOfLines={3}>
-                  {art.description} {art.description} {art.description} {art.description} {art.description}
-                  {art.description} {art.description} {art.description} {art.description} {art.description}
-                </Text>
-              </Page>
-            ))}
-            <VStack p={8} shadow='inner' bg='red.100' borderColor='black' borderWidth={2} rounded='md'>
-              <Image src='/images/kunsthalte.svg' alt='kunsthalte' />
-              <Heading textAlign='center' color='red.500'>
-                Kunsthalte <br /> {collection.title}
-              </Heading>
-            </VStack>
-          </FlipBook>
+              ))}
+            </Collection>
+          )}
         </Center>
       </Container>
     </Layout>
