@@ -29,6 +29,7 @@ function CustomCheckbox(props) {
       _hover={{ bg: 'blackAlpha.50' }}
       rounded='full'
       py={2}
+      pr={2}
       fontWeight='semibold'
       cursor='pointer'
       fontSize='md'
@@ -76,7 +77,7 @@ export const CategoryFilter = ({ categories = [] }) => {
         <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`categories`}</Text>
         <IconButton
           isDisabled={!value[0]}
-          colorScheme='orange'
+          colorScheme='blue'
           aria-label='clear filter'
           rounded='full'
           size='sm'
