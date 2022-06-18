@@ -45,10 +45,9 @@ export const ArtCard = ({ art, user, isMasonry, queryKey }) => {
         <Box
           display={{ base: 'none', lg: 'block' }}
           position={{ base: 'static', lg: 'absolute' }}
-          bottom={2}
+          bottom={0}
           h='full'
           left='-150%'
-          right={0}
           w='full'
           _groupHover={{ left: 0 }}
           transition='all 0.2s ease-in-out'
