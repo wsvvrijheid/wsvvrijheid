@@ -146,7 +146,7 @@ export const CreateArtForm = ({ auth }) => {
       artist: auth.user.artist?.id,
     }
     formData.append('data', JSON.stringify(art))
-    images.forEach(image => formData.append(`files.images`, image, image.name))
+    images.forEach(image => formData.append(`files.images`, image, data.title))
 
     createArtMutation.mutate(formData)
   }
