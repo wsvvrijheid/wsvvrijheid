@@ -18,7 +18,11 @@ const CollectionPages = forwardRef(function CollectionPages(props, ref) {
   return props.collection.arts.map((art, index) => (
     <Fragment key={index}>
       <Page ref={ref} p={8} bgGradient={props.pageBgGdarient}>
-        <VStack justify='center' w='full' h='full'>
+        <VStack justify='center' w='full' h='full' spacing={2}>
+          <Heading color='red.500' fontFamily='club' textAlign='center'>
+            {art.title}
+          </Heading>
+
           <Image rounded='sm' maxH='80%' src={process.env.NEXT_PUBLIC_API_URL + art.images[0].url} alt={art.title} />
 
           <Text fontFamily='club'>{art.description}</Text>
@@ -26,9 +30,6 @@ const CollectionPages = forwardRef(function CollectionPages(props, ref) {
       </Page>
       <Page ref={ref} bgGradient={props.pageBgGdarient}>
         <Stack w='full' h='full' justify='center' fontFamily='club'>
-          <Heading color='red.500' fontFamily='club' textAlign='center'>
-            {art.title}
-          </Heading>
           <Text fontFamily='club' textAlign='center'>
             {art.content}
           </Text>
