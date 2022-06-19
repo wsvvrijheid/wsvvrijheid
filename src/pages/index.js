@@ -5,11 +5,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AnimatedBox, Container, HomeAbout, HomeHero, HomeProject, Layout } from '~components'
 import { HOME_ABOUT, PROJECTS } from '~data'
 
-export default function Home() {
+export default function Home({ seo }) {
   const { t } = useTranslation()
 
   return (
-    <Layout>
+    <Layout seo={seo}>
       <Flex
         flexDir='column'
         justify='space-between'
