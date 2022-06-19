@@ -59,7 +59,7 @@ const ClubSidebar = ({ categories, isLoading, collections }) => {
           </HStack>
           <Divider />
           {collections.map((collection, index) => (
-            <Navigate target='_blank' key={index} href={`/${locale}/club/collection/${collection.slug}`}>
+            <Navigate key={index} href={`/${locale}/club/collection/${collection.slug}`}>
               <Text py={2} lineHeight='1.15' _hover={{ color: 'blue.400' }}>
                 {collection.title}
               </Text>
