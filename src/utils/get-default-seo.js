@@ -1,22 +1,22 @@
 export const getDefaultSeo = locale => {
   const titleTemplate = {
-    nl: '%s | Samen voor Vrijheid en Verbinding',
-    tr: '%s | Birlikte Yaşama ve Özgürlük',
-    en: '%s | Together for Freedom and Connection',
+    nl: '%s | Wees de Stem voor Vrijheid',
+    tr: '%s | Wees de Stem voor Vrijheid',
+    en: '%s | Wees de Stem voor Vrijheid',
   }
 
-  const title = 'SamenVVV'
+  const title = 'WSVVrijheid'
 
   const description = {
-    nl: 'Wij staan voor actieve bijdragen aan Nederlandse samenlevng en besteden aandacht aan mensenrechtenschendngen in Turkije en de wereld',
-    tr: 'Insan hakları ihlallerini kamuoyuna duyurmak, topluma katkı amaçlı gündemleri paylaşmak amacıyla platformumuz kurulmuştur',
-    en: 'Our platform was established to announce human rights violations to the public and to share agendas to contribute to society',
+    nl: 'We werken eraan om ervoor te zorgen dat iedereen in gelijke mate profiteert van universele mensenrechten.',
+    tr: 'Evrensel insan haklarından herkesin eşit şekilde faydalanması için çalışmalar yapıyoruz.',
+    en: 'We work to ensure that everyone benefits from universal human rights equally.',
   }
 
   const twitter = {
-    nl: '@samenvvv',
-    tr: '@samenvvvTR',
-    en: '@samenvvvEN',
+    nl: '@wsvvrijheid',
+    tr: '@wsvvrijheid',
+    en: '@wsvvrijheid',
   }
 
   return {
@@ -26,16 +26,16 @@ export const getDefaultSeo = locale => {
       type: 'website',
       description: description[locale],
       locale: locale,
-      url: 'https://samenvvv.nl',
-      site_name: 'samenvvv',
+      url: 'https://wsvvrijheid.nl',
+      site_name: 'wsvvrijheid.nl',
       images: [
         {
-          url: process.env.NEXT_PUBLIC_SITE_URL + '/images/seo-default.jpeg',
+          url: process.env.NEXT_PUBLIC_SITE_URL + '/images/wsvvrijheid.jpg',
           width: 500,
-          height: 1500,
+          height: 500,
           alt: title,
-          type: 'image/jpeg',
-          secureUrl: process.env.NEXT_PUBLIC_SITE_URL + '/images/seo-default.jpeg',
+          type: 'image/jpg',
+          secureUrl: process.env.NEXT_PUBLIC_SITE_URL + '/images/wsvvrijheid.jpg',
         },
       ],
     },
