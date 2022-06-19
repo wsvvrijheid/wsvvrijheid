@@ -1,6 +1,6 @@
 import { ROUTES } from '~config'
 
-const { activity, platform, lotus, artStop, samenvvv, academy, blog, club, donate, volunteer, about, contact } = ROUTES
+const { activity, platform, lotus, artStop, samenvvv, academy, blog, club, volunteer, about, contact } = ROUTES
 
 export const HEADER_MENU = [
   activity,
@@ -13,7 +13,6 @@ export const HEADER_MENU = [
   },
   blog,
   club,
-  donate,
   {
     link: '/',
     en: 'Wsvvrijheid',
