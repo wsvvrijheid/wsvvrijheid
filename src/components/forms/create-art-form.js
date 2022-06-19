@@ -152,7 +152,7 @@ export const CreateArtForm = ({ auth }) => {
 
   return (
     <>
-      <Button colorScheme='blue' leftIcon={<FaUpload />} onClick={formDisclosure.onOpen}>
+      <Button size='lg' colorScheme='blue' leftIcon={<FaUpload />} onClick={formDisclosure.onOpen}>
         {t`art.upload`}
       </Button>
 

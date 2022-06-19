@@ -58,7 +58,7 @@ const Club = ({ title }) => {
       <Container minH='inherit'>
         <Grid
           w='full'
-          gap={8}
+          gap={4}
           py={8}
           gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
           gridTemplateAreas={{

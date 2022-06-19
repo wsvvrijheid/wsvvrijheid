@@ -1,7 +1,18 @@
-import { Avatar, Button, HStack, Stack, Text, useCheckbox, useCheckboxGroup, useUpdateEffect } from '@chakra-ui/react'
+import {
+  Box,
+  Divider,
+  HStack,
+  IconButton,
+  Stack,
+  Text,
+  useCheckbox,
+  useCheckboxGroup,
+  useUpdateEffect,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef } from 'react'
+import { FaCheck } from 'react-icons/fa'
 import { RiFilterOffLine } from 'react-icons/ri'
 
 import { useChangeParams, useDebounce } from '~hooks'
@@ -17,15 +28,15 @@ function CustomCheckbox(props) {
       borderColor={state.isChecked ? 'blue.500' : 'transparent'}
       _hover={{ bg: 'blackAlpha.50' }}
       rounded='full'
-      px={3}
-      h={12}
+      py={2}
+      pr={2}
       fontWeight='semibold'
       cursor='pointer'
       fontSize='md'
       {...htmlProps}
     >
       <input {...getInputProps()} hidden />
-      <Avatar display={{ base: 'none', lg: 'block' }} size='xs' name={props.title} />
+      <Box maxW={state.isChecked ? 'auto' : 0} transition='all 0.2s' as={FaCheck} />
       <Text w='max-content' {...getLabelProps()}>
         {props.title}
       </Text>
@@ -60,20 +71,21 @@ export const CategoryFilter = ({ categories = [] }) => {
       justify='stretch'
       w='full'
       overflowX={{ base: 'auto', lg: 'hidden' }}
+      spacing={1}
     >
-      <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`categories`}</Text>
-      <Button
-        isDisabled={!value[0]}
-        colorScheme='orange'
-        rounded='full'
-        h={12}
-        pr={{ base: 2, lg: 'initial' }}
-        leftIcon={<RiFilterOffLine />}
-        onClick={() => setValue([])}
-      >
-        {/* TODO Add translation */}
-        <Text display={{ base: 'none', lg: 'block' }}>{t`clear`}</Text>
-      </Button>
+      <HStack px={2} py={1.5} w='full' justify='space-between' align='center'>
+        <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`categories`}</Text>
+        <IconButton
+          isDisabled={!value[0]}
+          colorScheme='blue'
+          aria-label='clear filter'
+          rounded='full'
+          size='sm'
+          icon={<RiFilterOffLine />}
+          onClick={() => setValue([])}
+        />
+      </HStack>
+      <Divider />
       {categories?.map(category => (
         <CustomCheckbox
           key={category.id}
