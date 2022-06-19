@@ -1,9 +1,9 @@
-import { Center, Heading, Image, Spinner, useBreakpointValue, VStack } from '@chakra-ui/react'
+import { Center, Spinner, useBreakpointValue } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 
-import { Collection, CollectionItem, Container, Layout } from '~components'
+import { Collection, Container, Layout } from '~components'
 import { getCollection, getCollectionPaths } from '~services'
 
 const CollectionPage = ({ seo, collection }) => {
@@ -17,7 +17,7 @@ const CollectionPage = ({ seo, collection }) => {
     if (centerRef.current && pageShow) {
       setTimeout(() => {
         setHeight(centerRef.current.offsetHeight - 60)
-        setWidth(centerRef.current.offsetWidth / pageShow - 16)
+        setWidth(centerRef.current.offsetWidth)
         setIsloading(false)
       }, 1000)
     }
@@ -35,31 +35,12 @@ const CollectionPage = ({ seo, collection }) => {
             <Collection
               flipboxProps={{
                 height,
-                maxHeight: height,
                 minHeight: height,
-                width,
-                minWidth: width,
-                maxWidth: width,
+                width: width / pageShow,
+                minWidth: width / pageShow,
               }}
-              cover={
-                <VStack h='full' justify='center' p={8}>
-                  <Image maxH={300} src='/images/kunsthalte.svg' alt='kunsthalte' />
-                  <Heading textAlign='center' color='inherit'>
-                    Kunsthalte <br /> {collection.title}
-                  </Heading>
-                </VStack>
-              }
-              back={<Image maxH='300' mx='auto' src='/images/kunsthalte.svg' alt='kunsthalte' />}
-            >
-              {collection.arts?.map((art, i) => (
-                <CollectionItem
-                  key={i}
-                  title={art.title}
-                  image={process.env.NEXT_PUBLIC_API_URL + art.images[0].url}
-                  text={art.description}
-                />
-              ))}
-            </Collection>
+              collection={collection}
+            />
           )}
         </Center>
       </Container>
