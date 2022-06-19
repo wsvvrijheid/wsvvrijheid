@@ -55,7 +55,7 @@ const ClubSidebar = ({ categories, isLoading, collections }) => {
         <Box overflowY='auto' maxH='calc((100vh - 150px) / 2)'>
           <HStack py={1.5} w='full' align='center'>
             <Box as={MdCollectionsBookmark} />
-            <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`Collections`}</Text>
+            <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`collections`}</Text>
           </HStack>
           <Divider />
           {collections.map((collection, index) => (
