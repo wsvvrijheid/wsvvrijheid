@@ -9,6 +9,7 @@ import {
   Grid,
   HStack,
   IconButton,
+  Skeleton,
   Stack,
   Text,
   useDisclosure,
@@ -26,6 +27,7 @@ import {
   ArtCard,
   ArtCardSkeleton,
   CategoryFilter,
+  CategoryFilterSkeleton,
   Container,
   CreateArtForm,
   Layout,
@@ -38,14 +40,14 @@ import { useAuth, useChangeParams } from '~hooks'
 import { request } from '~lib'
 import { getArts, useArts, useGetArtCategories } from '~services'
 
-const ClubSidebar = ({ categories, collections }) => {
+const ClubSidebar = ({ categories, isLoading, collections }) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
   return (
     <Stack spacing={8} alignSelf='start'>
       {categories && (
         <Box maxH='calc((100vh - 150px) / 2)'>
-          <CategoryFilter categories={categories} />
+          <CategoryFilter categories={categories} isLoading={isLoading} />
         </Box>
       )}
 
@@ -116,14 +118,38 @@ const Club = ({ title }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody py={8}>
-            <ClubSidebar categories={categoryQuery.data} collections={collectionsQuery.data?.result} />
+            <ClubSidebar
+              categories={categoryQuery.data}
+              collections={collectionsQuery.data?.result}
+              isLoading={artsQuery.isLoading}
+            />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
       <Container minH='inherit'>
         <Grid w='full' gap={4} my={8} gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}>
           <Box display={{ base: 'none', lg: 'block' }}>
-            <ClubSidebar categories={categoryQuery.data} collections={collectionsQuery.data?.result} />
+            {categoryQuery.isLoading ? (
+              <Stack
+                direction={{ base: 'row', lg: 'column' }}
+                justify='stretch'
+                align='center'
+                w='full'
+                overflowX={{ base: 'auto', lg: 'hidden' }}
+                spacing={4}
+              >
+                <Skeleton h={8} w='full' rounded='md' />
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <CategoryFilterSkeleton key={'category-filter-skeleton' + i} />
+                ))}
+              </Stack>
+            ) : (
+              <ClubSidebar
+                categories={categoryQuery.data}
+                collections={collectionsQuery.data?.result}
+                isLoading={artsQuery.isLoading}
+              />
+            )}
           </Box>
 
           <Stack w='full' spacing={4}>
@@ -147,7 +173,7 @@ const Club = ({ title }) => {
                   ))
                 : artsQuery.data?.result.map((art, i) => (
                     // TODO Add link to navigate to the art page
-                    <AnimatedBox key={art.id} directing='to-down' delay={i * 1}>
+                    <AnimatedBox key={art.id} directing='to-down' delay={i * 0.5}>
                       <ArtCard art={art} user={auth.user} isMasonry queryKey={queryKey} />
                     </AnimatedBox>
                   ))}

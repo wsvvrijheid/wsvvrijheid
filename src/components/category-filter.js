@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { RiFilterOffLine } from 'react-icons/ri'
 
@@ -45,11 +45,10 @@ function CustomCheckbox(props) {
   )
 }
 
-export const CategoryFilter = ({ categories = [] }) => {
+export const CategoryFilter = ({ categories = [], isLoading }) => {
   const changeParam = useChangeParams()
   const router = useRouter()
   const initialCategorySelected = useRef(false)
-  const [isFiltering, setIsFiltering] = useState(false)
 
   const { value, getCheckboxProps, setValue } = useCheckboxGroup({ defaultValue: [] })
   const { t } = useTranslation()
@@ -64,15 +63,14 @@ export const CategoryFilter = ({ categories = [] }) => {
   }, [setValue, router.query.categories])
 
   useUpdateEffect(() => {
-    setIsFiltering(true)
-    changeParam({ categories: categoryCodes }).then(() => setIsFiltering(false))
+    changeParam({ categories: categoryCodes })
   }, [categoryCodes])
 
   return (
     <Stack justify='stretch' w='full' spacing={1}>
       <HStack py={1.5} w='full' justify='space-between' align='center'>
         <Text fontWeight='semibold'>{t`categories`}</Text>
-        {isFiltering ? (
+        {isLoading ? (
           <Spinner size='lg' color='blue.500' />
         ) : (
           <IconButton

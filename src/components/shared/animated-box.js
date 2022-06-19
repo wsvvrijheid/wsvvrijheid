@@ -4,18 +4,17 @@ import { useInView } from 'react-intersection-observer'
 
 import { MotionBox } from './motion-box'
 
-export const AnimatedBox = props => {
-  const {
-    children,
-    directing,
-    distance = 50,
-    hasHover = false,
-    delay = 0,
-    duration = 1,
-    transition,
-    variants,
-    ...rest
-  } = props
+export const AnimatedBox = ({
+  children,
+  directing,
+  distance = 50,
+  hasHover = false,
+  delay = 0,
+  duration = 1,
+  transition,
+  variants,
+  ...rest
+}) => {
   const controls = useAnimation()
   const [ref, inView] = useInView()
 
