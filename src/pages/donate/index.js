@@ -213,6 +213,8 @@ const DonatePage = ({ projects, title }) => {
 }
 
 export const getStaticProps = async context => {
+  return { notFound: true }
+
   const projects = await request({ url: 'api/projects' })
 
   const seo = {
