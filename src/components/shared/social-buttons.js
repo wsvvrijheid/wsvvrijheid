@@ -1,42 +1,24 @@
 import { HStack, IconButton } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp, FaYoutube } from 'react-icons/fa'
+import { FaLinkedin, FaTwitter, FaWhatsapp } from 'react-icons/fa'
 
 const SOCIAL_LINKS = [
   {
     label: 'Twitter',
     icon: FaTwitter,
     link: {
-      en: 'https://twitter.com/samenvvvEN',
-      tr: 'https://twitter.com/samenvvvTR',
-      nl: 'https://twitter.com/samenvvv',
+      en: 'https://twitter.com/wsvvrijheid',
+      tr: 'https://twitter.com/wsvvrijheid',
+      nl: 'https://twitter.com/wsvvrijheid',
     },
   },
   {
-    label: 'Facebook',
-    icon: FaFacebook,
+    label: 'FaLinkedin',
+    icon: FaLinkedin,
     link: {
-      en: 'https://www.facebook.com/samenverbinding',
-      tr: 'https://www.facebook.com/samenverbinding',
-      nl: 'https://www.facebook.com/samenverbinding',
-    },
-  },
-  {
-    label: 'Instagram',
-    icon: FaInstagram,
-    link: {
-      en: 'ttps://www.instagram.com/samenvvv',
-      tr: 'ttps://www.instagram.com/samenvvv',
-      nl: 'ttps://www.instagram.com/samenvvv',
-    },
-  },
-  {
-    label: 'Youtube',
-    icon: FaYoutube,
-    link: {
-      en: 'https://www.youtube.com/channel/UC6SOtlov-UehhnwXuTq50yA',
-      tr: 'https://www.youtube.com/channel/UC6SOtlov-UehhnwXuTq50yA',
-      nl: 'https://www.youtube.com/channel/UC6SOtlov-UehhnwXuTq50yA',
+      en: 'https://www.linkedin.com/company/wsvvrijheid',
+      tr: 'https://www.linkedin.com/company/wsvvrijheid',
+      nl: 'https://www.linkedin.com/company/wsvvrijheid',
     },
   },
   {
