@@ -3,6 +3,7 @@ import {
   Divider,
   HStack,
   IconButton,
+  Spinner,
   Stack,
   Text,
   useCheckbox,
@@ -44,7 +45,7 @@ function CustomCheckbox(props) {
   )
 }
 
-export const CategoryFilter = ({ categories = [] }) => {
+export const CategoryFilter = ({ categories = [], isLoading }) => {
   const changeParam = useChangeParams()
   const router = useRouter()
   const initialCategorySelected = useRef(false)
@@ -66,24 +67,22 @@ export const CategoryFilter = ({ categories = [] }) => {
   }, [categoryCodes])
 
   return (
-    <Stack
-      direction={{ base: 'row', lg: 'column' }}
-      justify='stretch'
-      w='full'
-      overflowX={{ base: 'auto', lg: 'hidden' }}
-      spacing={1}
-    >
-      <HStack px={2} py={1.5} w='full' justify='space-between' align='center'>
-        <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`categories`}</Text>
-        <IconButton
-          isDisabled={!value[0]}
-          colorScheme='blue'
-          aria-label='clear filter'
-          rounded='full'
-          size='sm'
-          icon={<RiFilterOffLine />}
-          onClick={() => setValue([])}
-        />
+    <Stack justify='stretch' w='full' spacing={1}>
+      <HStack py={1.5} w='full' justify='space-between' align='center'>
+        <Text fontWeight='semibold'>{t`categories`}</Text>
+        {isLoading ? (
+          <Spinner size='lg' color='blue.500' />
+        ) : (
+          <IconButton
+            isDisabled={!value[0]}
+            colorScheme='blue'
+            aria-label='clear filter'
+            rounded='full'
+            size='sm'
+            icon={<RiFilterOffLine />}
+            onClick={() => setValue([])}
+          />
+        )}
       </HStack>
       <Divider />
       {categories?.map(category => (

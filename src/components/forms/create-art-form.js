@@ -5,6 +5,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Box,
   Button,
   ButtonGroup,
   Center,
@@ -152,8 +153,11 @@ export const CreateArtForm = ({ auth }) => {
 
   return (
     <>
-      <Button size='lg' colorScheme='blue' leftIcon={<FaUpload />} onClick={formDisclosure.onOpen}>
-        {t`art.upload`}
+      <Button size='lg' colorScheme='blue' onClick={formDisclosure.onOpen}>
+        <Box mr={{ base: 0, lg: 4 }}>
+          <FaUpload />
+        </Box>
+        <Box display={{ base: 'none', lg: 'block' }}>{t`art.upload`}</Box>
       </Button>
 
       {/* SUCCESS ALERT */}

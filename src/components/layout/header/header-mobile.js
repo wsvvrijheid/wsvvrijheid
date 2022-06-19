@@ -8,14 +8,16 @@ import {
   IconButton,
   useDisclosure,
 } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import { FaBars } from 'react-icons/fa'
 
 import { useScroll } from '~hooks'
 
-import { LocaleSwitcher } from '../locale-switcher'
 import { ProfileMenu } from '../profile-menu'
 import { HeaderNav } from './header-nav'
+
+const LocaleSwitcher = dynamic(() => import('../locale-switcher'), { ssr: false })
 
 export const HeaderMobile = ({ isDark, auth }) => {
   const { isOpen, onToggle, onClose } = useDisclosure()

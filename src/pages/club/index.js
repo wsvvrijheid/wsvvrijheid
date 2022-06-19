@@ -1,9 +1,26 @@
-import { Box, Center, Grid, HStack, Skeleton, Stack, useUpdateEffect } from '@chakra-ui/react'
+import {
+  Box,
+  Center,
+  Divider,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerOverlay,
+  Grid,
+  HStack,
+  IconButton,
+  Skeleton,
+  Stack,
+  Text,
+  useDisclosure,
+  useUpdateEffect,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useState } from 'react'
-import { dehydrate, QueryClient } from 'react-query'
+import { MdCollectionsBookmark, MdMenuOpen } from 'react-icons/md'
+import { dehydrate, QueryClient, useQuery } from 'react-query'
 
 import {
   AnimatedBox,
@@ -15,17 +32,52 @@ import {
   CreateArtForm,
   Layout,
   MasonryGrid,
+  Navigate,
   Pagination,
   SearchForm,
 } from '~components'
 import { useAuth, useChangeParams } from '~hooks'
+import { request } from '~lib'
 import { getArts, useArts, useGetArtCategories } from '~services'
+
+const ClubSidebar = ({ categories, isLoading, collections }) => {
+  const { t } = useTranslation()
+  const { locale } = useRouter()
+  return (
+    <Stack spacing={8} alignSelf='start'>
+      {categories && (
+        <Box maxH='calc((100vh - 150px) / 2)'>
+          <CategoryFilter categories={categories} isLoading={isLoading} />
+        </Box>
+      )}
+
+      {collections?.length > 0 && (
+        <Box overflowY='auto' maxH='calc((100vh - 150px) / 2)'>
+          <HStack py={1.5} w='full' align='center'>
+            <Box as={MdCollectionsBookmark} />
+            <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`collections`}</Text>
+          </HStack>
+          <Divider />
+          {collections.map((collection, index) => (
+            <Navigate key={index} href={`/${locale}/club/collection/${collection.slug}`}>
+              <Text py={2} lineHeight='1.15' _hover={{ color: 'blue.400' }}>
+                {collection.title}
+              </Text>
+            </Navigate>
+          ))}
+        </Box>
+      )}
+    </Stack>
+  )
+}
 
 const Club = ({ title }) => {
   const changeParam = useChangeParams()
   const auth = useAuth()
   const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState()
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {
     query: { page, categories },
@@ -47,35 +99,36 @@ const Club = ({ title }) => {
     locale,
   })
 
+  const collectionsQuery = useQuery({
+    queryKey: ['collections', locale],
+    queryFn: () =>
+      request({
+        url: 'api/collections',
+        locale,
+      }),
+  })
+
   useUpdateEffect(() => {
     artsQuery.refetch()
   }, [searchTerm])
 
   return (
-    // TODO Remove `isLoading` condition from the `Layout` and
-    // create skeleton components for both the `MasonryGrid` and the `CategoryFilter`
     <Layout seo={{ title }}>
+      <Drawer isOpen={isOpen} onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerBody py={8}>
+            <ClubSidebar
+              categories={categoryQuery.data}
+              collections={collectionsQuery.data?.result}
+              isLoading={artsQuery.isLoading}
+            />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
       <Container minH='inherit'>
-        <Grid
-          w='full'
-          gap={4}
-          py={8}
-          gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}
-          gridTemplateAreas={{
-            lg: `
-              'filter search'
-              'filter list'
-              'filter pagination'
-            `,
-            base: `
-              'search search'
-              'filter filter'
-              'list list'
-              'pagination pagination'
-            `,
-          }}
-        >
-          <Box gridArea='filter'>
+        <Grid w='full' gap={4} my={8} gridTemplateColumns={{ base: '1fr', lg: '200px 1fr' }}>
+          <Box display={{ base: 'none', lg: 'block' }}>
             {categoryQuery.isLoading ? (
               <Stack
                 direction={{ base: 'row', lg: 'column' }}
@@ -86,22 +139,33 @@ const Club = ({ title }) => {
                 spacing={4}
               >
                 <Skeleton h={8} w='full' rounded='md' />
-                <Skeleton h={12} w='full' rounded='full' />
                 {Array.from({ length: 5 }).map((_, i) => (
                   <CategoryFilterSkeleton key={'category-filter-skeleton' + i} />
                 ))}
               </Stack>
             ) : (
-              <CategoryFilter categories={categoryQuery.data} />
+              <ClubSidebar
+                categories={categoryQuery.data}
+                collections={collectionsQuery.data?.result}
+                isLoading={artsQuery.isLoading}
+              />
             )}
           </Box>
 
-          <HStack gridArea='search'>
-            <SearchForm placeholder={t`search`} onSearch={setSearchTerm} />
-            <CreateArtForm auth={auth} />
-          </HStack>
+          <Stack w='full' spacing={4}>
+            <HStack>
+              <SearchForm placeholder={t`search`} onSearch={setSearchTerm} />
+              <CreateArtForm auth={auth} />
+              <IconButton
+                display={{ base: 'flex', lg: 'none' }}
+                variant='outline'
+                size='lg'
+                aria-label='open-menu'
+                icon={<MdMenuOpen />}
+                onClick={onOpen}
+              />
+            </HStack>
 
-          <Box gridArea='list'>
             <MasonryGrid gap={1}>
               {artsQuery.isLoading
                 ? Array.from({ length: 12 }).map((_, i) => (
@@ -109,22 +173,22 @@ const Club = ({ title }) => {
                   ))
                 : artsQuery.data?.result.map((art, i) => (
                     // TODO Add link to navigate to the art page
-                    <AnimatedBox key={art.id} directing='to-down' delay={i * 1}>
+                    <AnimatedBox key={art.id} directing='to-down' delay={i * 0.5}>
                       <ArtCard art={art} user={auth.user} isMasonry queryKey={queryKey} />
                     </AnimatedBox>
                   ))}
             </MasonryGrid>
-          </Box>
 
-          {!artsQuery.isLoading && (
-            <Center gridArea='pagination'>
-              <Pagination
-                pageCount={artsQuery.data?.pagination.pageCount}
-                currentPage={+page}
-                changeParam={() => changeParam({ page })}
-              />
-            </Center>
-          )}
+            {!artsQuery.isLoading && (
+              <Center>
+                <Pagination
+                  pageCount={artsQuery.data?.pagination.pageCount}
+                  currentPage={+page}
+                  changeParam={() => changeParam({ page })}
+                />
+              </Center>
+            )}
+          </Stack>
         </Grid>
       </Container>
     </Layout>
@@ -137,7 +201,7 @@ export const getStaticProps = async context => {
   const { locale } = context
   const queryClient = new QueryClient()
 
-  queryClient.prefetchQuery({
+  await queryClient.prefetchQuery({
     // We will be using `queryKey` in nested components especially invalidate queries after mutations
     // So, we need to keep the same order of the `queryKey` array
 
