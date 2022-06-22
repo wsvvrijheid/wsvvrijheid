@@ -80,6 +80,6 @@ export const getStaticProps = async context => {
       dehydratedState: dehydrate(queryClient),
       ...(await serverSideTranslations(locale, ['common'])),
     },
-    revalidate: 120,
+    revalidate: 1,
   }
 }

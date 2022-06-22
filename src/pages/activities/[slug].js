@@ -67,5 +67,6 @@ export const getStaticProps = async context => {
       image,
       source,
     },
+    revalidate: 1,
   }
 }
