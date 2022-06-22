@@ -5,15 +5,15 @@ import { MDXRemote } from 'next-mdx-remote'
 import { Navigate } from '~components'
 
 const MarkdownComponents = {
-  h1: props => <chakra.h1 fontWeight='black' textAlign='center' fontSize='3xl' my={8} {...props} />,
-  h2: props => <chakra.h2 fontWeight='black' fontSize='2xl' my={6} apply='mdx.h2' {...props} />,
-  h3: props => <chakra.h3 fontWeight='black' fontSize='xl' my={4} as='h3' apply='mdx.h3' {...props} />,
-  h4: props => <chakra.h4 fontWeight='black' fontSize='lg' my={4} as='h4' apply='mdx.h4' {...props} />,
+  h1: props => <chakra.h1 fontWeight={600} textAlign='center' fontSize='3xl' my={8} {...props} />,
+  h2: props => <chakra.h2 fontWeight={600} fontSize='2xl' my={6} apply='mdx.h2' {...props} />,
+  h3: props => <chakra.h3 fontWeight={600} fontSize='xl' my={4} as='h3' apply='mdx.h3' {...props} />,
+  h4: props => <chakra.h4 fontWeight={600} fontSize='lg' my={4} as='h4' apply='mdx.h4' {...props} />,
   hr: props => <chakra.hr apply='mdx.hr' {...props} />,
   strong: props => <chakra.span fontWeight={600} {...props} />,
   a: props => (
-    <Navigate {...props}>
-      <chakra.a color='blue.500'>{props.children}</chakra.a>
+    <Navigate {...props} fontWeight={600} color='blue.500'>
+      {props.children}
     </Navigate>
   ),
   p: props => <chakra.p mb={4} {...props} />,

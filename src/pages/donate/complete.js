@@ -44,6 +44,8 @@ const PaymentComplete = () => {
     if (query.id) refetch()
   }, [query.id, refetch])
 
+  return null
+
   const renderStatus = () => {
     if (transaction?.status === 'paid') {
       return <DonationResult title='Thank you' description='We received your donation' status='success' />

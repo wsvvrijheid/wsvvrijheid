@@ -107,7 +107,7 @@ export const LoginForm = () => {
           </Stack>
           <HStack justify='space-between'>
             {/* TODO Set session exp time */}
-            <Checkbox defaultIsChecked>{t('login.remember-me')}</Checkbox>
+            <Checkbox defaultChecked>{t('login.remember-me')}</Checkbox>
             <Navigate as={Button} href='/user/forgot-password' variant='link' colorScheme='blue' size='sm'>
               {t('login.password.forgot-password')}
             </Navigate>

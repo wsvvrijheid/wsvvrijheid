@@ -1,4 +1,4 @@
-import { Box, Button, Center, Heading, Spinner, Stack } from '@chakra-ui/react'
+import { Box, Button, Center, Heading, Stack } from '@chakra-ui/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { serialize } from 'next-mdx-remote/serialize'
 import { useTranslation } from 'react-i18next'
@@ -8,13 +8,14 @@ import { ChakraNextImage, Container, Layout, Markdown, Navigate } from '~compone
 import { getProject, getProjectPaths } from '~services'
 const ProjectDetailPage = ({ seo, source, image, link }) => {
   const { t } = useTranslation()
-  if (!source) return <Spinner />
+
+  if (!source) return null
 
   return (
     <Layout seo={seo}>
       <Container maxW='container.md'>
-        <Stack py={8} spacing={8}>
-          <ChakraNextImage ratio='twitter' image={image} rounded='lg' />
+        <Stack py={8} spacing={8} align='center'>
+          <ChakraNextImage boxSize={400} image={image} rounded='full' shadow='md' />
           <Heading textAlign='center'>{seo.title}</Heading>
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
             <Markdown source={source} />

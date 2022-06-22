@@ -38,7 +38,7 @@ export const normalizeStrapiData = data => {
 
 export const transformStrapiData = data => {
   return {
-    pagination: data.meta.pagination,
+    pagination: data.meta?.pagination,
     result: normalizeStrapiData(data),
   }
 }

@@ -1,5 +1,4 @@
 export * from './categories'
-export * from './comments'
 export * from './delete'
 export * from './find'
 export * from './find-one'

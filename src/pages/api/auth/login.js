@@ -23,6 +23,7 @@ const loginRoute = async (req, res) => {
       const user = {
         id: response.data.id,
         username: response.data.username,
+        email: response.data.email,
         volunteer: response.data.volunteer,
         avatar: response.data.avatar,
         artist: response.data.artist,

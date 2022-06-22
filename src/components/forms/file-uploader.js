@@ -28,8 +28,6 @@ export const FileUploader = ({ images, setImages, maxSize }) => {
     const files = [...event.target.files]
     const compressedFiles = await Promise.all(files.map(file => resizeImage({ file, maxSize })))
 
-    console.log('compressedFiles', compressedFiles)
-
     compressedFiles.forEach(file => {
       setImages(prev => [...prev, file])
       setPreviews(prev => [...prev, URL.createObjectURL(file)])

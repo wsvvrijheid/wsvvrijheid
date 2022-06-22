@@ -40,7 +40,7 @@ export const OAuthButtonGroup = ({ isDisabled }) => {
         <Button
           as={Link}
           key={name}
-          isFullWidth
+          w='full'
           leftIcon={icon}
           colorScheme='red'
           onClick={() => {

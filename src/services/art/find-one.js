@@ -3,8 +3,6 @@ import { useQuery } from 'react-query'
 
 import { request } from '~lib'
 
-import { getArtComments } from './comments'
-
 export const getArtsByCategories = async (locale, categories, id) => {
   const response = await request({
     url: 'api/arts',
@@ -26,7 +24,7 @@ export const getArt = async (locale, slug) => {
   const response = await request({
     url: 'api/arts',
     filters: { slug: { $eq: slug } },
-    populate: ['artist.user.avatar', 'categories', 'images', 'localizations'],
+    populate: ['artist.user.avatar', 'categories', 'images', 'localizations', 'comments.user.avatar', 'likers'],
     locale,
   })
 
@@ -40,10 +38,9 @@ export const getArt = async (locale, slug) => {
     art.id,
   )
 
-  const comments = await getArtComments(art.id)
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/club/art/${art.slug}`
 
-  return { ...art, arts, comments, url }
+  return { ...art, arts, url }
 }
 
 export const useGetArt = () => {

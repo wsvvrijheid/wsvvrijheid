@@ -5,6 +5,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Box,
   Button,
   ButtonGroup,
   Center,
@@ -145,15 +146,18 @@ export const CreateArtForm = ({ auth }) => {
       artist: auth.user.artist?.id,
     }
     formData.append('data', JSON.stringify(art))
-    images.forEach(image => formData.append(`files.images`, image, image.name))
+    images.forEach(image => formData.append(`files.images`, image, data.title))
 
     createArtMutation.mutate(formData)
   }
 
   return (
     <>
-      <Button colorScheme='blue' leftIcon={<FaUpload />} onClick={formDisclosure.onOpen}>
-        {t`art.upload`}
+      <Button size='lg' colorScheme='blue' onClick={formDisclosure.onOpen}>
+        <Box mr={{ base: 0, lg: 4 }}>
+          <FaUpload />
+        </Box>
+        <Box display={{ base: 'none', lg: 'block' }}>{t`art.upload`}</Box>
       </Button>
 
       {/* SUCCESS ALERT */}

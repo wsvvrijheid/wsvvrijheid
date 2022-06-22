@@ -33,7 +33,7 @@ const ArtPage = ({ seo, queryKey }) => {
             {/* Single Art Comments */}
             <Stack spacing={4}>
               {/*  Comment form */}
-              <CommentForm auth={auth} />
+              <CommentForm auth={auth} art={art} />
 
               {/*List comments of the current art */}
               {/* TODO Add CommentSkeleton */}
