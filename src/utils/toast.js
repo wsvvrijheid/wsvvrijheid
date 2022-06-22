@@ -3,7 +3,7 @@ import { createStandaloneToast } from '@chakra-ui/react'
 // FIXME Test fails if we import with alias
 import { theme } from '../theme'
 
-const toast = createStandaloneToast({
+const { toast } = createStandaloneToast({
   theme,
 })
 
