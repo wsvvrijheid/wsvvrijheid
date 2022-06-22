@@ -72,5 +72,6 @@ export const getServerSideProps = async context => {
       activities: activities.result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
       pagination: activities.pagination,
     },
+    revalidate: 120,
   }
 }
