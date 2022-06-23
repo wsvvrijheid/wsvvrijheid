@@ -45,7 +45,7 @@ export const FormItem = ({
   return (
     <FormControl isInvalid={errors?.[id]} isRequired={isRequired}>
       {label && !hideLabel && (
-        <FormLabel mb={1} htmlFor={id} fontSize='sm' fontWeight='semibold'>
+        <FormLabel mb={1} htmlFor={id} fontSize='sm' fontWeight={600}>
           {label}
         </FormLabel>
       )}

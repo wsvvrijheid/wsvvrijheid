@@ -16,7 +16,7 @@ export const ArtContent = ({ art }) => {
             src={`${process.env.NEXT_PUBLIC_API_URL}${art.artist.user?.avatar?.url}`}
             name={art.artist.name || art.artist.user?.username}
           />
-          <Text fontWeight='semibold' lineHeight={6} fontSize='md'>
+          <Text fontWeight={600} lineHeight={6} fontSize='md'>
             {art.artist.name || art.artist.user?.username}
           </Text>
         </HStack>

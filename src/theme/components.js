@@ -2,6 +2,7 @@ export const components = {
   Heading: {
     baseStyle: {
       color: 'blue.500',
+      fontWeight: 900,
     },
   },
   Link: {

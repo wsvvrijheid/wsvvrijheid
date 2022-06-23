@@ -55,12 +55,12 @@ const ClubSidebar = ({ categories, isLoading, collections }) => {
         <Box overflowY='auto' maxH='calc((100vh - 150px) / 2)'>
           <HStack py={1.5} w='full' align='center'>
             <Box as={MdCollectionsBookmark} />
-            <Text display={{ base: 'none', lg: 'block' }} fontWeight='semibold'>{t`collections`}</Text>
+            <Text display={{ base: 'none', lg: 'block' }} fontWeight={600}>{t`collections`}</Text>
           </HStack>
           <Divider />
           {collections.map((collection, index) => (
             <Navigate key={index} href={`/${locale}/club/collection/${collection.slug}`}>
-              <Text py={2} lineHeight='1.15' _hover={{ color: 'blue.400' }}>
+              <Text py={2} lineHeight='1.15' _hover={{ color: 'blue.500' }}>
                 {collection.title}
               </Text>
             </Navigate>

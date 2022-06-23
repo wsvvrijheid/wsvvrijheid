@@ -130,7 +130,7 @@ export const JoinForm = ({ onSubmit, isLoading, jobs, projects }) => {
 
   return (
     <Stack p={8} bg='white' rounded='lg' shadow='md' as='form' spacing={4} onSubmit={handleSubmit(onSubmit)}>
-      <Heading as='h3' size='lg' textAlign='center' fontWeight='black'>
+      <Heading as='h3' size='lg' textAlign='center' fontWeight={900}>
         {t`apply-form.title`}
       </Heading>
       <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
@@ -165,7 +165,7 @@ export const JoinForm = ({ onSubmit, isLoading, jobs, projects }) => {
 
       {/* heard FROM */}
       <Box>
-        <FormLabel fontSize='sm' fontWeight='semibold'>{t`apply-form.heard-from`}</FormLabel>
+        <FormLabel fontSize='sm' fontWeight={600}>{t`apply-form.heard-from`}</FormLabel>
         <Wrap p={4} spacing={4} rounded='lg' borderWidth={2} borderColor={errors.heardFrom ? 'red.400' : 'gray.100'}>
           {heardFrom.map(item => (
             <HStack key={item.value}>
@@ -180,13 +180,13 @@ export const JoinForm = ({ onSubmit, isLoading, jobs, projects }) => {
 
       {/* JOBS */}
       <Box>
-        <FormLabel fontSize='sm' fontWeight='semibold'>
+        <FormLabel fontSize='sm' fontWeight={600}>
           {t`apply-form.jobs.title`} <chakra.span color='red.500'>*</chakra.span>
         </FormLabel>
         <Stack spacing={8} rounded='lg' p={4} borderWidth={2} borderColor={errors.jobs ? 'red.500' : 'gray.100'}>
           {projects?.map((project, i) => (
             <Stack key={i}>
-              <Text fontWeight='semibold' fontSize='sm'>
+              <Text fontWeight={600} fontSize='sm'>
                 {project[`name_${locale}`]}
               </Text>
               {project.jobs.map(job => (

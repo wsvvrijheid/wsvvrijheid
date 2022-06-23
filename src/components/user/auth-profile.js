@@ -54,18 +54,18 @@ export const AuthenticatedUserProfile = ({ auth }) => {
             <TabList overflowX='auto' minW='max-content' w='full'>
               {user.artist && (
                 <>
-                  <Tab fontWeight='semibold'>
+                  <Tab fontWeight={600}>
                     <Box as={FaPaintBrush} mr={1} /> {t`profile.approved-arts`}
                   </Tab>
-                  <Tab fontWeight='semibold'>
+                  <Tab fontWeight={600}>
                     <Box as={FaSpinner} mr={1} /> {t`profile.pending-arts`}
                   </Tab>
-                  <Tab fontWeight='semibold'>
+                  <Tab fontWeight={600}>
                     <Box as={MdRemoveModerator} mr={1} /> {t`profile.rejected-arts`}
                   </Tab>
                 </>
               )}
-              <Tab ml='auto' fontWeight='semibold'>
+              <Tab ml='auto' fontWeight={600}>
                 <Box as={IoMdSettings} mr={1} /> {t`profile.general-settings`}
               </Tab>
               <Box my={1} ml={2}>

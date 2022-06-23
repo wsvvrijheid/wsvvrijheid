@@ -12,7 +12,7 @@ const MarkdownComponents = {
   hr: props => <chakra.hr apply='mdx.hr' {...props} />,
   strong: props => <chakra.span fontWeight={600} {...props} />,
   a: props => (
-    <Navigate {...props} fontWeight={600} color='blue.500'>
+    <Navigate {...props} fontWeight={600} color='blue.500' _hover={{ color: 'blue.300' }}>
       {props.children}
     </Navigate>
   ),

@@ -25,7 +25,7 @@ export const UserCard = ({ user }) => {
     <Stack p={6} spacing={4} rounded='md' bg='white' w='full' shadow='md' align='center'>
       {/* TODO Create shared image component */}
       <Avatar name={user.username} size='lg' src={process.env.NEXT_PUBLIC_API_URL + user.avatar?.url} />
-      <Text textAlign='center' fontSize='lg' fontWeight='semibold' color='blue.500'>
+      <Text textAlign='center' fontSize='lg' fontWeight={600} color='blue.500'>
         {user.username}
       </Text>
       <ButtonGroup size='sm'>

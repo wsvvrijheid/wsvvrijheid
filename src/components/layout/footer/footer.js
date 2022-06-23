@@ -11,7 +11,7 @@ import { FooterNav } from './footer-nav'
 export const Footer = () => {
   const { t } = useTranslation()
   return (
-    <Box bg={'blue.900'} color='blue.200' pos='relative'>
+    <Box bg={'blue.900'} color='blue.100' pos='relative'>
       <Container as={Stack}>
         <Stack
           direction={{ base: 'column', lg: 'row' }}
@@ -33,7 +33,7 @@ export const Footer = () => {
                 <NextImage width='92px' height='92px' objectFit='cover' src='/images/logo.svg' alt='Wsvv logo' />
               </Link>
             </motion.div>
-            <Text textAlign='center' color={'white'} paddingLeft={1} mx={2} my={2}>
+            <Text textAlign='center' paddingLeft={1} mx={2} my={2}>
               {t('footer_about')}
             </Text>
           </Stack>
@@ -41,8 +41,8 @@ export const Footer = () => {
         </Stack>
         <Wrap
           justify={{ base: 'center', sm: 'space-between' }}
-          borderTopWidth='1px'
-          borderTopColor='whiteAlpha.500'
+          borderTopWidth='0.5px'
+          borderTopColor='blue.200'
           py={6}
           spacing={2}
         >

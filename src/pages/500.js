@@ -8,7 +8,7 @@ export default function ErrorPage() {
     <Layout>
       <Center h='60vh' color='red.400'>
         <Container>
-          <Box textAlign='center' fontWeight='black' fontSize='5xl'>
+          <Box textAlign='center' fontWeight={900} fontSize='5xl'>
             Error!
           </Box>
         </Container>

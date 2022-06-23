@@ -16,7 +16,9 @@ const ProjectDetailPage = ({ seo, source, image, link }) => {
       <Container maxW='container.md'>
         <Stack py={8} spacing={8} align='center'>
           <ChakraNextImage boxSize={400} image={image} rounded='full' shadow='md' />
-          <Heading textAlign='center'>{seo.title}</Heading>
+          <Heading as='h1' textAlign='center'>
+            {seo.title}
+          </Heading>
           <Box textAlign={{ base: 'left', lg: 'justify' }}>
             <Markdown source={source} />
           </Box>

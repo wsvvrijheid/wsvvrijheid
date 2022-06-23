@@ -17,12 +17,12 @@ const Contact = ({ seo }) => {
               bg='blue.900'
               color='blue.50'
               borderRadius='lg'
-              p={{ base: 8, lg: 16 }}
+              p={{ base: 8, lg: 12 }}
               textAlign='center'
-              justify='center'
+              justify='space-evenly'
               spacing={8}
             >
-              <Heading fontWeight='black' as='h2' size='lg' color='blue.200'>
+              <Heading fontWeight={900} as='h2' size='lg' color='blue.200'>
                 STICHTING <br /> WEES DE STEM VOOR VRIJHEID
               </Heading>
               <Divider borderColor='whiteAlpha.400' />
@@ -68,7 +68,7 @@ const Contact = ({ seo }) => {
 
               <Stack w='full' spacing={4}>
                 <Stack w='full'>
-                  <Text color='blue.200' fontWeight='semibold'>
+                  <Text color='blue.200' fontWeight={600}>
                     {t('wsvvrijheid.management')}
                   </Text>
                   <Wrap justify='space-around' spacing={4}>

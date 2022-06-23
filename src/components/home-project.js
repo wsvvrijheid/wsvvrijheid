@@ -21,7 +21,7 @@ export const HomeProject = ({ project, index }) => {
           </AnimatedBox>
           <AnimatedBox directing={index % 2 ? 'to-right' : 'to-left'} order={{ base: 2, lg: index % 2 ? 1 : 2 }}>
             <Stack spacing={4} textAlign={{ base: 'center', lg: index % 2 ? 'right' : 'left' }}>
-              <Heading size='lg' fontWeight='black' color={project.colors.header}>
+              <Heading size='lg' fontWeight={900} color={project.colors.header}>
                 {project.title[locale]}
               </Heading>
               <Text color={project.colors.text}>{project.description[locale]}</Text>

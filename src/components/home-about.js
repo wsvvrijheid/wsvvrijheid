@@ -8,7 +8,7 @@ export const HomeAbout = ({ item }) => {
   return (
     <VStack align='stretch' spacing={4}>
       <Avatar alignSelf='center' size='2xl' src={item.image} />
-      <Text fontSize='xl' fontWeight='semibold'>
+      <Text fontSize='xl' fontWeight={600}>
         {item.title[locale]}
       </Text>
       <Text>{item.description[locale]}</Text>

@@ -8,7 +8,7 @@ export const FilterButton = ({ onClick, isActive, number, children, ...rest }) =
       variant={isActive ? 'solid' : 'outline'}
       leftIcon={
         isActive && (
-          <Tag size='sm' bg='transparent' color='white' fontWeight='semibold' borderWidth={1} borderColor='white'>
+          <Tag size='sm' bg='transparent' color='white' fontWeight={600} borderWidth={1} borderColor='white'>
             {number}
           </Tag>
         )
