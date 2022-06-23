@@ -33,7 +33,7 @@ export const Card = ({ title, description, image, link, rounded }) => {
         <Stack spacing={4} flex={1} p={{ base: 4, lg: 8 }} align='center' textAlign='center'>
           <Heading
             as='h3'
-            fontWeight='black'
+            fontWeight={900}
             textTransform='uppercase'
             fontSize='xl'
             letterSpacing='wide'

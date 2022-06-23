@@ -26,7 +26,7 @@ export const ProjectsList = ({ projects }) => {
           {/* TODO Create image component to handle internal/external image paths */}
           <Avatar size='2xl' src={process.env.NEXT_PUBLIC_API_URL + p.image.url} />
           <Stack align={{ base: 'center', lg: 'start' }}>
-            <Heading textAlign='center' size='md' as='h3' fontWeight='black'>
+            <Heading textAlign='center' size='md' as='h3' fontWeight={900}>
               {p[`name_${locale}`]}
             </Heading>
             <Text fontSize='sm'>{p[`description_${locale}`]}</Text>

@@ -45,7 +45,7 @@ export const ArtCardAlertDialog = ({ art, actionType, isOpen, onClose, queryKey 
     <AlertDialog isCentered isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+          <AlertDialogHeader fontSize='lg' fontWeight={600}>
             {actions[actionType].title}
           </AlertDialogHeader>
 

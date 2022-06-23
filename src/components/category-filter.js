@@ -31,7 +31,7 @@ function CustomCheckbox(props) {
       rounded='full'
       py={2}
       pr={2}
-      fontWeight='semibold'
+      fontWeight={600}
       cursor='pointer'
       fontSize='md'
       {...htmlProps}
@@ -69,7 +69,7 @@ export const CategoryFilter = ({ categories = [], isLoading }) => {
   return (
     <Stack justify='stretch' w='full' spacing={1}>
       <HStack py={1.5} w='full' justify='space-between' align='center'>
-        <Text fontWeight='semibold'>{t`categories`}</Text>
+        <Text fontWeight={600}>{t`categories`}</Text>
         {isLoading ? (
           <Spinner size='lg' color='blue.500' />
         ) : (

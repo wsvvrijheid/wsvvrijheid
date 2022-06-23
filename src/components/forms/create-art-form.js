@@ -49,7 +49,7 @@ const ArtCreateSuccessAlert = ({ isOpen, onClose }) => {
     <AlertDialog closeOnOverlayClick={false} isCentered isOpen={isOpen} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader bg='green.500' color='white' fontSize='lg' fontWeight='bold'>
+          <AlertDialogHeader bg='green.500' color='white' fontSize='lg' fontWeight={600}>
             {t`art.create.success.title`}
           </AlertDialogHeader>
 

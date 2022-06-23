@@ -12,7 +12,7 @@ export const FooterNav = () => {
     <>
       {FOOTER_MENU.map((item, i) => {
         return (
-          <Stack key={i} align='center' marginX={4} fontSize='lg' color={'blue.300'} py={4}>
+          <Stack key={i} align='center' marginX={4} fontSize='lg' color={'blue.200'} py={4}>
             <Text fontWeight={600} fontSize={'lg'} mb={2} textTransform='uppercase'>
               {t(item[locale])}
             </Text>

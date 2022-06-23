@@ -6,9 +6,9 @@ import { Container, Layout } from '~components'
 export default function NotFound() {
   return (
     <Layout>
-      <Center h='60vh' color='blue.400'>
+      <Center h='60vh' color='blue.500'>
         <Container>
-          <Box textAlign='center' fontWeight='black' fontSize='5xl'>
+          <Box textAlign='center' fontWeight={900} fontSize='5xl'>
             Page not found!
           </Box>
         </Container>

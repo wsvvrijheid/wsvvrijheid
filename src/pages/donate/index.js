@@ -86,7 +86,7 @@ const DonatePage = ({ projects, title }) => {
             as='form'
             onSubmit={handleSubmit(onSubmit)}
           >
-            <Heading as='h3' size='lg' textAlign='center' fontWeight='black'>
+            <Heading as='h3' size='lg' textAlign='center' fontWeight={900}>
               {title}
             </Heading>
 

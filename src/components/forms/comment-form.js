@@ -73,7 +73,7 @@ export const CommentForm = ({ auth, art }) => {
 
   return (
     <Stack spacing={4} p={4} boxShadow='base' borderRadius='sm' bg='white'>
-      <Text textAlign='left' fontSize='16px' fontWeight='semibold' textTransform='capitalize'>
+      <Text textAlign='left' fontSize='16px' fontWeight={600} textTransform='capitalize'>
         {t('apply-form.comment-placeholder')}
       </Text>
       <VStack as='form' onSubmit={handleSubmit(onSubmit)} alignItems='flex-start' justify='flex-start'>
