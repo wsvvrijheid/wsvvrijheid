@@ -1,18 +1,9 @@
-import {
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
-  Portal,
-  Stack,
-  useBreakpointValue,
-} from '@chakra-ui/react'
+import { Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Portal, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { Navigate } from '~components'
 
-const ChildMenuItem = ({ label, link }) => {
+export const ChildMenuItem = ({ label, link, ...rest }) => {
   const { asPath } = useRouter()
 
   return (
@@ -21,9 +12,10 @@ const ChildMenuItem = ({ label, link }) => {
       href={link}
       fontWeight={600}
       px={2}
-      py={{ base: 2, lg: 0 }}
+      py={{ base: 4, lg: 0 }}
       color={link !== '/' && asPath.includes(link) ? 'blue.500' : 'gray.700'}
       _hover={{ color: 'blue.500' }}
+      {...rest}
     >
       {label}
     </Navigate>
@@ -57,12 +49,7 @@ const ParentMenuItem = ({ label, link, submenu }) => {
 }
 
 export const HeaderNavItem = ({ label, link, submenu }) => {
-  const isMobile = useBreakpointValue({ base: true, lg: false })
-  const { locale } = useRouter()
-
   if (submenu) {
-    if (isMobile)
-      return submenu.map(child => <ChildMenuItem key={child.link} label={child[locale]} link={child.link} />)
     return <ParentMenuItem label={label} link={link} submenu={submenu} />
   }
 
