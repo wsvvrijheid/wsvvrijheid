@@ -15,7 +15,7 @@ import { FaBars } from 'react-icons/fa'
 import { useScroll } from '~hooks'
 
 import { ProfileMenu } from '../profile-menu'
-import { HeaderNav } from './header-nav'
+import { HeaderMobileNav } from './header-mobile-nav'
 
 const LocaleSwitcher = dynamic(() => import('../locale-switcher'), { ssr: false })
 
@@ -30,7 +30,7 @@ export const HeaderMobile = ({ isDark, auth }) => {
         <DrawerContent>
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
-            <HeaderNav direction='column' />
+            <HeaderMobileNav />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

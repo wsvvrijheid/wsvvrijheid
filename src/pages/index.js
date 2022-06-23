@@ -15,7 +15,7 @@ export default function Home({ seo }) {
         justify='space-between'
         minH='100vh'
         bg='gray.100'
-        mt={{ base: 0, lg: -100 }}
+        mt={{ base: '-64px', lg: -100 }}
         pt={100}
         pos='relative'
         zIndex={0}
@@ -28,7 +28,7 @@ export default function Home({ seo }) {
             </VStack>
           </AnimatedBox>
         </Container>
-        <Box overflow='hidden' mt={-100}>
+        <Box overflow='hidden' mt={{ base: '-64px', lg: -100 }}>
           <AnimatedBox delay={4} duration={3} directing='to-up'>
             <HomeHero />
           </AnimatedBox>
